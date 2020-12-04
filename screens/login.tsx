@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-nativ
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import * as SecureStore from 'expo-secure-store';
-import homeScreen from './homeScreen'
+import homePanel from './home'
 
 class loginScreen extends React.Component {
 
@@ -21,7 +21,7 @@ class loginScreen extends React.Component {
       }
 
       check_cred = () => {
-          return fetch('https://177aff193c7f.ngrok.io/new_user_token', {
+          return fetch('https://a317d66e1ed7.ngrok.io/api/new_user_token', {
             method: 'POST',
             headers: {
                Accept: 'application/json',
@@ -39,14 +39,16 @@ class loginScreen extends React.Component {
                   isLoading: false,
                   auth: responseJson.auth,
                   userId: responseJson.userId,
-                  token: responseJson.token
+                  token: responseJson.token,
+                  compId: responseJson.compId
                 },
                 function() {
                   if(responseJson.auth == true){
-                    alert(responseJson.link)
+                    alert(responseJson.compId)
                     SecureStore.setItemAsync('id', responseJson.userId)
                     SecureStore.setItemAsync('token', responseJson.token)
-                    this.props.navigation.navigate('Home', {link: responseJson.link});
+                    SecureStore.setItemAsync('compId', responseJson.compId)
+                    this.props.navigation.navigate('Home');
                   }
                   else{
                     alert('Incorrect Email or Password')
@@ -97,13 +99,13 @@ class loginScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#003f5c',
+      backgroundColor: '#000000',
       alignItems: 'center',
       justifyContent: 'center',
     },
     logo:{
       fontWeight:"bold",
-      fontSize:50,
+      fontSize:40,
       color:"#fb5b5a",
       marginBottom:40
     },
@@ -144,15 +146,15 @@ const styles = StyleSheet.create({
 
   const RootStack = createStackNavigator({
     Home: {
-      screen: homeScreen,
+      screen: homePanel,
       navigationOptions: {
-        headerShown: null //this will hide the header
+        headerShown: false//this will hide the header
       }
     },
     login: {
       screen: loginScreen,
       navigationOptions: {
-        headerShown: null //this will hide the header
+        headerShown: false//this will hide the header
       }
     }
   }, {

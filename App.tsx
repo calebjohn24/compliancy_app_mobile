@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import homeScreen from './screens/homeScreen'
+import homePanel from './screens/home'
 import loginScreen from './screens/login'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -38,7 +38,7 @@ class authScreen extends React.Component {
       else{
 
 
-      return fetch('https://177aff193c7f.ngrok.io/check_user_token', {
+      return fetch('https://a317d66e1ed7.ngrok.io/api/check_user_token', {
       method: 'POST',
       headers: {
          Accept: 'application/json',
@@ -60,9 +60,7 @@ class authScreen extends React.Component {
           },
           function() {
             if(responseJson.auth == true){
-
-              var link = 'https://177aff193c7f.ngrok.io/user_panel_start/'+id+'/'+token
-              this.props.navigation.navigate('Home', {link: link});
+              this.props.navigation.navigate('Home');
               
             }
             else{
@@ -108,21 +106,21 @@ class authScreen extends React.Component {
 
 const RootStack = createStackNavigator({
   Home: {
-    screen: homeScreen,
+    screen: homePanel,
     navigationOptions: {
-      headerShown: null //this will hide the header
+      headerShown: false//this will hide the header
     }
   },
   login: {
     screen: loginScreen,
     navigationOptions: {
-      headerShown: null //this will hide the header
+      headerShown: false//this will hide the header
     }
   },
   auth: {
     screen: authScreen,
     navigationOptions: {
-      headerShown: null //this will hide the header
+      headerShown: false//this will hide the header
     }
   }
 }, {
