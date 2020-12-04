@@ -4,17 +4,21 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'reac
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import * as SecureStore from 'expo-secure-store';
+import infoPanel from './info'
+import RootStack from '../App'
 
-class homePanel extends React.Component {
+export default class homePanel extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      'logo': null,
+      'logo': 'https://firebasestorage.googleapis.com/v0/b/compliancy-app.appspot.com/o/Logo_text_no_bg.png?alt=media&token=2982a122-243e-447b-a552-0b1f63e07921',
       'dispName': ''
     };
 
   }
+
+  
 
   componentDidMount = async () => {
 
@@ -22,7 +26,7 @@ class homePanel extends React.Component {
 
     try {
 
-
+      
       let compId = await SecureStore.getItemAsync('compId');
       //var id = SecureStore.getItemAsync('id');
       //var token = SecureStore.getItemAsync('token');
@@ -64,8 +68,14 @@ class homePanel extends React.Component {
     }
   }
 
+  goToInfo = () => {
+    this.props.navigation.navigate('InfoNav');
+  }
+
   render() {
     const logo = this.state.logo;
+
+
 
     return (
       <View style={styles.container}>
@@ -74,9 +84,9 @@ class homePanel extends React.Component {
           <Text style={styles.dispNameText}>{this.state.dispName}</Text>
         </View>
         <View style={styles.logoBox}>
-          <TouchableOpacity onPress={() => alert("test")}>
+          <TouchableOpacity onPress={this.goToInfo}>
 
-            <Image style={styles.tinyLogo} source={{ uri: this.state.logo }} />
+            <Image style={styles.tinyLogo} source={{ uri: logo }} />
           </TouchableOpacity>
         </View>
         
@@ -220,16 +230,3 @@ const styles = StyleSheet.create({
 //Blue:#1E96FC
 //Green:#00A878
 
-
-const RootStack = createStackNavigator({
-  HomeScreen: {
-    screen: homePanel,
-    navigationOptions: {
-      headerShown: false//this will hide the header
-    }
-  }
-});
-
-export default createAppContainer(RootStack);
-
-//export default homePanel;

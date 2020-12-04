@@ -4,6 +4,7 @@ import { ActivityIndicator, Text, View } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import homePanel from './screens/home'
 import loginScreen from './screens/login'
+import infoPanel from './screens/info'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -31,7 +32,7 @@ class authScreen extends React.Component {
       //var token = SecureStore.getItemAsync('token');
       if(token == null){
 
-        this.props.navigation.navigate('login');
+        this.props.navigation.navigate('LoginNav');
 
       }
       
@@ -60,18 +61,18 @@ class authScreen extends React.Component {
           },
           function() {
             if(responseJson.auth == true){
-              this.props.navigation.navigate('Home');
+              this.props.navigation.navigate('HomeNav');
               
             }
             else{
-              this.props.navigation.navigate('login');
+              this.props.navigation.navigate('LoginNav');
 
             }
           }
         );
       })
       .catch(error => {
-        this.props.navigation.navigate('login');
+        this.props.navigation.navigate('LoginNav');
       });
 
 
@@ -79,7 +80,7 @@ class authScreen extends React.Component {
       
     } catch (error) {
   console.log(error)
-  this.props.navigation.navigate('login');
+  this.props.navigation.navigate('LoginNav');
     }
   }
 
@@ -105,13 +106,19 @@ class authScreen extends React.Component {
 
 
 const RootStack = createStackNavigator({
-  Home: {
+  InfoNav: {
+    screen: infoPanel,
+    navigationOptions: {
+      headerShown: false//this will hide the header
+    }
+  },
+  HomeNav: {
     screen: homePanel,
     navigationOptions: {
       headerShown: false//this will hide the header
     }
   },
-  login: {
+  LoginNav: {
     screen: loginScreen,
     navigationOptions: {
       headerShown: false//this will hide the header
@@ -128,3 +135,12 @@ const RootStack = createStackNavigator({
 });
 
 export default createAppContainer(RootStack);
+
+
+
+
+//Dark:#212126
+//Red:#ED1C24
+//Yellow:#F7CE5B
+//Blue:#1E96FC
+//Green:#00A878

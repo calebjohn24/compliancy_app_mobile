@@ -5,8 +5,9 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import * as SecureStore from 'expo-secure-store';
 import homePanel from './home'
+import RootStack from '../App'
 
-class loginScreen extends React.Component {
+export default class loginScreen extends React.Component {
 
       constructor(props) {
         super(props);
@@ -48,7 +49,7 @@ class loginScreen extends React.Component {
                     SecureStore.setItemAsync('id', responseJson.userId)
                     SecureStore.setItemAsync('token', responseJson.token)
                     SecureStore.setItemAsync('compId', responseJson.compId)
-                    this.props.navigation.navigate('Home');
+                    this.props.navigation.navigate('HomeNav');
                   }
                   else{
                     alert('Incorrect Email or Password')
@@ -59,6 +60,7 @@ class loginScreen extends React.Component {
             })
             .catch(error => {
               console.error(error);
+              alert(error);
             });
       }
 
@@ -66,7 +68,7 @@ class loginScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-         <Text style={styles.logo}>Sentinel Fire Watch</Text>
+         <Text style={styles.logo}>Login</Text>
         <View style={styles.inputView}>
           <TextInput  
             style={styles.inputText}
@@ -99,7 +101,7 @@ class loginScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#000000',
+      backgroundColor: '#212126',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -142,23 +144,3 @@ const styles = StyleSheet.create({
   });
 
 
-  
-
-  const RootStack = createStackNavigator({
-    Home: {
-      screen: homePanel,
-      navigationOptions: {
-        headerShown: false//this will hide the header
-      }
-    },
-    login: {
-      screen: loginScreen,
-      navigationOptions: {
-        headerShown: false//this will hide the header
-      }
-    }
-  }, {
-      initialRouteName: 'login',
-  });
-  
-  export default createAppContainer(RootStack);
