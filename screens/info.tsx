@@ -22,7 +22,7 @@ export default class infoPanel extends React.Component {
         };
 
     }
-    
+
 
     componentDidMount = async () => {
 
@@ -31,6 +31,7 @@ export default class infoPanel extends React.Component {
 
             let compId = await SecureStore.getItemAsync('compId');
             let userId = await SecureStore.getItemAsync('id');
+            let token = await SecureStore.getItemAsync('token');
             //var token = SecureStore.getItemAsync('token');
             this.state.compId = compId;
 
@@ -42,7 +43,8 @@ export default class infoPanel extends React.Component {
                 },
                 body: JSON.stringify({
                     compId: compId,
-                    userId: userId
+                    userId: userId,
+                    token: token
                 }),
             })
                 .then(response => response.json())
@@ -82,32 +84,24 @@ export default class infoPanel extends React.Component {
         this.props.navigation.navigate('HomeNav');
     }
 
+    goToCerts = () => {
+        this.props.navigation.navigate('CertificateNav');
+    }
+
     render() {
 
         const logo = this.state.logo;
         var union = '';
         if (this.state.compInfo.union == 'True') {
-            union = 'Yes'
+            union = 'Union'
         }
         else {
-            union = 'No'
+            union = 'Not Union'
         }
-        const certs = this.state.compInfo.certs
-
-        var certsName = [];
-        var certsLinks = [];
-
-        for (const key in certs) {
-            const value = certs[key]['img']
-            const keyValue = `${key}`
-
-            certsName.push(keyValue);
-            certsLinks.push(value);
-        }
-
-
+        
 
         return (
+       
             <ScrollView style={styles.scrollView}>
                 <View style={styles.container}></View>
 
@@ -120,7 +114,7 @@ export default class infoPanel extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.topBar}>
-                        <Text style={styles.dispNameText}>Info For: {this.state.userInfo.name}</Text>
+                        <Text style={styles.dispNameText}>Your Info</Text>
                     </View>
 
 
@@ -174,7 +168,7 @@ export default class infoPanel extends React.Component {
 
                 <View style={styles.containerTop}>
                     <View style={styles.topBar}>
-                        <Text style={styles.dispNameText}>Info For: {this.state.dispName}</Text>
+                        <Text style={styles.dispNameText}>Company Info</Text>
                     </View>
                 </View>
 
@@ -193,12 +187,13 @@ export default class infoPanel extends React.Component {
                 <View style={styles.containerRow0}>
                     <View style={styles.buttonSmBox}>
 
-
-                        <Image style={styles.buttonImgSm} source={require('../assets/icons/web.png')} />
+                        <TouchableOpacity onPress={() => Linking.openURL(`${this.state.compInfo.website}`)}>
+                            <Image style={styles.buttonImgSm} source={require('../assets/icons/web.png')} />
+                        </TouchableOpacity>
 
                     </View>
                     <View style={styles.rowText}>
-                        <Text style={styles.textLight}>{this.state.compInfo.website}</Text>
+                        <Text style={styles.textLight} onPress={() => Linking.openURL(`${this.state.compInfo.website}`)}>{this.state.compInfo.website}</Text>
                     </View>
                 </View>
                 <View style={styles.containerRow0}>
@@ -247,21 +242,20 @@ export default class infoPanel extends React.Component {
                         <Text style={styles.textLight}>{this.state.compId}</Text>
                     </View>
                 </View>
-
-                <View style={styles.containerTop}>
-
-                    <View style={styles.topBar}>
-                        <Text style={styles.dispNameText}>Certificates</Text>
-                    </View>
-
+                <View style={styles.containerRow0}>
 
                 </View>
-
-                
-
-
-
-
+                <View style={styles.containerRow0}>
+                    <View style={styles.rowButton}>
+                        <TouchableOpacity onPress={this.goToCerts}>
+                            <Text style={styles.textBold}>View Certificates</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.goToCerts}>
+                            <Image style={styles.buttonImgLg} source={require('../assets/icons/cert-green.png')} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={styles.containerRow0}></View>
 
 
 
@@ -320,7 +314,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     dispNameText: {
-        fontWeight: "200",
+        fontWeight: "bold",
         fontSize: 24,
         color: "white",
         margin: 30,
@@ -398,15 +392,15 @@ const styles = StyleSheet.create({
     }
 })
 
-  //Dark:#212126
-  //Red:#ED1C24
-  //Yellow:#F7CE5B
-  //Blue:#1E96FC
-  //Green:#00A878
+//Dark:#212126
+//Red:#ED1C24
+//Yellow:#F7CE5B
+//Blue:#1E96FC
+//Green:#00A878
 
-  YellowBox.ignoreWarnings([
+YellowBox.ignoreWarnings([
     'VirtualizedLists should never be nested', // TODO: Remove when fixed
-  ])
+])
 
 
 

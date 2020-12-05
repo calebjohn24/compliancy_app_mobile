@@ -26,8 +26,8 @@ export default class homePanel extends React.Component {
 
 
       let compId = await SecureStore.getItemAsync('compId');
-      //var id = SecureStore.getItemAsync('id');
-      //var token = SecureStore.getItemAsync('token');
+      let token = await SecureStore.getItemAsync('token');
+      let userId = await SecureStore.getItemAsync('id');
 
       return fetch('https://a317d66e1ed7.ngrok.io/api/homepage-info', {
         method: 'POST',
@@ -36,7 +36,9 @@ export default class homePanel extends React.Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          compId: compId
+          compId: compId,
+          userId: userId,
+          token:token
 
         }),
       })

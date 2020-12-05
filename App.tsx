@@ -5,6 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import homePanel from './screens/home'
 import loginScreen from './screens/login'
 import infoPanel from './screens/info'
+import certificatesPanel from './screens/certificates'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -120,6 +121,12 @@ const RootStack = createStackNavigator({
   },
   LoginNav: {
     screen: loginScreen,
+    navigationOptions: {
+      headerShown: false//this will hide the header
+    }
+  },
+  CertificateNav: {
+    screen: certificatesPanel,
     navigationOptions: {
       headerShown: false//this will hide the header
     }
