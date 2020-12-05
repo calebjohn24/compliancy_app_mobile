@@ -18,15 +18,13 @@ export default class homePanel extends React.Component {
 
   }
 
-  
+
 
   componentDidMount = async () => {
 
-
-
     try {
 
-      
+
       let compId = await SecureStore.getItemAsync('compId');
       //var id = SecureStore.getItemAsync('id');
       //var token = SecureStore.getItemAsync('token');
@@ -79,67 +77,70 @@ export default class homePanel extends React.Component {
 
     return (
       <View style={styles.container}>
-      <View style={styles.containerTop}>
-        <View style={styles.topBar}>
-          <Text style={styles.dispNameText}>{this.state.dispName}</Text>
-        </View>
-        <View style={styles.logoBox}>
+        <View style={styles.containerTop}>
+          <View style={styles.topBar}>
           <TouchableOpacity onPress={this.goToInfo}>
+            <Text style={styles.dispNameText}>{this.state.dispName}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.logoBox}>
+            <TouchableOpacity onPress={this.goToInfo}>
 
-            <Image style={styles.tinyLogo} source={{ uri: logo }} />
-          </TouchableOpacity>
+              <Image style={styles.tinyLogo} source={{ uri: logo }} />
+            </TouchableOpacity>
+          </View>
+
         </View>
-        
-      </View>
-      <View style={styles.containerRow0}>
-        <View style={styles.rowButton}>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Text style={styles.buttonText}>Register System</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Image style={styles.buttonImgLg} source={require('../assets/icons/system-add.png')} />
-        </TouchableOpacity>
+        <View style={styles.containerRow0}>
+          <View style={styles.rowButton}>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Text style={styles.buttonText}>Register System</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Image style={styles.buttonImgLg} source={require('../assets/icons/system-add.png')} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.rowButton1}>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Text style={styles.buttonText}>Find System</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Image style={styles.buttonImgLg} source={require('../assets/icons/system-search.png')} />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.rowButton1}>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Text style={styles.buttonText}>Find System</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Image style={styles.buttonImgLg} source={require('../assets/icons/system-search.png')}/>
-        </TouchableOpacity>
+        <View style={styles.containerRow0}>
+          <View style={styles.rowButton}>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Text style={styles.buttonText}>New Report</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Image style={styles.buttonImgLg} source={require('../assets/icons/report-add.png')} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.rowButton1}>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Text style={styles.buttonText}>Find Report</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Image style={styles.buttonImgLg} source={require('../assets/icons/report-search.png')} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      <View style={styles.containerRow0}>
-        <View style={styles.rowButton}>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Text style={styles.buttonText}>New Report</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Image style={styles.buttonImgLg} source={require('../assets/icons/report-add.png')} />
-        </TouchableOpacity>
-        </View>
-        <View style={styles.rowButton1}>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Text style={styles.buttonText}>Find Report</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Image style={styles.buttonImgLg} source={require('../assets/icons/report-search.png')} />
-        </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.containerRow0}>
-        <View style={styles.rowButton}>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Text style={styles.buttonText}>Amend Report</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert("test")}>
-        <Image style={styles.buttonImgLg} source={require('../assets/icons/report-amend.png')} />
-        </TouchableOpacity>
+        <View style={styles.containerRow0}>
+          <View style={styles.rowButton}>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Text style={styles.buttonText}>Amend Report</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert("test")}>
+              <Image style={styles.buttonImgLg} source={require('../assets/icons/report-amend.png')} />
+            </TouchableOpacity>
+          </View>
         </View>
 
-      </View>
-      
-      
+
+
+
       </View>
     );
   }
@@ -157,13 +158,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     flex: 0.75,
-    height:140
+    height: 140
   },
   containerRow0: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    
+
     flex: 1
   },
   topBar: {
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
     height: 50,
     resizeMode: 'contain'
   },
-  
+
   rowButton: {
     flex: 1,
     justifyContent: 'space-evenly',
@@ -210,13 +211,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
-  buttonImgLg:{
+  buttonImgLg: {
     margin: 20,
     width: 80,
     height: 80,
     resizeMode: 'contain'
   },
-  buttonImgSm:{
+  buttonImgSm: {
     margin: 20,
     width: 20,
     height: 20,
