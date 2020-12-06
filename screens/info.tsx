@@ -35,7 +35,7 @@ export default class infoPanel extends React.Component {
             //var token = SecureStore.getItemAsync('token');
             this.state.compId = compId;
 
-            return fetch('https://a317d66e1ed7.ngrok.io/api/user-info', {
+            return fetch('https://f90608b3998b.ngrok.io/api/user-info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -88,6 +88,10 @@ export default class infoPanel extends React.Component {
         this.props.navigation.navigate('CertificateNav');
     }
 
+    goToEditInfo = (changeType: string) => {
+        this.props.navigation.navigate('EditInfoNav', {changeType: changeType});
+      }
+
     render() {
 
         const logo = this.state.logo;
@@ -101,27 +105,28 @@ export default class infoPanel extends React.Component {
         
 
         return (
-       
-            <ScrollView style={styles.scrollView}>
-                <View style={styles.container}></View>
-
+            <View style={{backgroundColor: '#212126'}}> 
                 <View style={styles.containerTop}>
 
-                    <View style={styles.logoBox}>
-                        <TouchableOpacity onPress={this.goToHome}>
+            <View style={styles.logoBox}>
+                <TouchableOpacity onPress={this.goToHome}>
 
-                            <Image style={styles.tinyLogo} source={require('../assets/icons/back-arrow.png')} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.topBar}>
-                        <Text style={styles.dispNameText}>Your Info</Text>
-                    </View>
+                    <Image style={styles.tinyLogo} source={require('../assets/icons/back-arrow.png')} />
+                </TouchableOpacity>
+            </View>
+            <View style={styles.topBar}>
+                <Text style={styles.dispNameText}>Your Info</Text>
+            </View>
 
 
-                </View>
+            </View>
+            <ScrollView style={styles.scrollView}>
+                
+
+                
                 <View style={styles.containerRow0}>
                     <View style={styles.buttonSmBox}>
-                        <TouchableOpacity onPress={this.goToHome}>
+                        <TouchableOpacity onPress={() => this.goToEditInfo('phone')}>
 
                             <Image style={styles.buttonImgSm} source={require('../assets/icons/phone.png')} />
                         </TouchableOpacity>
@@ -133,7 +138,7 @@ export default class infoPanel extends React.Component {
 
                 <View style={styles.containerRow0}>
                     <View style={styles.buttonSmBox}>
-                        <TouchableOpacity onPress={this.goToHome}>
+                        <TouchableOpacity onPress={() => this.goToEditInfo('email')}>
 
                             <Image style={styles.buttonImgSm} source={require('../assets/icons/mail.png')} />
                         </TouchableOpacity>
@@ -145,7 +150,7 @@ export default class infoPanel extends React.Component {
 
                 <View style={styles.containerRow0}>
                     <View style={styles.buttonSmBox}>
-                        <TouchableOpacity onPress={this.goToHome}>
+                        <TouchableOpacity onPress={() => this.goToEditInfo('state_cert')}>
 
                             <Image style={styles.buttonImgSm} source={require('../assets/icons/certificate.png')} />
                         </TouchableOpacity>
@@ -156,7 +161,7 @@ export default class infoPanel extends React.Component {
                 </View>
                 <View style={styles.containerRow0}>
                     <View style={styles.buttonSmBox}>
-                        <TouchableOpacity onPress={this.goToHome}>
+                        <TouchableOpacity onPress={() => this.goToEditInfo('icc')}>
 
                             <Image style={styles.buttonImgSm} source={require('../assets/icons/id.png')} />
                         </TouchableOpacity>
@@ -260,6 +265,7 @@ export default class infoPanel extends React.Component {
 
 
             </ScrollView>
+            </View>
 
 
         );
@@ -277,7 +283,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         marginHorizontal: 5,
-        marginVertical: 10,
+        marginTop:120
     },
 
     containerTop: {
@@ -296,14 +302,14 @@ const styles = StyleSheet.create({
     },
     topBar: {
         flex: 1,
-        height: 120,
+        height: 130,
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
 
     logoBox: {
         flex: 0.2,
-        height: 120,
+        height: 130,
         justifyContent: 'center',
         alignItems: 'flex-start'
     },

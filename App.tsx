@@ -6,6 +6,7 @@ import homePanel from './screens/home'
 import loginScreen from './screens/login'
 import infoPanel from './screens/info'
 import certificatesPanel from './screens/certificates'
+import editInfoPanel from './screens/editInfo'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -40,7 +41,7 @@ class authScreen extends React.Component {
       else{
 
 
-      return fetch('https://a317d66e1ed7.ngrok.io/api/check_user_token', {
+      return fetch('https://f90608b3998b.ngrok.io/api/check_user_token', {
       method: 'POST',
       headers: {
          Accept: 'application/json',
@@ -127,6 +128,12 @@ const RootStack = createStackNavigator({
   },
   CertificateNav: {
     screen: certificatesPanel,
+    navigationOptions: {
+      headerShown: false//this will hide the header
+    }
+  },
+  EditInfoNav: {
+    screen: editInfoPanel,
     navigationOptions: {
       headerShown: false//this will hide the header
     }

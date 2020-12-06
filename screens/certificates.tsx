@@ -30,7 +30,7 @@ export default class certificatesPanel extends React.Component {
 
             this.state.compId = compId;
 
-            return fetch('https://a317d66e1ed7.ngrok.io/api/company-certs', {
+            return fetch('https://f90608b3998b.ngrok.io/api/company-certs', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -88,7 +88,7 @@ export default class certificatesPanel extends React.Component {
         //console.log(certsName)
 
         return (
-            <View> 
+            <View style={{backgroundColor: '#212126'}}> 
             <View style={styles.containerTop}>
 
                 <View style={styles.logoBox}>
@@ -114,7 +114,7 @@ export default class certificatesPanel extends React.Component {
                     
                     
                 
-                    <View>
+                    <View style={{backgroundColor: '#212126'}}>
                     <View style={styles.containerRow0}>
                     
                     <View style={styles.rowText}>
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
         
     },
     scrollView: {
-        marginHorizontal: 5,
+        marginHorizontal: 1,
         marginVertical: 10,
     },
 
