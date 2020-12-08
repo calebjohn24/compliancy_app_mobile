@@ -41,7 +41,7 @@ class authScreen extends React.Component {
       else{
 
 
-      return fetch('https://f90608b3998b.ngrok.io/api/check_user_token', {
+      return fetch('https://1ab18b31c7bb.ngrok.io/api/check_user_token', {
       method: 'POST',
       headers: {
          Accept: 'application/json',
@@ -64,6 +64,9 @@ class authScreen extends React.Component {
           function() {
             if(responseJson.auth == true){
               this.props.navigation.navigate('HomeNav');
+              SecureStore.setItemAsync('id', responseJson.userId)
+              SecureStore.setItemAsync('token', responseJson.token)
+              SecureStore.setItemAsync('compId', responseJson.compId)
               
             }
             else{

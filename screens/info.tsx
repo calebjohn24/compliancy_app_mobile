@@ -7,13 +7,13 @@ import * as SecureStore from 'expo-secure-store';
 import homePanel from './home'
 import RootStack from '../App'
 import { FlatList } from 'react-native';
+import styles from '../assets/styles/info'
 
 export default class infoPanel extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            'pageLoaded': false,
             'logo': 'https://firebasestorage.googleapis.com/v0/b/compliancy-app.appspot.com/o/Logo_text_no_bg.png?alt=media&token=2982a122-243e-447b-a552-0b1f63e07921',
             'dispName': '',
             'compInfo': {},
@@ -35,7 +35,7 @@ export default class infoPanel extends React.Component {
             //var token = SecureStore.getItemAsync('token');
             this.state.compId = compId;
 
-            return fetch('https://f90608b3998b.ngrok.io/api/user-info', {
+            return fetch('https://1ab18b31c7bb.ngrok.io/api/user-info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -61,7 +61,6 @@ export default class infoPanel extends React.Component {
                             this.state.dispName = responseJson.dispName
                             this.state.compInfo = responseJson.compInfo,
                                 this.state.userInfo = responseJson.userInfo
-                            this.state.pageLoaded = true
                         }
                     );
                 })
@@ -79,8 +78,6 @@ export default class infoPanel extends React.Component {
     }
 
     goToHome = () => {
-
-        console.log("go back");
         this.props.navigation.navigate('HomeNav');
     }
 
@@ -198,7 +195,7 @@ export default class infoPanel extends React.Component {
 
                     </View>
                     <View style={styles.rowText}>
-                        <Text style={styles.textLight} onPress={() => Linking.openURL(`${this.state.compInfo.website}`)}>{this.state.compInfo.website}</Text>
+                        <Text style={styles.textLightSm} onPress={() => Linking.openURL(`${this.state.compInfo.website}`)}>{this.state.compInfo.website}</Text>
                     </View>
                 </View>
                 <View style={styles.containerRow0}>
@@ -272,141 +269,6 @@ export default class infoPanel extends React.Component {
 
     }
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#212126',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    scrollView: {
-        marginHorizontal: 5,
-        marginTop:120
-    },
-
-    containerTop: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        flex: 0.75,
-        height: 140
-    },
-    containerRow0: {
-        flexDirection: 'row',
-        height: 100,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-
-    },
-    topBar: {
-        flex: 1,
-        height: 130,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-    },
-
-    logoBox: {
-        flex: 0.2,
-        height: 130,
-        justifyContent: 'center',
-        alignItems: 'flex-start'
-    },
-    buttonSmBox: {
-        flex: 0.25,
-        height: 80,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    dispNameText: {
-        fontWeight: "bold",
-        fontSize: 24,
-        color: "white",
-        margin: 30,
-        textAlign: 'center'
-    },
-    textBold: {
-        fontWeight: "bold",
-        fontSize: 18,
-        color: "white",
-        textAlign: 'left'
-    },
-    textLight: {
-        fontWeight: "200",
-        fontSize: 20,
-        color: "white",
-        margin: 30,
-        textAlign: 'auto'
-    },
-    textLightSm: {
-        fontWeight: "200",
-        fontSize: 16,
-        color: "white",
-        margin: 30,
-        textAlign: 'auto'
-    },
-    textLightLg: {
-        fontWeight: "200",
-        fontSize: 22,
-        color: "white",
-        margin: 30,
-        textAlign: 'auto'
-    },
-    buttonText: {
-        fontWeight: "100",
-        fontSize: 20,
-        color: "white",
-        textAlign: 'center'
-    },
-    tinyLogo: {
-        margin: 20,
-        width: 50,
-        height: 50,
-        resizeMode: 'contain'
-    },
-
-    rowText: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-        alignItems: 'flex-start',
-        height: 80,
-
-    },
-    rowButton: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-    },
-    buttonImgLg: {
-        margin: 20,
-        width: 80,
-        height: 80,
-        resizeMode: 'contain'
-    },
-    buttonImgSm: {
-
-        width: 35,
-        height: 35,
-        resizeMode: 'contain'
-    },
-    ImgLg: {
-
-        width: 35,
-        height: 35,
-        resizeMode: 'contain'
-    }
-})
-
-//Dark:#212126
-//Red:#ED1C24
-//Yellow:#F7CE5B
-//Blue:#1E96FC
-//Green:#00A878
-
-YellowBox.ignoreWarnings([
-    'VirtualizedLists should never be nested', // TODO: Remove when fixed
-])
 
 
 
