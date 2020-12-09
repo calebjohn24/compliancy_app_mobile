@@ -14,9 +14,10 @@ const styles = StyleSheet.create({
         padding:10,
         borderWidth:1,
         borderRadius:5,
-        borderColor:"#1E96FC", 
+        borderColor:"#242424", 
         marginBottom:10,
-        height:100
+        height:100,
+        backgroundColor:"#313337"
     },
     scrollView: {
         marginHorizontal: 5,
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
     },
 
     containerTop: {
+        marginTop:15,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -82,20 +84,20 @@ const styles = StyleSheet.create({
         textAlign: 'left'
     },
     textLight: {
-        fontWeight: "200",
+         fontWeight: "400",
         fontSize: 20,
         color: "white",
         margin: 30,
         textAlign: 'auto'
     },
     textLightSm: {
-        fontWeight: "200",
+         fontWeight: "400",
         fontSize: 14,
         color: "white",
         textAlign: 'auto'
     },
     textLightLg: {
-        fontWeight: "200",
+         fontWeight: "400",
         fontSize: 22,
         color: "white",
         margin: 30,

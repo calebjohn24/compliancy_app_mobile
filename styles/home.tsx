@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
       textAlign: 'left'
     },
     buttonText: {
-      fontWeight: "100",
+      fontWeight: "300",
       fontSize: 20,
       color: "white",
       textAlign: 'center'

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     },
     List: {
         marginTop:120,
-        marginBottom:10,
+        marginBottom:40,
         flexGrow: 1,
          
         
@@ -21,14 +21,6 @@ const styles = StyleSheet.create({
     scrollView: {
         marginHorizontal: 1,
         marginVertical: 10,
-    },
-
-    containerTop: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        flex: 0.75,
-        height: 150
     },
     containerRow0: {
         flexDirection: 'row',
@@ -63,16 +55,22 @@ const styles = StyleSheet.create({
         height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',
-         
+        
         
     },
-
+    containerTop: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        flex: 1,
+        height: 120,
+        marginTop:15
+    },
     logoBox: {
         flex: 0.22,
         height: 120,
         justifyContent: 'center',
-        alignItems: 'flex-start',
-         
+        alignItems: 'flex-start'
     },
     buttonSmBox: {
         flex: 0.25,
@@ -111,21 +109,21 @@ const styles = StyleSheet.create({
         textAlign: 'left'
     },
     textLight: {
-        fontWeight: "200",
+         fontWeight: "400",
         fontSize: 20,
         color: "white",
         margin: 30,
         textAlign: 'auto'
     },
     textLightSm: {
-        fontWeight: "200",
+         fontWeight: "400",
         fontSize: 16,
         color: "white",
         margin: 30,
         textAlign: 'auto'
     },
     textLightLg: {
-        fontWeight: "200",
+         fontWeight: "400",
         fontSize: 22,
         color: "white",
         margin: 30,
@@ -141,14 +139,14 @@ const styles = StyleSheet.create({
         margin: 20,
         width: 50,
         height: 50,
-        resizeMode: 'contain'
+        resizeMode: 'contain',
     },
 
     rowText: {
         flex: 1,
         justifyContent: 'space-evenly',
         alignItems: 'flex-start',
-        height: 80,
+        height: 90,
 
     },
     rowButton: {

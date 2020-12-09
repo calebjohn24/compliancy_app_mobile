@@ -114,53 +114,69 @@ class authScreen extends React.Component {
   }
 }
 
+const MyTheme = {
+  dark: true,
+  colors: {
+    background: 'rgb(0, 0, 0)',
+
+  },
+};
 
 const RootStack = createStackNavigator({
   InfoNav: {
     screen: infoPanel,
     navigationOptions: {
-      headerShown: false//this will hide the header
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
     }
   },
   HomeNav: {
     screen: homePanel,
     navigationOptions: {
-      headerShown: false//this will hide the header
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
     }
   },
   LoginNav: {
     screen: loginScreen,
     navigationOptions: {
-      headerShown: false//this will hide the header
-    }
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
+    },
   },
   CertificateNav: {
     screen: certificatesPanel,
     navigationOptions: {
-      headerShown: false//this will hide the header
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
     }
   },
   EditInfoNav: {
     screen: editInfoPanel,
     navigationOptions: {
-      headerShown: false//this will hide the header
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
     }
   },
   FindReportsNav: {
     screen: findReportsPanel,
     navigationOptions: {
-      headerShown: false//this will hide the header
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
     }
   },
   auth: {
     screen: authScreen,
     navigationOptions: {
-      headerShown: false//this will hide the header
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
     }
   }
 }, {
     initialRouteName: 'auth',
 });
+
+
 
 export default createAppContainer(RootStack);
 

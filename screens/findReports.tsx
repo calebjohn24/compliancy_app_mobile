@@ -94,8 +94,8 @@ export default class findReportsPanel extends React.Component {
                 placeholder="Search"
                 onChangeText={text => this.searchAction(text)}
                 autoCorrect={false}
-                lightTheme
                 value={search}
+                round
             />
         )
     }
@@ -117,13 +117,11 @@ export default class findReportsPanel extends React.Component {
 
     renderItem = (item) => {
         return (
-            <View key={item.id} style={styles.item}>
-
-                <TouchableOpacity onPress={() => this.showItem(item.data.addr)}>
+            <TouchableOpacity onPress={() => this.showItem(item.data.addr)}>
+                <View key={item.id} style={styles.item}>
                     <Text style={styles.textLightSm}>{item.data.addr}</Text>
-                </TouchableOpacity>
-                
-            </View>
+                </View>
+            </TouchableOpacity>
         );
     }
 
@@ -138,7 +136,7 @@ export default class findReportsPanel extends React.Component {
         const { search } = this.state;
 
         const systemsRaw = this.state.systems;
-        
+
         if (this.state.systems.length != 0) {
 
             if (!this.state.dataProc) {
@@ -155,7 +153,7 @@ export default class findReportsPanel extends React.Component {
                 this.state.dataProc = true;
             }
         }
-        
+
 
 
 

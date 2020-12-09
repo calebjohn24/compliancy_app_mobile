@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
         flex: 0.75,
-        height: 140
+        height: 140,
+        marginTop:15
     },
     containerRow0: {
         flexDirection: 'row',
@@ -60,21 +61,21 @@ const styles = StyleSheet.create({
         textAlign: 'left'
     },
     textLight: {
-        fontWeight: "200",
+         fontWeight: "400",
         fontSize: 20,
         color: "white",
         margin: 30,
         textAlign: 'auto'
     },
     textLightSm: {
-        fontWeight: "200",
+         fontWeight: "400",
         fontSize: 16,
         color: "white",
         margin: 30,
         textAlign: 'auto'
     },
     textLightLg: {
-        fontWeight: "200",
+         fontWeight: "400",
         fontSize: 22,
         color: "white",
         margin: 30,

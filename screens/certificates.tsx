@@ -97,21 +97,21 @@ export default class certificatesPanel extends React.Component {
             <View> 
             {this.state.spinner ? <LoadingIcon/>:
             <View>
-            <View style={styles.containerTop}>
 
+<View style={styles.containerTop}>
                 <View style={styles.logoBox}>
-                <TouchableOpacity onPress={this.goToInfo}>
-
-                    <Image style={styles.tinyLogo} source={require('../assets/icons/back-arrow.png')} />
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={this.goToInfo}>
+                        <Image style={styles.tinyLogo} source={require('../assets/icons/back-arrow.png')} />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.topBar}>
-        <Text style={styles.dispNameText}>Certificates</Text>
-                </View>
-
-
-                </View>
-            <View> 
+                                <Text style={styles.dispNameText}>Certificates</Text>
+                            </View>
+                            </View>
+                        
+                    
+                
+            <> 
                 <FlatList
                     
                     data={certsName}
@@ -145,7 +145,7 @@ export default class certificatesPanel extends React.Component {
                     </>
                     )}
                 />
-                </View>
+                </>
                 </View>
             }
             </View>
