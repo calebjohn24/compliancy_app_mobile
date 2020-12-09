@@ -6,7 +6,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import * as SecureStore from 'expo-secure-store';
 import infoPanel from './info'
 import RootStack from '../App'
-import styles from '../assets/styles/home'
+import styles from '../styles/home'
+import LoadingIcon from '../components/loading'
 
 export default class homePanel extends React.Component {
 
@@ -14,7 +15,8 @@ export default class homePanel extends React.Component {
     super(props);
     this.state = {
       'logo': 'https://firebasestorage.googleapis.com/v0/b/compliancy-app.appspot.com/o/Logo_text_no_bg.png?alt=media&token=2982a122-243e-447b-a552-0b1f63e07921',
-      'dispName': ''
+      'dispName': '',
+      'spinner':true,
     };
 
   }
@@ -58,6 +60,9 @@ export default class homePanel extends React.Component {
         })
         .catch(error => {
           alert("Cannot Reach Server")
+        })
+        .finally(() => {
+          this.setState({ spinner: false });
         });
 
 
@@ -79,6 +84,8 @@ export default class homePanel extends React.Component {
 
 
     return (
+      <>
+      {this.state.spinner ? <LoadingIcon/>:
       <View style={styles.container}>
         <View style={styles.containerTop}>
           <View style={styles.topBar}>
@@ -140,11 +147,10 @@ export default class homePanel extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-
-
-
-
       </View>
+    }
+      </>
+        
     );
   }
 }

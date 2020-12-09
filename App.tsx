@@ -2,13 +2,18 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
+
+
 import homePanel from './screens/home'
 import loginScreen from './screens/login'
 import infoPanel from './screens/info'
 import certificatesPanel from './screens/certificates'
 import editInfoPanel from './screens/editInfo'
+import findReportsPanel from './screens/findReports'
+
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import LoadingIcon from './components/loading'
 
 class authScreen extends React.Component {
   constructor(props) {
@@ -93,9 +98,9 @@ class authScreen extends React.Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <View style={{ flex: 1, padding: 20 }}>
-          <ActivityIndicator />
-        </View>
+
+          <LoadingIcon />
+      
       );
     }
 
@@ -137,6 +142,12 @@ const RootStack = createStackNavigator({
   },
   EditInfoNav: {
     screen: editInfoPanel,
+    navigationOptions: {
+      headerShown: false//this will hide the header
+    }
+  },
+  findReportsNav: {
+    screen: findReportsPanel,
     navigationOptions: {
       headerShown: false//this will hide the header
     }

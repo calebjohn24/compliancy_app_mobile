@@ -1,19 +1,21 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View, Image, YellowBox, TouchableOpacity, TextInput, ScrollView, Linking, SectionList, SafeAreaView } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { Text, View, Image,  TouchableOpacity,  Linking, FlatList } from 'react-native';
+import { Asset } from 'expo-asset';
+import { AppLoading } from 'expo';
 import * as SecureStore from 'expo-secure-store';
 import RootStack from '../App'
-import { FlatList } from 'react-native';
-import styles from '../assets/styles/certificates'
+import styles from '../styles/certificates'
+import LoadingIcon from '../components/loading'
 export default class certificatesPanel extends React.Component {
 
-    constructor(props) {
+
+    constructor(props: Readonly<{}>) {
         super(props);
         this.state = {
             'compId': '',
-            'certs': {}
+            'certs': {},
+            'spinner': true,
         };
 
     }
@@ -22,7 +24,6 @@ export default class certificatesPanel extends React.Component {
 
 
         try {
-
 
             let compId = await SecureStore.getItemAsync('compId');
             let token = await SecureStore.getItemAsync('token');
@@ -48,14 +49,17 @@ export default class certificatesPanel extends React.Component {
                         {
                             certs: responseJson.certs
                         },
-                        function () {
+                         () => {
                             this.state.certs = responseJson.certs
                         }
                     );
                 })
                 .catch(error => {
                     alert("Cannot Reach Server")
-                });
+                })
+                .finally(() => {
+                    this.setState({ spinner: false });
+                  });
 
 
 
@@ -63,6 +67,7 @@ export default class certificatesPanel extends React.Component {
         } catch (error) {
             console.log(error)
             alert("Cannot Reach Server")
+            this.state.spinner = false
         }
 
     }
@@ -72,6 +77,7 @@ export default class certificatesPanel extends React.Component {
       }
 
     render() {
+
 
         const certs = this.state.certs;
 
@@ -85,10 +91,12 @@ export default class certificatesPanel extends React.Component {
             certsName.push(keyValue);
             certsLinks.push(value);
         }
-        //console.log(certsName)
 
         return (
+
             <View style={{backgroundColor: '#212126'}}> 
+            {this.state.spinner ? <LoadingIcon/>:
+            <View>
             <View style={styles.containerTop}>
 
                 <View style={styles.logoBox}>
@@ -98,7 +106,7 @@ export default class certificatesPanel extends React.Component {
                 </TouchableOpacity>
                 </View>
                 <View style={styles.topBar}>
-                <Text style={styles.dispNameText}>Certificates</Text>
+        <Text style={styles.dispNameText}>Certificates</Text>
                 </View>
 
 
@@ -143,6 +151,8 @@ export default class certificatesPanel extends React.Component {
                     )}
                 />
                 </View>
+                </View>
+            }
             </View>
 
           );

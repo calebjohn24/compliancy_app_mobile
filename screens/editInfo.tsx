@@ -6,7 +6,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import * as SecureStore from 'expo-secure-store';
 import RootStack from '../App'
 import { FlatList } from 'react-native';
-import styles from '../assets/styles/editInfo'
+import styles from '../styles/editInfo'
+import LoadingIcon from '../components/loading'
 
 export default class editInfoPanel extends React.Component {
 
@@ -15,7 +16,7 @@ export default class editInfoPanel extends React.Component {
         this.state = {
             'changeType': '',
             'newData': '',
-            'success': false
+            'success': false,
         };
 
     }

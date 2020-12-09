@@ -7,7 +7,8 @@ import * as SecureStore from 'expo-secure-store';
 import homePanel from './home'
 import RootStack from '../App'
 import { FlatList } from 'react-native';
-import styles from '../assets/styles/info'
+import styles from '../styles/info'
+import LoadingIcon from '../components/loading'
 
 export default class infoPanel extends React.Component {
 
@@ -18,7 +19,8 @@ export default class infoPanel extends React.Component {
             'dispName': '',
             'compInfo': {},
             'userInfo': {},
-            'compId': ''
+            'compId': '',
+            'spinner':true
         };
 
     }
@@ -66,7 +68,10 @@ export default class infoPanel extends React.Component {
                 })
                 .catch(error => {
                     alert("Cannot Reach Server")
-                });
+                })
+                .finally(() => {
+                    this.setState({ spinner: false });
+                  });
 
 
 
@@ -103,6 +108,8 @@ export default class infoPanel extends React.Component {
 
         return (
             <View style={{backgroundColor: '#212126'}}> 
+            {this.state.spinner ? <LoadingIcon/>:
+            <View> 
                 <View style={styles.containerTop}>
 
             <View style={styles.logoBox}>
@@ -262,6 +269,8 @@ export default class infoPanel extends React.Component {
 
 
             </ScrollView>
+            </View>
+            }
             </View>
 
 

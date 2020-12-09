@@ -6,7 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import * as SecureStore from 'expo-secure-store';
 import homePanel from './home'
 import RootStack from '../App'
-import styles from '../assets/styles/login'
+import styles from '../styles/login'
 
 export default class loginScreen extends React.Component {
 
@@ -46,7 +46,6 @@ export default class loginScreen extends React.Component {
                 },
                 function() {
                   if(responseJson.auth == true){
-                    alert(responseJson.compId)
                     SecureStore.setItemAsync('id', responseJson.userId)
                     SecureStore.setItemAsync('token', responseJson.token)
                     SecureStore.setItemAsync('compId', responseJson.compId)

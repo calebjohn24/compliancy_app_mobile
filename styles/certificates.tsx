@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         marginTop:120,
         marginBottom:10,
         flexGrow: 1,
+        backgroundColor: '#212126',
         
         
     },

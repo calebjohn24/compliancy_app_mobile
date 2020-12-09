@@ -7,9 +7,9 @@ import * as SecureStore from 'expo-secure-store';
 import homePanel from './home'
 import RootStack from '../App'
 import { FlatList } from 'react-native';
-import styles from '../assets/styles/findReports'
+import styles from '../styles/findReports'
 
-export default class infoPanel extends React.Component {
+export default class findReportsPanel extends React.Component {
 
     constructor(props) {
         super(props);
