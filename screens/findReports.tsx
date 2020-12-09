@@ -94,6 +94,7 @@ export default class findReportsPanel extends React.Component {
                 placeholder="Search"
                 onChangeText={text => this.searchAction(text)}
                 autoCorrect={false}
+                lightTheme
                 value={search}
             />
         )

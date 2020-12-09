@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderRadius:5,
         borderColor:"#1E96FC", 
-        marginBottom:10
+        marginBottom:10,
+        height:100
     },
     scrollView: {
         marginHorizontal: 5,
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     },
     textLightSm: {
         fontWeight: "200",
-        fontSize: 20,
+        fontSize: 14,
         color: "white",
         textAlign: 'auto'
     },
