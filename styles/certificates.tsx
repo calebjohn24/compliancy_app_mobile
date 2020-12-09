@@ -60,16 +60,19 @@ const styles = StyleSheet.create({
     },
     topBar: {
         flex: 1,
-        height: 140,
+        height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',
+        backgroundColor: '#212126',
+        
     },
 
     logoBox: {
-        flex: 0.38,
-        height: 150,
+        flex: 0.22,
+        height: 120,
         justifyContent: 'center',
-        alignItems: 'flex-end'
+        alignItems: 'flex-start',
+        backgroundColor: '#212126',
     },
     buttonSmBox: {
         flex: 0.25,
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
     },
     dispNameText: {
         fontWeight: "bold",
-        fontSize: 24,
+        fontSize: 26,
         color: "white",
         margin: 30,
         textAlign: 'center'

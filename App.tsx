@@ -146,7 +146,7 @@ const RootStack = createStackNavigator({
       headerShown: false//this will hide the header
     }
   },
-  findReportsNav: {
+  FindReportsNav: {
     screen: findReportsPanel,
     navigationOptions: {
       headerShown: false//this will hide the header

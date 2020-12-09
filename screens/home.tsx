@@ -78,6 +78,10 @@ export default class homePanel extends React.Component {
     this.props.navigation.navigate('InfoNav');
   }
 
+  goToFindSystems = () => {
+    this.props.navigation.navigate('FindReportsNav');
+  }
+
   render() {
     const logo = this.state.logo;
 
@@ -111,10 +115,10 @@ export default class homePanel extends React.Component {
             </TouchableOpacity>
           </View>
           <View style={styles.rowButton1}>
-            <TouchableOpacity onPress={() => alert("test")}>
+            <TouchableOpacity onPress={this.goToFindSystems}>
               <Text style={styles.buttonText}>Find System</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert("test")}>
+            <TouchableOpacity onPress={this.goToFindSystems}>
               <Image style={styles.buttonImgLg} source={require('../assets/icons/system-search.png')} />
             </TouchableOpacity>
           </View>

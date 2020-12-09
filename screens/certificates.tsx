@@ -141,11 +141,6 @@ export default class certificatesPanel extends React.Component {
                 </View>
                 </View>
                 
-           
-
-
-                   
-                
                     
                     </>
                     )}

@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         marginHorizontal: 5,
-        marginTop: 120
+        marginTop:120
     },
 
     containerTop: {
@@ -28,15 +29,19 @@ const styles = StyleSheet.create({
     },
     topBar: {
         flex: 1,
-        height: 130,
+        height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',
+        backgroundColor: '#212126',
+        
     },
+
     logoBox: {
-        flex: 0.2,
-        height: 130,
+        flex: 0.22,
+        height: 120,
         justifyContent: 'center',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        backgroundColor: '#212126',
     },
     buttonSmBox: {
         flex: 0.25,
@@ -46,7 +51,7 @@ const styles = StyleSheet.create({
     },
     dispNameText: {
         fontWeight: "bold",
-        fontSize: 24,
+        fontSize: 26,
         color: "white",
         margin: 30,
         textAlign: 'center'
@@ -123,10 +128,10 @@ const styles = StyleSheet.create({
     }
 })
 
-    //Dark:#212126
-    //Red:#ED1C24
-    //Yellow:#F7CE5B
-    //Blue:#1E96FC
-    //Green:#00A878
+//Dark:#212126
+//Red:#ED1C24
+//Yellow:#F7CE5B
+//Blue:#1E96FC
+//Green:#00A878
 
 export default styles;
