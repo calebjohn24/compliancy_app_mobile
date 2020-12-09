@@ -20,7 +20,7 @@ export default class LoadingIcon extends React.Component{
         justifyContent: "center",
         alignContent:"center",
         height:"100%",
-        backgroundColor: '#212126'
+         
       },
 
     });

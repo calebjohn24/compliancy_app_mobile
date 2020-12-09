@@ -2,11 +2,20 @@ import {StyleSheet} from 'react-native';
 
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
-        backgroundColor: '#212126',
+        marginTop: 20,
+        padding:10,
         alignItems: 'center',
         justifyContent: 'center',
+      },
+      item:{
+        padding:10,
+        borderWidth:1,
+        borderRadius:5,
+        borderColor:"#1E96FC", 
+        marginBottom:10
     },
     scrollView: {
         marginHorizontal: 5,
@@ -32,7 +41,7 @@ const styles = StyleSheet.create({
         height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        backgroundColor: '#212126',
+        
         
     },
 
@@ -41,13 +50,22 @@ const styles = StyleSheet.create({
         height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        backgroundColor: '#212126',
+         
     },
     buttonSmBox: {
         flex: 0.25,
         height: 80,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    List: {
+        marginTop:120,
+        marginBottom:10,
+        flexGrow: 1,
+         
+        marginHorizontal:20
+        
+        
     },
     dispNameText: {
         fontWeight: "bold",
@@ -71,9 +89,8 @@ const styles = StyleSheet.create({
     },
     textLightSm: {
         fontWeight: "200",
-        fontSize: 16,
+        fontSize: 20,
         color: "white",
-        margin: 30,
         textAlign: 'auto'
     },
     textLightLg: {

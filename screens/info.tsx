@@ -107,7 +107,7 @@ export default class infoPanel extends React.Component {
         
 
         return (
-            <View style={{backgroundColor: '#212126'}}> 
+            <View> 
             {this.state.spinner ? <LoadingIcon/>:
             <View> 
                 <View style={styles.containerTop}>

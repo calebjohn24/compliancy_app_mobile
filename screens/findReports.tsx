@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View, Image, YellowBox, TouchableOpacity, TextInput, ScrollView, Linking, SectionList, SafeAreaView, Alert} from 'react-native';
+import { StyleSheet, Text, View, Image, YellowBox, TouchableOpacity, TextInput, ScrollView, Linking, SectionList, SafeAreaView, Alert } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import * as SecureStore from 'expo-secure-store';
@@ -10,15 +10,20 @@ import { FlatList } from 'react-native';
 import styles from '../styles/findReports'
 import LoadingIcon from '../components/loading'
 import Constants from 'expo-constants';
-import {SearchBar} from 'react-native-elements';
+import { SearchBar } from 'react-native-elements';
 
 export default class findReportsPanel extends React.Component {
+
 
     constructor(props) {
         super(props);
         this.state = {
-            'systems':{},
-            spinner: true
+            systems: [],
+            spinner: true,
+            search: "",
+            systemsProc: [],
+            systemsProcAll: [],
+            dataProc: false
         };
 
     }
@@ -62,7 +67,7 @@ export default class findReportsPanel extends React.Component {
                 })
                 .finally(() => {
                     this.setState({ spinner: false });
-                  });
+                });
 
 
 
@@ -77,33 +82,121 @@ export default class findReportsPanel extends React.Component {
         this.props.navigation.navigate('HomeNav');
     }
 
-   
+
+    showItem = (data) => {
+        Alert.alert(data);
+    }
+
+    renderHeader = () => {
+        const { search } = this.state;
+        return (
+            <SearchBar
+                placeholder="Search"
+                onChangeText={text => this.searchAction(text)}
+                autoCorrect={false}
+                value={search}
+            />
+        )
+    }
+    searchAction = (text) => {
+        const newData = this.state.systemsProcAll.filter(item => {
+            const itemData = `${item.data.addr.toUpperCase()}`;
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+
+        });
+        //console.log(newData);
+        this.setState({
+            systemsProc: newData,
+            search: text
+        });
+
+    }
+
+
+    renderItem = (item) => {
+        return (
+            <View key={item.id} style={styles.item}>
+
+                <TouchableOpacity onPress={() => this.showItem(item.data.addr)}>
+                    <Text style={styles.textLightSm}>{item.data.addr}</Text>
+                </TouchableOpacity>
+                
+            </View>
+        );
+    }
+
+
+
 
     render() {
 
-        console.log(this.state.systems)
+
+
+
+        const { search } = this.state;
+
+        const systemsRaw = this.state.systems;
+        
+        if (this.state.systems.length != 0) {
+
+            if (!this.state.dataProc) {
+                var systems = [];
+                for (var key in systemsRaw) {
+                    var value = systemsRaw[key];
+                    systems.push({
+                        data: value,
+                        'id': `${key}`
+                    });
+                }
+                this.state.systemsProc = systems;
+                this.state.systemsProcAll = systems;
+                this.state.dataProc = true;
+            }
+        }
+        
+
+
+
+
+
         return (
             <View>
-            {this.state.spinner ? <LoadingIcon/>:
-            
-            <View style={styles.containerTop}>
+                {this.state.spinner ? <LoadingIcon /> :
+                    <View>
 
-            <View style={styles.logoBox}>
-                <TouchableOpacity onPress={this.goToHome}>
+                        <View style={styles.containerTop}>
 
-                    <Image style={styles.tinyLogo} source={require('../assets/icons/back-arrow.png')} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.topBar}>
-                <Text style={styles.dispNameText}>Systems</Text>
-            </View>
+                            <View style={styles.logoBox}>
+                                <TouchableOpacity onPress={this.goToHome}>
+
+                                    <Image style={styles.tinyLogo} source={require('../assets/icons/back-arrow.png')} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.topBar}>
+                                <Text style={styles.dispNameText}>Systems</Text>
+                            </View>
+                        </View>
+
+                        <FlatList
+                            ListHeaderComponent={this.renderHeader}
+                            data={this.state.systemsProc}
+                            style={styles.List}
+                            keyExtractor={item => item.id}
+                            renderItem={({ item }) => this.renderItem(item)
+                            }
+                        />
 
 
 
-            </View>
+                    </View>
 
-                
-            }
+
+
+
+
+
+                }
             </View>
         );
     }

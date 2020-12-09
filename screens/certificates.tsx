@@ -94,7 +94,7 @@ export default class certificatesPanel extends React.Component {
 
         return (
 
-            <View style={{backgroundColor: '#212126'}}> 
+            <View> 
             {this.state.spinner ? <LoadingIcon/>:
             <View>
             <View style={styles.containerTop}>
@@ -122,7 +122,7 @@ export default class certificatesPanel extends React.Component {
                     
                     
                 
-                    <View style={{backgroundColor: '#212126'}}>
+                    <View>
                     <View style={styles.containerRow0}>
                     
                     <View style={styles.rowText}>
