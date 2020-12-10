@@ -12,12 +12,13 @@ const styles = StyleSheet.create({
       },
       item:{
         padding:10,
-        borderWidth:1,
-        borderRadius:5,
-        borderColor:"#242424", 
-        marginBottom:10,
-        height:100,
-        backgroundColor:"#313337"
+        borderWidth:0,
+        borderRadius:10,
+        marginBottom:5,
+        marginTop:5,
+        height:200,
+        backgroundColor:"#313337",
+        flex:1,
     },
     scrollView: {
         marginHorizontal: 5,
@@ -32,11 +33,10 @@ const styles = StyleSheet.create({
         flex: 0.75,
         height: 140
     },
-    containerRow0: {
-        flexDirection: 'row',
-        height: 100,
+    containerItem: {
+        
         justifyContent: 'flex-start',
-        alignItems: 'flex-start',
+        alignItems: 'center',
 
     },
     topBar: {
@@ -85,14 +85,13 @@ const styles = StyleSheet.create({
     },
     textLight: {
          fontWeight: "400",
-        fontSize: 20,
+        fontSize: 18,
         color: "white",
-        margin: 30,
         textAlign: 'auto'
     },
     textLightSm: {
          fontWeight: "400",
-        fontSize: 14,
+        fontSize: 16,
         color: "white",
         textAlign: 'auto'
     },
@@ -100,7 +99,6 @@ const styles = StyleSheet.create({
          fontWeight: "400",
         fontSize: 22,
         color: "white",
-        margin: 30,
         textAlign: 'auto'
     },
     buttonText: {
@@ -142,8 +140,14 @@ const styles = StyleSheet.create({
     },
     ImgLg: {
 
-        width: 35,
-        height: 35,
+        width: 30,
+        height: 30,
+        resizeMode: 'contain'
+    },
+    ImgMd: {
+
+        width: 20,
+        height: 20,
         resizeMode: 'contain'
     }
 })

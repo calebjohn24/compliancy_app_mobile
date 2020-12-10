@@ -91,7 +91,7 @@ export default class findReportsPanel extends React.Component {
         const { search } = this.state;
         return (
             <SearchBar
-                placeholder="Search"
+                placeholder="Search By Owner"
                 onChangeText={text => this.searchAction(text)}
                 autoCorrect={false}
                 value={search}
@@ -101,7 +101,7 @@ export default class findReportsPanel extends React.Component {
     }
     searchAction = (text) => {
         const newData = this.state.systemsProcAll.filter(item => {
-            const itemData = `${item.data.addr.toUpperCase()}`;
+            const itemData = `${item.data.name.toUpperCase()}`;
             const textData = text.toUpperCase();
             return itemData.indexOf(textData) > -1;
 
@@ -117,9 +117,15 @@ export default class findReportsPanel extends React.Component {
 
     renderItem = (item) => {
         return (
-            <TouchableOpacity onPress={() => this.showItem(item.data.addr)}>
+            <TouchableOpacity onPress={() => this.showItem(item.id)}>
                 <View key={item.id} style={styles.item}>
-                    <Text style={styles.textLightSm}>{item.data.addr}</Text>
+                    <Text style={styles.textLightLg}>{item.data.name}</Text>
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/gear-white.png')}/> {item.data.type}</Text>
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/user-green.png')}/> {item.data.owner}</Text>
+                    <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/map-blue.png')}/> {item.data.addr} {item.data.city} {item.data.state}</Text>
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/red-law.png')}/> {item.data.zone}</Text>
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/brand-comp-yellow.png')}/> {item.data.brand}</Text>
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/id-green.png')}/> {item.id}</Text>
                 </View>
             </TouchableOpacity>
         );

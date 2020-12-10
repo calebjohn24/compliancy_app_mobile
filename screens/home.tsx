@@ -123,24 +123,7 @@ export default class homePanel extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.containerRow0}>
-          <View style={styles.rowButton}>
-            <TouchableOpacity onPress={() => alert("test")}>
-              <Text style={styles.buttonText}>New Report</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert("test")}>
-              <Image style={styles.buttonImgLg} source={require('../assets/icons/report-add.png')} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.rowButton1}>
-            <TouchableOpacity onPress={() => alert("test")}>
-              <Text style={styles.buttonText}>Find Report</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert("test")}>
-              <Image style={styles.buttonImgLg} source={require('../assets/icons/report-search.png')} />
-            </TouchableOpacity>
-          </View>
-        </View>
+
         <View style={styles.containerRow0}>
           <View style={styles.rowButton}>
             <TouchableOpacity onPress={() => alert("test")}>
