@@ -21,11 +21,22 @@ const styles = StyleSheet.create({
     },
     containerRow0: {
         flexDirection: 'row',
-        height: 100,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-
-    },
+        flex: 1,
+        marginLeft:10
+      },
+      rowButton: {
+        flex: 1,
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+    
+      },
+      rowButton1: {
+        flex: 1,
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+      },
     topBar: {
         flex: 1,
         height: 130,
@@ -56,32 +67,35 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 18,
         color: "white",
+        margin: 10,
         textAlign: 'left'
     },
     textLight: {
          fontWeight: "400",
         fontSize: 20,
         color: "white",
-        margin: 30,
+        margin: 20,
         textAlign: 'auto'
     },
     textLightSm: {
          fontWeight: "400",
-        fontSize: 16,
+        fontSize: 18,
+        margin: 20,
         color: "white",
-        margin: 30,
         textAlign: 'auto'
     },
     textLightLg: {
          fontWeight: "400",
         fontSize: 22,
         color: "white",
-        margin: 30,
+        margin: 20,
         textAlign: 'auto'
     },
     buttonText: {
         fontWeight: "100",
-        fontSize: 20,
+        fontSize: 16,
+        marginRight:25,
+        marginBottom:30,
         color: "white",
         textAlign: 'center'
     },
@@ -98,11 +112,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         height: 80,
 
-    },
-    rowButton: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
     },
     buttonImgLg: {
         margin: 20,
@@ -122,9 +131,15 @@ const styles = StyleSheet.create({
         height: 35,
         resizeMode: 'contain'
     },
+    ImgMd: {
+
+        width: 30,
+        height: 30,
+        resizeMode: 'contain'
+    },
     ImgSm: {
-        width: 20,
-        height: 20,
+        width: 25,
+        height: 25,
         resizeMode: 'contain'
     }
 })

@@ -108,13 +108,38 @@ export default class systemInfoPanel extends React.Component {
                         </View>
                         <ScrollView style={styles.scrollView}>
                         <View style={styles.container}>
+                        { `${systemInfo.active}` == "yes" ?
+                        <>
+                            <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/power-green.png')} /> Active</Text>
+                                
+                                <View style={styles.containerRow0}>
+                                    <View style={styles.rowButton}>
+                                    <TouchableOpacity onPress={() => alert("test")}>
+                                            <Image style={styles.buttonImgLg} source={require('../assets/icons/report-search.png')} />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => alert("test")}>
+                                            <Text style={styles.buttonText}>Find Report</Text>
+                                        </TouchableOpacity>
+                                        
+                                    </View>
+                                    <View style={styles.rowButton1}>
+                                        
+                                        <TouchableOpacity onPress={() => alert('test')}>
+                                            <Image style={styles.buttonImgLg} source={require('../assets/icons/report-add.png')} />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => alert('test')}>
+                                            <Text style={styles.buttonText}>New Report</Text>
+                                        </TouchableOpacity>
+                                </View>
+                            </View>
+                
+                        </>
+                        
+                        :
+                        <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/power-red.png')}/> Inactive</Text>
+                        }
 
-
-
-
-                            <TouchableOpacity onPress={() => this.goToEditInfo('phone')}>
                         <Text style={styles.textLightSm}><Image style={styles.ImgSm} source={require('../assets/icons/map-blue.png')} /> {systemInfo.addr} {systemInfo.city} {systemInfo.state}</Text>
-                            </TouchableOpacity>
 
                         </View>
 
