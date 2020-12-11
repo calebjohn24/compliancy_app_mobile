@@ -111,7 +111,7 @@ export default class systemInfoPanel extends React.Component {
                         <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/gear-white.png')} /> {systemInfo.type}</Text>
                         { `${systemInfo.active}` == "yes" ?
                         <>
-                            <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/power-green.png')} /> Active</Text>
+                            <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../assets/icons/power-green.png')} /> Active</Text>
                                 
                                 <View style={styles.containerRow0}>
                                     <View style={styles.rowButton}>
@@ -137,12 +137,17 @@ export default class systemInfoPanel extends React.Component {
                         </>
                         
                         :
-                        <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/power-red.png')}/> Inactive</Text>
+                        <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../assets/icons/power-red.png')}/> Inactive</Text>
                         }
-                        
-
-                        <Text style={styles.textLightSm}><Image style={styles.ImgSm} source={require('../assets/icons/map-blue.png')} /> {systemInfo.addr} {systemInfo.city} {systemInfo.state}</Text>
-
+                                                
+                        <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/company-red.png')} /> {systemInfo.name}</Text>
+                        <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/map-blue.png')} /> {systemInfo.addr} {systemInfo.city} {systemInfo.state}</Text>
+                        <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/red-law.png')} /> {systemInfo.zone}</Text>
+                        <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/user-green.png')} /> {systemInfo.owner}</Text>
+                        <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/mail.png')} /> {systemInfo.email}</Text>
+                        <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/brand-comp-yellow.png')} /> {systemInfo.brand}</Text>
+                        <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-green.png')} /> Registered: {systemInfo.time_stamp}</Text>
+                        <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-red.png')} /> Inspected: {systemInfo.last_inspect}</Text>
                         </View>
 
 

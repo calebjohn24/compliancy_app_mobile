@@ -3,12 +3,13 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
     },
     scrollView: {
         marginHorizontal: 5,
-        marginTop:100,
+        marginTop:120,
+        marginBottom:50
     },
 
     containerTop: {
@@ -74,21 +75,21 @@ const styles = StyleSheet.create({
          fontWeight: "400",
         fontSize: 20,
         color: "white",
-        margin: 20,
+        margin: 25,
         textAlign: 'auto'
     },
     textLightSm: {
          fontWeight: "400",
         fontSize: 18,
-        margin: 20,
+        margin: 25,
         color: "white",
         textAlign: 'auto'
     },
     textLightLg: {
          fontWeight: "400",
-        fontSize: 22,
+        fontSize: 24,
         color: "white",
-        margin: 20,
+        margin: 25,
         textAlign: 'auto'
     },
     buttonText: {
@@ -127,14 +128,14 @@ const styles = StyleSheet.create({
     },
     ImgLg: {
 
-        width: 35,
-        height: 35,
+        width: 32,
+        height: 32,
         resizeMode: 'contain'
     },
     ImgMd: {
 
-        width: 30,
-        height: 30,
+        width: 28,
+        height: 28,
         resizeMode: 'contain'
     },
     ImgSm: {
