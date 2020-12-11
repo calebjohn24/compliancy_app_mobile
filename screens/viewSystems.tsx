@@ -7,12 +7,12 @@ import * as SecureStore from 'expo-secure-store';
 import homePanel from './home'
 import RootStack from '../App'
 import { FlatList } from 'react-native';
-import styles from '../styles/findReports'
+import styles from '../styles/viewSystems'
 import LoadingIcon from '../components/loading'
 import Constants from 'expo-constants';
 import { SearchBar } from 'react-native-elements';
 
-export default class findReportsPanel extends React.Component {
+export default class viewSystemPanel extends React.Component {
 
 
     constructor(props) {
@@ -39,7 +39,7 @@ export default class findReportsPanel extends React.Component {
             let token = await SecureStore.getItemAsync('token');
             //var token = SecureStore.getItemAsync('token');
 
-            return fetch('https://1ab18b31c7bb.ngrok.io/api/list-hoods', {
+            return fetch('https://1ab18b31c7bb.ngrok.io/api/list-systems', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -117,19 +117,27 @@ export default class findReportsPanel extends React.Component {
 
     renderItem = (item) => {
         return (
-            <TouchableOpacity onPress={() => this.showItem(item.id)}>
+            <TouchableOpacity onPress={() => this.goToSystemInfo(item.id)}>
                 <View key={item.id} style={styles.item}>
                     <Text style={styles.textLightLg}>{item.data.name}</Text>
+                    { `${item.data.active}` == "yes" ?
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/power-green.png')}/> Active</Text>:
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/power-red.png')}/> Inactive</Text>
+                    }
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/gear-white.png')}/> {item.data.type}</Text>
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/user-green.png')}/> {item.data.owner}</Text>
                     <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/map-blue.png')}/> {item.data.addr} {item.data.city} {item.data.state}</Text>
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/red-law.png')}/> {item.data.zone}</Text>
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/brand-comp-yellow.png')}/> {item.data.brand}</Text>
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/id-green.png')}/> {item.id}</Text>
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/id.png')}/> #{item.id}</Text>
                 </View>
             </TouchableOpacity>
         );
     }
+
+    goToSystemInfo = (systemId: string) => {
+        this.props.navigation.navigate('SystemInfoNav', {system: systemId});
+      }
 
 
 

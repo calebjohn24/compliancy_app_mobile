@@ -79,7 +79,7 @@ export default class homePanel extends React.Component {
   }
 
   goToFindSystems = () => {
-    this.props.navigation.navigate('FindReportsNav');
+    this.props.navigation.navigate('viewSystemPanelsNav');
   }
 
   render() {

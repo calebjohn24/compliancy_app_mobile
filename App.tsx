@@ -9,7 +9,8 @@ import loginScreen from './screens/login'
 import infoPanel from './screens/info'
 import certificatesPanel from './screens/certificates'
 import editInfoPanel from './screens/editInfo'
-import findReportsPanel from './screens/findReports'
+import viewSystemPanel from './screens/viewSystems'
+import systemInfoPanel from './screens/systemInfo'
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -158,8 +159,15 @@ const RootStack = createStackNavigator({
       cardStyle: { backgroundColor: '#242424' }
     }
   },
-  FindReportsNav: {
-    screen: findReportsPanel,
+  viewSystemPanelsNav: {
+    screen: viewSystemPanel,
+    navigationOptions: {
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  SystemInfoNav: {
+    screen: systemInfoPanel,
     navigationOptions: {
       headerShown: false,//this will hide the header
       cardStyle: { backgroundColor: '#242424' }

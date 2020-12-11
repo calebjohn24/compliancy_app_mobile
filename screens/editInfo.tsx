@@ -122,7 +122,7 @@ export default class editInfoPanel extends React.Component {
                 </View>
                 <View style={styles.containerRowHalf}>
                     <TouchableOpacity onPress={this.updateUserInfo} style={styles.changeBtn}>
-                        <Text style={styles.textLightLg}>Change</Text>
+                        <Text style={styles.textLight}>Change</Text>
                     </TouchableOpacity>
                 </View>
 
