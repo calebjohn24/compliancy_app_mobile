@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     ImgSm: {
-        width: 25,
-        height: 25,
+        width: 22,
+        height: 22,
         resizeMode: 'contain'
     }
 })

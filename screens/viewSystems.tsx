@@ -91,7 +91,7 @@ export default class viewSystemPanel extends React.Component {
         const { search } = this.state;
         return (
             <SearchBar
-                placeholder="Search By Owner"
+                placeholder="Search By Business"
                 onChangeText={text => this.searchAction(text)}
                 autoCorrect={false}
                 value={search}

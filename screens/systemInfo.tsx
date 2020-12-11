@@ -108,6 +108,7 @@ export default class systemInfoPanel extends React.Component {
                         </View>
                         <ScrollView style={styles.scrollView}>
                         <View style={styles.container}>
+                        <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/gear-white.png')} /> {systemInfo.type}</Text>
                         { `${systemInfo.active}` == "yes" ?
                         <>
                             <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/power-green.png')} /> Active</Text>
@@ -138,6 +139,7 @@ export default class systemInfoPanel extends React.Component {
                         :
                         <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/power-red.png')}/> Inactive</Text>
                         }
+                        
 
                         <Text style={styles.textLightSm}><Image style={styles.ImgSm} source={require('../assets/icons/map-blue.png')} /> {systemInfo.addr} {systemInfo.city} {systemInfo.state}</Text>
 
