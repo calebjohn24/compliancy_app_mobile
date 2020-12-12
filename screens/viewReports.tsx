@@ -5,22 +5,24 @@ import * as SecureStore from 'expo-secure-store';
 import homePanel from './home'
 import RootStack from '../App'
 import { FlatList } from 'react-native';
-import styles from '../styles/viewSystems'
+import styles from '../styles/viewReports'
 import LoadingIcon from '../components/loading'
 import { SearchBar } from 'react-native-elements';
 
-export default class viewSystemPanel extends React.Component {
+export default class viewReportsPanel extends React.Component {
 
 
     constructor(props) {
         super(props);
         this.state = {
-            systems: [],
+            systemId: "",
             spinner: true,
             search: "",
-            systemsProc: [],
-            systemsProcAll: [],
-            dataProc: false
+            reports:[],
+            reportsProc: [],
+            reportsProcAll: [],
+            dataProc: false,
+            compId:""
         };
 
     }
@@ -36,8 +38,10 @@ export default class viewSystemPanel extends React.Component {
             let userId = await SecureStore.getItemAsync('id');
             let token = await SecureStore.getItemAsync('token');
             //var token = SecureStore.getItemAsync('token');
+            const systemId = this.state.systemId;
+            this.state.compId = compId
 
-            return fetch('https://1ab18b31c7bb.ngrok.io/api/list-systems', {
+            return fetch('https://1ab18b31c7bb.ngrok.io/api/view-reports', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -46,17 +50,18 @@ export default class viewSystemPanel extends React.Component {
                 body: JSON.stringify({
                     compId: compId,
                     userId: userId,
-                    token: token
+                    token: token,
+                    systemId:systemId
                 }),
             })
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState(
                         {
-                            systems: responseJson.systems,
+                            reports: responseJson.reports,
                         },
                         function () {
-                            this.state.systems = responseJson.systems
+                            this.state.reports = responseJson.reports
                         }
                     );
                 })
@@ -93,7 +98,7 @@ export default class viewSystemPanel extends React.Component {
         const { search } = this.state;
         return (
             <SearchBar
-                placeholder="Search By Business"
+                placeholder="Search By Date"
                 onChangeText={text => this.searchAction(text)}
                 autoCorrect={false}
                 value={search}
@@ -102,15 +107,15 @@ export default class viewSystemPanel extends React.Component {
         )
     }
     searchAction = (text) => {
-        const newData = this.state.systemsProcAll.filter(item => {
-            const itemData = `${item.data.name.toUpperCase()}`;
+        const newData = this.state.reportsProcAll.filter(item => {
+            const itemData = `${item.data.time_stamp.toUpperCase()}`;
             const textData = text.toUpperCase();
             return itemData.indexOf(textData) > -1;
 
         });
         //console.log(newData);
         this.setState({
-            systemsProc: newData,
+            reportsProc: newData,
             search: text
         });
 
@@ -118,32 +123,12 @@ export default class viewSystemPanel extends React.Component {
 
 
     renderItem = (item) => {
+        const link = 'https://1ab18b31c7bb.ngrok.io/' + this.state.compId + '/view-report/'+ item.id + '/' + item.data.token + '/public'
         return (
-            <TouchableOpacity onPress={() => this.goToSystemInfo(item.id)}>
+            <TouchableOpacity onPress={() => this.goToReportInfo(link)}>
                 <View key={item.id} style={styles.item}>
-                    <Text style={styles.textLightLg}>{item.data.name}</Text>
-                    { `${item.data.active}` == "yes" ?
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/power-green.png')}/> Active</Text>:
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/power-red.png')}/> Inactive</Text>
-                    }
-                    {`${item.data.tag}` == "Red" ?
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/tag-red.png')} /> Red</Text>:
-                    <></>
-                    }
-                    {`${item.data.tag}` == "Yellow" ?
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/tag-yellow.png')} /> Yellow</Text>:
-                    <></>
-                    }
-                    {`${item.data.tag}` == "White" ?
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/tag-white.png')} /> White</Text>:
-                    <></>
-                    }
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/gear-white.png')}/> {item.data.type}</Text>
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/user-green.png')}/> {item.data.owner}</Text>
-                    <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/map-blue.png')}/> {item.data.addr} {item.data.city} {item.data.state}</Text>
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/red-law.png')}/> {item.data.zone}</Text>
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/brand-comp-yellow.png')}/> {item.data.brand}</Text>
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/id.png')}/> #{item.id}</Text>
+                    <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-green.png')}/> {item.data.time_stamp}</Text>
+                    <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/certificate.png')}/> {item.data.cert}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -152,35 +137,40 @@ export default class viewSystemPanel extends React.Component {
     goToSystemInfo = (systemId: string) => {
         this.props.navigation.navigate('SystemInfoNav', {system: systemId});
       }
-
+    
+      goToReportInfo = (link: string) => {
+        this.props.navigation.navigate('reportWebviewPanelNav', {link: link});
+      }
 
 
 
     render() {
 
-
-
-
         const { search } = this.state;
+        const systemId: string = this.props.navigation.getParam('systemId', 'none');
 
-        const systemsRaw = this.state.systems;
+        this.state.systemId = systemId;
 
-        if (this.state.systems.length != 0) {
+        const reportsRaw = this.state.reports;
+
+        if (this.state.reports.length != 0) {
 
             if (!this.state.dataProc) {
-                var systems = [];
-                for (var key in systemsRaw) {
-                    var value = systemsRaw[key];
-                    systems.push({
+                var reports = [];
+                for (var key in reportsRaw) {
+                    var value = reportsRaw[key];
+                    reports.push({
                         data: value,
                         'id': `${key}`
                     });
                 }
-                this.state.systemsProc = systems;
-                this.state.systemsProcAll = systems;
+                this.state.reportsProc = reports;
+                this.state.reportsProcAll = reports;
                 this.state.dataProc = true;
             }
         }
+
+
         
         return (
             <View>
@@ -190,19 +180,19 @@ export default class viewSystemPanel extends React.Component {
                         <View style={styles.containerTop}>
 
                             <View style={styles.logoBox}>
-                                <TouchableOpacity onPress={this.goToHome}>
+                                <TouchableOpacity onPress={() => this.goToSystemInfo(this.state.systemId)}>
 
                                     <Image style={styles.tinyLogo} source={require('../assets/icons/back-arrow.png')} />
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.topBar}>
-                                <Text style={styles.dispNameText}>Systems</Text>
+                                <Text style={styles.dispNameText}>Reports</Text>
                             </View>
                         </View>
 
                         <FlatList
                             ListHeaderComponent={this.renderHeader}
-                            data={this.state.systemsProc}
+                            data={this.state.reportsProc}
                             style={styles.List}
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => this.renderItem(item)

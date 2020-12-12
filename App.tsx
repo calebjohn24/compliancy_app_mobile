@@ -11,6 +11,9 @@ import certificatesPanel from './screens/certificates'
 import editInfoPanel from './screens/editInfo'
 import viewSystemPanel from './screens/viewSystems'
 import systemInfoPanel from './screens/systemInfo'
+import viewReportsPanel from './screens/viewReports'
+import reportWebviewPanel from './screens/reportWebview'
+
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -168,6 +171,20 @@ const RootStack = createStackNavigator({
   },
   SystemInfoNav: {
     screen: systemInfoPanel,
+    navigationOptions: {
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  viewReportsNav: {
+    screen: viewReportsPanel,
+    navigationOptions: {
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  reportWebviewPanelNav: {
+    screen: reportWebviewPanel,
     navigationOptions: {
       headerShown: false,//this will hide the header
       cardStyle: { backgroundColor: '#242424' }

@@ -80,8 +80,8 @@ export default class systemInfoPanel extends React.Component {
         this.props.navigation.navigate('viewSystemPanelsNav');
     }
 
-    goToEditInfo = (changeType: string) => {
-        this.props.navigation.navigate('EditInfoNav', { changeType: changeType });
+    goToFindReports = (systemId:string) => {
+        this.props.navigation.navigate('viewReportsNav', {systemId: systemId});
     }
 
     render() {
@@ -127,7 +127,7 @@ export default class systemInfoPanel extends React.Component {
 
                                         <View style={styles.containerRow0}>
                                             <View style={styles.rowButton}>
-                                                <TouchableOpacity onPress={() => alert("test")}>
+                                                <TouchableOpacity onPress={() => this.goToFindReports(systemId)}>
                                                     <Image style={styles.buttonImgLg} source={require('../assets/icons/report-search.png')} />
                                                 </TouchableOpacity>
                                                 <TouchableOpacity onPress={() => alert("test")}>
