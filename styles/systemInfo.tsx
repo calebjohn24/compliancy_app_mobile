@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         marginHorizontal: 5,
-        marginTop:120,
+        marginTop:110,
         marginBottom:50
     },
 
@@ -141,6 +141,12 @@ const styles = StyleSheet.create({
     ImgSm: {
         width: 22,
         height: 22,
+        resizeMode: 'contain'
+    },
+    maxImg: {
+        marginHorizontal:10,
+        width: "95%",
+        height: 400,
         resizeMode: 'contain'
     }
 })

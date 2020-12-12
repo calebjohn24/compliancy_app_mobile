@@ -124,6 +124,18 @@ export default class viewSystemPanel extends React.Component {
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/power-green.png')}/> Active</Text>:
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/power-red.png')}/> Inactive</Text>
                     }
+                    {`${item.data.tag}` == "Red" ?
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/tag-red.png')} /> Red</Text>:
+                    <></>
+                    }
+                    {`${item.data.tag}` == "Yellow" ?
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/tag-yellow.png')} /> Yellow</Text>:
+                    <></>
+                    }
+                    {`${item.data.tag}` == "White" ?
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/tag-white.png')} /> White</Text>:
+                    <></>
+                    }
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/gear-white.png')}/> {item.data.type}</Text>
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/user-green.png')}/> {item.data.owner}</Text>
                     <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/map-blue.png')}/> {item.data.addr} {item.data.city} {item.data.state}</Text>
