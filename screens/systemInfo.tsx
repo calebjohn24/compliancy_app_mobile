@@ -80,8 +80,8 @@ export default class systemInfoPanel extends React.Component {
         this.props.navigation.navigate('viewSystemPanelsNav');
     }
 
-    goToFindReports = (systemId:string) => {
-        this.props.navigation.navigate('viewReportsNav', {systemId: systemId});
+    goToFindReports = (systemId: string) => {
+        this.props.navigation.navigate('viewReportsNav', { systemId: systemId });
     }
 
     render() {
@@ -118,8 +118,8 @@ export default class systemInfoPanel extends React.Component {
                         </View>
                         <ScrollView style={styles.scrollView}>
                             <View style={styles.container}>
-                                {`${systemInfo.type}` == "fire-hood"?
-                                <FireHoodModal systemInfo={systemInfo}/>:<></>
+                                {`${systemInfo.type}` == "fire-hood" ?
+                                    <FireHoodModal systemInfo={systemInfo} /> : <></>
                                 }
                                 {`${systemInfo.active}` == "yes" ?
                                     <>
@@ -161,11 +161,11 @@ export default class systemInfoPanel extends React.Component {
                                 <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/brand-comp-yellow.png')} /> {systemInfo.brand}</Text>
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-green.png')} /> Registered: {systemInfo.time_stamp}</Text>
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-red.png')} /> Inspected: {systemInfo.last_inspect}</Text>
-                                <TouchableOpacity onPress={() => Linking.openURL(systemInfo.drawing)}> 
-                                <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/camera-green.png')} /> Diagram/Photo</Text>
+                                <TouchableOpacity onPress={() => Linking.openURL(systemInfo.drawing)}>
+                                    <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/camera-green.png')} /> Diagram/Photo</Text>
                                 </TouchableOpacity>
                                 <Image style={styles.maxImg} source={{ uri: systemInfo.drawing }} />
-                                
+
                             </View>
 
 
