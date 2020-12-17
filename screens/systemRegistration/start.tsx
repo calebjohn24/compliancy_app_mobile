@@ -164,7 +164,7 @@ export default class systemRegStartPanel extends React.Component <ScreenProps, S
                 
                 for (var i in zonesRaw) {
                     zones.push({
-                        data: `${zonesRaw[i]}`,
+                        'data': `${zonesRaw[i]}`,
                         'id': `${i}`
                     });
                 }

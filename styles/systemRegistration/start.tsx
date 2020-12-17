@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     List: {
         marginTop:120,
-        marginBottom:10,
+        marginBottom:40,
         flexGrow: 1,
          
         marginHorizontal:20

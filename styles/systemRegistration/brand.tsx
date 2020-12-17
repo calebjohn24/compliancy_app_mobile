@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         marginBottom:5,
         marginTop:5,
-        height:90,
+        height:75,
         backgroundColor:"#313337",
         flex:1,
     },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     List: {
         marginTop:120,
-        marginBottom:50,
+        marginBottom:40,
         flexGrow: 1,
          
         marginHorizontal:20
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     },
     textLightLg: {
          fontWeight: "400",
-        fontSize: 22,
+        fontSize: 20,
         color: "white",
         textAlign: 'auto'
     },

@@ -4,17 +4,19 @@ import { Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import homePanel from '.././home'
 import RootStack from '../../App'
-import styles from '../../styles/systemRegistration/systemType'
+import styles from '../../styles/systemRegistration/brand'
 import LoadingIcon from '../../components/loading'
 import { SearchBar } from 'react-native-elements';
 
 
 interface ScreenState {
-    'systemId': any,
-    'zoneId': any,
-    'systemTypes': any,
-    'systemTypesProc': any
-    'systemTypesAll': any,
+    'systemId': string,
+    'zoneId': string,
+    'systemType': string,
+    'brands':any,
+    'certReq':any,
+    'brandsProc': any
+    'brandsAll': any,
     'compId': any,
     'spinner': boolean,
     'search': string,
@@ -25,16 +27,18 @@ interface ScreenProps {
     navigation: any
 }
 
-export default class systemRegSystemTypePanel extends React.Component<ScreenProps, ScreenState>{
+export default class systemRegBrandPanel extends React.Component<ScreenProps, ScreenState>{
 
     constructor(props: any) {
         super(props);
         this.state = {
             'systemId': '',
             'zoneId': '',
-            'systemTypes': {},
-            'systemTypesProc': {},
-            'systemTypesAll': {},
+            'systemType': '',
+            'brands':{},
+            'certReq':'yes',
+            'brandsProc': {},
+            'brandsAll': {},
             'compId': '',
             'spinner': true,
             'search': '',
@@ -50,9 +54,11 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
 
             const systemId: string = this.props.navigation.getParam('systemId', '');
             const zoneId: string = this.props.navigation.getParam('zoneId', '');
+            const systemType: string = this.props.navigation.getParam('systemType','');
+
             this.setState({
-                systemId: systemId,
-                zoneId: zoneId
+                systemId:systemId,
+                zoneId:zoneId
             })
             let compId = await SecureStore.getItemAsync('compId');
             let userId = await SecureStore.getItemAsync('id');
@@ -62,7 +68,7 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
 
             this.setState({ compId: compId })
 
-            return fetch('https://1dc7cb34e362.ngrok.io/api/reg_system/system_type', {
+            return fetch('https://1dc7cb34e362.ngrok.io/api/reg_system/brand', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -73,6 +79,7 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
                     userId: userId,
                     token: token,
                     systemId: systemId,
+                    systemType:systemType,
                     zoneId: zoneId,
                 }),
             })
@@ -80,7 +87,8 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
                 .then(responseJson => {
                     this.setState(
                         {
-                            systemTypes: responseJson.systemTypes,
+                            brands: responseJson.certs,
+                            certReq: responseJson.cert_req
                         }
                     );
                 })
@@ -115,15 +123,14 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
         )
     }
     searchAction = (text: string) => {
-        const newData = this.state.systemTypesAll.filter(item => {
-            const itemData = `${item.id.toUpperCase()}`;
+        const newData = this.state.brandsAll.filter(item => {
+            const itemData = `${item.data.toUpperCase()}`;
             const textData = text.toUpperCase();
             return itemData.indexOf(textData) > -1;
 
         });
-        //console.log(newData);
         this.setState({
-            systemTypesProc: newData,
+            brandsProc: newData,
             search: text
         });
 
@@ -132,12 +139,13 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
 
     renderItem = (item: any, systemId: string, zoneId: string) => {
         return (
-            <TouchableOpacity onPress={() => this.goToBrand(systemId, zoneId, item.id)}>
+
+            <TouchableOpacity onPress={() => alert(systemId + " " + zoneId)}>
                 <View key={item.id} style={styles.item}>
-                    <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../../assets/icons/gear-white.png')} /> {item.id}</Text>
-                    <Text style={styles.textLight}>{item.descrip}</Text>
+                    <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../../assets/icons/brand-blue.png')}/>  {item.data}</Text>
                 </View>
             </TouchableOpacity>
+
         );
     }
 
@@ -148,14 +156,13 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
         this.props.navigation.navigate('HomeNav');
     }
 
-    goToBrand = (systemId: string, zoneId: string, systemType: string) => {
-        this.props.navigation.navigate('systemRegBrandPanelNav', {
+    goToBrand = (systemId: string, zone_id: string) => {
+        this.props.navigation.navigate('systemRegPickSystemType', {
             systemId: systemId,
-            zoneId: zoneId,
-            systemType: systemType
+            zone_id: zone_id
         });
     }
-
+    
 
 
 
@@ -166,12 +173,21 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
 
         const { search } = this.state;
 
-        const systemTypesRaw = this.state.systemTypes;
+        const brandsRaw = this.state.brands;
+        var brands = [];
 
-        if (systemTypesRaw.length >= 1 && systemTypesRaw.length != undefined) {
+        if (brandsRaw.length >= 1 && brandsRaw.length != undefined) {
             if (!this.state.dataProc) {
-                this.setState({ systemTypesProc: systemTypesRaw })
-                this.setState({ systemTypesAll: systemTypesRaw })
+
+                for (var i in brandsRaw) {
+                    brands.push({
+                        'data': `${brandsRaw[i]}`,
+                        'id': `${i}`
+                    });
+                }
+
+                this.setState({ brandsProc: brands })
+                this.setState({ brandsAll: brands })
                 this.setState({ dataProc: true });
             }
         }
@@ -192,13 +208,13 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.topBar}>
-                                <Text style={styles.dispNameText}>Select System Type</Text>
+                                <Text style={styles.dispNameText}>Select System Brand</Text>
                             </View>
                         </View>
 
                         <FlatList
                             ListHeaderComponent={this.renderHeader}
-                            data={this.state.systemTypesProc}
+                            data={this.state.brandsProc}
                             style={styles.List}
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => this.renderItem(item, this.state.systemId, this.state.zoneId)

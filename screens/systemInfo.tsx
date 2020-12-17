@@ -32,7 +32,7 @@ export default class systemInfoPanel extends React.Component {
             let compId = await SecureStore.getItemAsync('compId');
             let userId = await SecureStore.getItemAsync('id');
             let token = await SecureStore.getItemAsync('token');
-            systemID = this.state.systemId;
+            const systemId: string = this.props.navigation.getParam('system', 'none');
             this.state.compId = compId;
 
 
@@ -46,7 +46,7 @@ export default class systemInfoPanel extends React.Component {
                     compId: compId,
                     userId: userId,
                     token: token,
-                    systemId: systemID
+                    systemId: systemId
                 }),
             })
                 .then(response => response.json())
@@ -61,6 +61,7 @@ export default class systemInfoPanel extends React.Component {
                     );
                 })
                 .catch(error => {
+                    console.log(error)
                     alert("Cannot Reach Server")
                 })
                 .finally(() => {
@@ -86,7 +87,7 @@ export default class systemInfoPanel extends React.Component {
 
     render() {
 
-        const systemId: string = this.props.navigation.getParam('system', 'none');
+        const systemId: string = this.props.navigation.getParam('system', '');
         this.state.systemId = systemId;
         var systemInfo = this.state.systemInfo;
         var tag;
@@ -111,7 +112,7 @@ export default class systemInfoPanel extends React.Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.topBar}>
-                                <Text style={styles.dispNameText}>System #{systemId}</Text>
+                                <Text style={styles.dispNameText}>System #{this.state.systemId}</Text>
                             </View>
 
 
@@ -162,7 +163,7 @@ export default class systemInfoPanel extends React.Component {
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-green.png')} /> Registered: {systemInfo.time_stamp}</Text>
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-red.png')} /> Inspected: {systemInfo.last_inspect}</Text>
                                 <TouchableOpacity onPress={() => Linking.openURL(systemInfo.drawing)}>
-                                    <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/camera-green.png')} /> Diagram/Photo</Text>
+                                    <Text style={styles.textLightSm}>Model: {systemInfo.model}</Text>
                                 </TouchableOpacity>
                                 <Image style={styles.maxImg} source={{ uri: systemInfo.drawing }} />
 
