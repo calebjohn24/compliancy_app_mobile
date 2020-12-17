@@ -82,6 +82,10 @@ export default class homePanel extends React.Component {
     this.props.navigation.navigate('viewSystemPanelsNav');
   }
 
+  goToRegSystems = () => {
+    this.props.navigation.navigate('systemRegStartPanelNav');
+  }
+
   render() {
     const logo = this.state.logo;
 
@@ -107,10 +111,10 @@ export default class homePanel extends React.Component {
         </View>
         <View style={styles.containerRow0}>
           <View style={styles.rowButton}>
-            <TouchableOpacity onPress={() => alert("test")}>
+            <TouchableOpacity onPress={this.goToRegSystems}>
               <Text style={styles.buttonText}>Register System</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert("test")}>
+            <TouchableOpacity onPress={this.goToRegSystems}>
               <Image style={styles.buttonImgLg} source={require('../assets/icons/system-add.png')} />
             </TouchableOpacity>
           </View>

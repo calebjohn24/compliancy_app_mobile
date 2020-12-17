@@ -197,7 +197,7 @@ export default class viewReportsPanel extends React.Component {
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => this.renderItem(item)
                             }
-                        />
+                        /> 
 
 
 

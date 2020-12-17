@@ -13,6 +13,8 @@ import viewSystemPanel from './screens/viewSystems'
 import systemInfoPanel from './screens/systemInfo'
 import viewReportsPanel from './screens/viewReports'
 import reportWebviewPanel from './screens/reportWebview'
+import systemRegStartPanel from './screens/systemRegistration/start';
+import systemRegSystemTypePanel from './screens/systemRegistration/systemType'
 
 
 import { createAppContainer } from 'react-navigation';
@@ -185,6 +187,20 @@ const RootStack = createStackNavigator({
   },
   reportWebviewPanelNav: {
     screen: reportWebviewPanel,
+    navigationOptions: {
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemRegStartPanelNav: {
+    screen: systemRegStartPanel,
+    navigationOptions: {
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemRegSystemTypePanelNav:{
+    screen: systemRegSystemTypePanel,
     navigationOptions: {
       headerShown: false,//this will hide the header
       cardStyle: { backgroundColor: '#242424' }
