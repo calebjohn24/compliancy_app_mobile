@@ -36,7 +36,7 @@ export default class systemInfoPanel extends React.Component {
             this.state.compId = compId;
 
 
-            return fetch('https://1dc7cb34e362.ngrok.io/api/system-info', {
+            return fetch('https://d1c62bb6557a.ngrok.io/api/system-info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -159,7 +159,7 @@ export default class systemInfoPanel extends React.Component {
                                 <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/user-green.png')} /> {systemInfo.owner}</Text>
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/mail.png')} /> {systemInfo.email}</Text>
                                 <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/phone-red.png')} /> {systemInfo.phone}</Text>
-                                <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/brand-comp-yellow.png')} /> {systemInfo.brand}</Text>
+                                <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/brand-blue.png')} /> {systemInfo.brand}</Text>
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-green.png')} /> Registered: {systemInfo.time_stamp}</Text>
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-red.png')} /> Inspected: {systemInfo.last_inspect}</Text>
                                 <TouchableOpacity onPress={() => Linking.openURL(systemInfo.drawing)}>

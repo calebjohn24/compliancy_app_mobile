@@ -37,7 +37,7 @@ export default class viewSystemPanel extends React.Component {
             let token = await SecureStore.getItemAsync('token');
             //var token = SecureStore.getItemAsync('token');
 
-            return fetch('https://1dc7cb34e362.ngrok.io/api/list-systems', {
+            return fetch('https://d1c62bb6557a.ngrok.io/api/list-systems', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -138,12 +138,14 @@ export default class viewSystemPanel extends React.Component {
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/tag-white.png')} /> White</Text>:
                     <></>
                     }
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/id.png')}/> #{item.id}</Text>
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/gear-white.png')}/> {item.data.type}</Text>
+
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/user-green.png')}/> {item.data.owner}</Text>
                     <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/map-blue.png')}/> {item.data.addr} {item.data.city} {item.data.state}</Text>
                     <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/red-law.png')}/> {item.data.zone}</Text>
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/brand-comp-yellow.png')}/> {item.data.brand}</Text>
-                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/id.png')}/> #{item.id}</Text>
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/brand-blue.png')}/> {item.data.brand}</Text>
+
                 </View>
             </TouchableOpacity>
         );

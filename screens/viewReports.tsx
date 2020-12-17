@@ -38,10 +38,11 @@ export default class viewReportsPanel extends React.Component {
             let userId = await SecureStore.getItemAsync('id');
             let token = await SecureStore.getItemAsync('token');
             //var token = SecureStore.getItemAsync('token');
-            const systemId = this.state.systemId;
+            const systemId: string = this.props.navigation.getParam('systemId', 'none');
+            this.state.systemId = systemId;
             this.state.compId = compId
 
-            return fetch('https://1dc7cb34e362.ngrok.io/api/view-reports', {
+            return fetch('https://d1c62bb6557a.ngrok.io/api/view-reports', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -123,9 +124,9 @@ export default class viewReportsPanel extends React.Component {
 
 
     renderItem = (item) => {
-        const link = 'https://1dc7cb34e362.ngrok.io/' + this.state.compId + '/view-report/'+ item.id + '/' + item.data.token + '/public'
+        const link = 'https://d1c62bb6557a.ngrok.io/' + this.state.compId + '/view-report/'+ item.id + '/' + item.data.token + '/public'
         return (
-            <TouchableOpacity onPress={() => this.goToReportInfo(link)}>
+            <TouchableOpacity onPress={() => this.goToReportInfo(link, this.state.systemId)}>
                 <View key={item.id} style={styles.item}>
                     <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-green.png')}/> {item.data.time_stamp}</Text>
                     <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/certificate.png')}/> {item.data.cert}</Text>
@@ -138,8 +139,8 @@ export default class viewReportsPanel extends React.Component {
         this.props.navigation.navigate('SystemInfoNav', {system: systemId});
       }
     
-      goToReportInfo = (link: string) => {
-        this.props.navigation.navigate('reportWebviewPanelNav', {link: link});
+      goToReportInfo = (link: string, systemId:string) => {
+        this.props.navigation.navigate('reportWebviewPanelNav', {link: link, system:systemId});
       }
 
 
@@ -147,9 +148,7 @@ export default class viewReportsPanel extends React.Component {
     render() {
 
         const { search } = this.state;
-        const systemId: string = this.props.navigation.getParam('systemId', 'none');
-
-        this.state.systemId = systemId;
+    
 
         const reportsRaw = this.state.reports;
 

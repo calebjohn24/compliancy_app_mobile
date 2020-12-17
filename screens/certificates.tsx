@@ -31,7 +31,7 @@ export default class certificatesPanel extends React.Component {
 
             this.state.compId = compId;
 
-            return fetch('https://1dc7cb34e362.ngrok.io/api/company-certs', {
+            return fetch('https://d1c62bb6557a.ngrok.io/api/company-certs', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

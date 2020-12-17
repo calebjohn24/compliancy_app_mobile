@@ -16,6 +16,7 @@ import reportWebviewPanel from './screens/reportWebview'
 import systemRegStartPanel from './screens/systemRegistration/start';
 import systemRegSystemTypePanel from './screens/systemRegistration/systemType'
 import systemRegBrandPanel from './screens/systemRegistration/brand'
+import systemRegLocationPanel from './screens/systemRegistration/systemLocation'
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -52,7 +53,7 @@ class authScreen extends React.Component {
       else{
 
 
-      return fetch('https://1dc7cb34e362.ngrok.io/api/check_user_token', {
+      return fetch('https://d1c62bb6557a.ngrok.io/api/check_user_token', {
       method: 'POST',
       headers: {
          Accept: 'application/json',
@@ -208,6 +209,13 @@ const RootStack = createStackNavigator({
   },
   systemRegBrandPanelNav:{
     screen: systemRegBrandPanel,
+    navigationOptions: {
+      headerShown: false,//this will hide the header
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemRegLocationPanelNav:{
+    screen: systemRegLocationPanel,
     navigationOptions: {
       headerShown: false,//this will hide the header
       cardStyle: { backgroundColor: '#242424' }
