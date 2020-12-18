@@ -138,9 +138,9 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
     }
 
 
-    renderItem = (item: any, systemId: string, zoneId: string) => {
+    renderItem = (item: any, systemId: string, zoneId: string, systemType: string) => {
         return (
-            <TouchableOpacity onPress={() => this.goToLocation(systemId,zoneId,item.data)}>
+            <TouchableOpacity onPress={() => this.goToLocation(systemId,zoneId,item.data, systemType)}>
                 <View key={item.id} style={styles.item}>
                     <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../../assets/icons/brand-blue.png')}/>  {item.data}</Text>
                 </View>
@@ -157,11 +157,12 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
         this.props.navigation.navigate('HomeNav');
     }
 
-    goToLocation = (systemId: string, zoneId: string, brand:string) => {
+    goToLocation = (systemId: string, zoneId: string, brand:string, systemType:string) => {
         this.props.navigation.navigate('systemRegLocationPanelNav', {
             systemId: systemId,
             zoneId: zoneId,
-            brand: brand
+            brand: brand,
+            systemType:systemType
         });
     }
     
@@ -217,7 +218,7 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
                             data={this.state.brandsProc}
                             style={styles.List}
                             keyExtractor={item => item.id}
-                            renderItem={({ item }) => this.renderItem(item, this.state.systemId, this.state.zoneId)
+                            renderItem={({ item }) => this.renderItem(item, this.state.systemId, this.state.zoneId, this.state.systemType)
                             }
                         />
 

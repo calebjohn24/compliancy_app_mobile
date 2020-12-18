@@ -19,9 +19,9 @@ interface ScreenState {
     'city': string,
     'state': string,
     'zipCode': string,
-    'success':boolean,
-    'long':any,
-    'lat':any
+    'success': boolean,
+    'long': number,
+    'lat': number
 };
 
 interface ScreenProps {
@@ -44,9 +44,9 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
             'city': '',
             'state': '',
             'zipCode': '',
-            'success':false,
-            'long':0.0,
-            'lat':0.0
+            'success': false,
+            'long': 0.0,
+            'lat': 0.0
         };
 
     }
@@ -71,7 +71,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
             let userId = await SecureStore.getItemAsync('id');
             let token = await SecureStore.getItemAsync('token');
 
-            
+
 
             this.setState({ compId: compId })
 
@@ -95,10 +95,10 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                     systemType: systemType,
                     zoneId: zoneId,
                     brand: brand,
-                    streetAddr:streetAddr,
-                    city:city,
-                    state:state,
-                    zipCode:zipCode
+                    streetAddr: streetAddr,
+                    city: city,
+                    state: state,
+                    zipCode: zipCode
                 }),
             })
                 .then(response => response.json())
@@ -107,7 +107,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                         {
                             success: responseJson.success,
                             lat: responseJson.lat,
-                            long:responseJson.long
+                            long: responseJson.long
                         }
                     );
                 })
@@ -116,11 +116,11 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                     alert("Cannot Reach Server")
                 })
                 .finally(() => {
-                    if(!this.state.success){
+                    if (!this.state.success) {
                         alert("Invalid Address Please Try Again");
                     }
-                    else{
-                        alert("Valid " + this.state.long + " " + this.state.lat);
+                    else {
+                        this.goToCustomInfo(systemId, zoneId, brand, streetAddr, city, state, zipCode, this.state.lat, this.state.long)
                     }
                 });
 
@@ -136,6 +136,20 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
 
     goToHome = () => {
         this.props.navigation.navigate('HomeNav');
+    }
+
+    goToCustomInfo = (systemId: string, zoneId: string, brand: string, streetAddr: string, city: string, state: string, zipCode: string, lat: number, long: number) => {
+        this.props.navigation.navigate('systemRegCustomInfoPanelNav', {
+            systemId: systemId,
+            zoneId: zoneId,
+            brand: brand,
+            streetAddr: streetAddr,
+            city: city,
+            state: state,
+            zipCode: zipCode,
+            lat: lat,
+            long: long
+        });
     }
 
 
@@ -201,7 +215,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                                         maxLength={2}
                                         onChangeText={text => this.setState({ state: text.toUpperCase() })}
                                         value={this.state.state.toUpperCase()}
-                                        
+
 
 
                                     />
