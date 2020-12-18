@@ -73,7 +73,7 @@ export default class loginScreen extends React.Component {
           <TextInput  
             style={styles.inputText}
             placeholder="Email..." 
-            placeholderTextColor="#FFFFFF"
+            placeholderTextColor="#969696"
             onChangeText={text => this.setState({email:text})}/>
         </View>
         <View style={styles.inputView} >
@@ -81,7 +81,7 @@ export default class loginScreen extends React.Component {
             secureTextEntry
             style={styles.inputText}
             placeholder="Password..." 
-            placeholderTextColor="#FFFFFF"
+            placeholderTextColor="#969696"
             onChangeText={text => this.setState({password:text})}/>
         </View>
         <TouchableOpacity>

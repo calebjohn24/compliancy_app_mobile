@@ -116,7 +116,7 @@ export default class editInfoPanel extends React.Component {
                         <TextInput
                             style={styles.inputText}
                             placeholder={changeTypeDispPlc}
-                            placeholderTextColor="#FFFFFF"
+                            placeholderTextColor="#969696"
                             onChangeText={text => this.setState({ newData: text })} />
                     </View>
                 </View>

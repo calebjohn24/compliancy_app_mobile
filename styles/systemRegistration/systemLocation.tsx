@@ -4,9 +4,8 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
 
     container: {
-        flex: 1,
-        marginTop: 20,
-        padding:10,
+        marginTop:110,
+        width:"100%",
         alignItems: 'center',
         justifyContent: 'center',
       },
@@ -21,8 +20,8 @@ const styles = StyleSheet.create({
         flex:1,
     },
     scrollView: {
-        marginHorizontal: 5,
-        marginTop:120
+        marginHorizontal: 10,
+        marginBottom:75
     },
 
     containerTop: {
@@ -150,7 +149,47 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         resizeMode: 'contain'
-    }
+    },
+    inputView: {
+        width: "95%",
+        backgroundColor: "#4d4d54",
+        borderRadius: 25,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
+    inputText: {
+        height: 30,
+        color: "white"
+    },
+    containerRowQuarter: {
+        flexDirection: 'row',
+        flex: 1,
+        marginVertical:10,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+
+    },
+    containerRowBtn: {
+        flexDirection: 'row',
+        flex: 1,
+        marginTop:20,
+        marginBottom:150,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+
+    },
+    changeBtn: {
+        width: "50%",
+        backgroundColor: "#00A878",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+    },
 })
 
 //Dark:#212126

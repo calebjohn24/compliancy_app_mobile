@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import homePanel from '.././home'
 import RootStack from '../../App'
@@ -13,14 +13,15 @@ interface ScreenState {
     'systemId': string,
     'zoneId': string,
     'systemType': string,
-    'brands': any,
-    'certReq': any,
-    'brandsProc': any
-    'brandsAll': any,
+    'brand': any,
     'compId': any,
-    'spinner': boolean,
-    'search': string,
-    'dataProc': boolean
+    'streetAddr': string,
+    'city': string,
+    'state': string,
+    'zipCode': string,
+    'success':boolean,
+    'long':any,
+    'lat':any
 };
 
 interface ScreenProps {
@@ -37,14 +38,15 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
             'systemId': '',
             'zoneId': '',
             'systemType': '',
-            'brands': {},
-            'certReq': 'yes',
-            'brandsProc': {},
-            'brandsAll': {},
+            'brand': '',
             'compId': '',
-            'spinner': true,
-            'search': '',
-            'dataProc': false
+            'streetAddr': '',
+            'city': '',
+            'state': '',
+            'zipCode': '',
+            'success':false,
+            'long':0.0,
+            'lat':0.0
         };
 
     }
@@ -57,20 +59,29 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
             const systemId: string = this.props.navigation.getParam('systemId', '');
             const zoneId: string = this.props.navigation.getParam('zoneId', '');
             const systemType: string = this.props.navigation.getParam('systemType', '');
+            const brand: string = this.props.navigation.getParam('brand', '')
 
             this.setState({
                 systemId: systemId,
-                zoneId: zoneId
+                zoneId: zoneId,
+                systemType: systemType,
+                brand: brand
             })
             let compId = await SecureStore.getItemAsync('compId');
             let userId = await SecureStore.getItemAsync('id');
             let token = await SecureStore.getItemAsync('token');
-            //var token = SecureStore.getItemAsync('token');
 
+            
 
             this.setState({ compId: compId })
 
-            return fetch('https://d1c62bb6557a.ngrok.io/api/reg_system/brand', {
+
+            const streetAddr = this.state.streetAddr;
+            const city = this.state.city;
+            const state = this.state.state;
+            const zipCode = this.state.zipCode;
+
+            return fetch('https://d1c62bb6557a.ngrok.io/api/reg_system/location_info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -83,22 +94,34 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                     systemId: systemId,
                     systemType: systemType,
                     zoneId: zoneId,
+                    brand: brand,
+                    streetAddr:streetAddr,
+                    city:city,
+                    state:state,
+                    zipCode:zipCode
                 }),
             })
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState(
                         {
-                            brands: responseJson.certs,
-                            certReq: responseJson.cert_req
+                            success: responseJson.success,
+                            lat: responseJson.lat,
+                            long:responseJson.long
                         }
                     );
                 })
                 .catch(error => {
+                    console.log(error)
                     alert("Cannot Reach Server")
                 })
                 .finally(() => {
-                    this.setState({ spinner: false });
+                    if(!this.state.success){
+                        alert("Invalid Address Please Try Again");
+                    }
+                    else{
+                        alert("Valid " + this.state.long + " " + this.state.lat);
+                    }
                 });
 
 
@@ -124,28 +147,94 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
 
             <View>
 
-                {this.state.spinner ? <LoadingIcon /> :
-                    <View>
 
-                        <View style={styles.containerTop}>
+                <View>
 
-                            <View style={styles.logoBox}>
-                                <TouchableOpacity onPress={this.goToHome}>
+                    <View style={styles.containerTop}>
 
-                                    <Image style={styles.tinyLogo} source={require('../../assets/icons/cancel-red.png')} />
+                        <View style={styles.logoBox}>
+                            <TouchableOpacity onPress={this.goToHome}>
+
+                                <Image style={styles.tinyLogo} source={require('../../assets/icons/cancel-red.png')} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.topBar}>
+                            <Text style={styles.dispNameText}>Enter System Address</Text>
+                        </View>
+                    </View>
+                    <View style={styles.container}>
+                        <ScrollView style={styles.scrollView}>
+
+                            <View style={styles.containerRowQuarter}>
+                                <Text style={styles.textLight}>Street</Text>
+                            </View>
+                            <View style={styles.containerRowQuarter}>
+                                <View style={styles.inputView}>
+                                    <TextInput style={styles.inputText}
+                                        dataDetectorTypes="address"
+                                        placeholder="Street Address..."
+                                        placeholderTextColor="#969696"
+                                        onChangeText={text => this.setState({ streetAddr: text })}
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.containerRowQuarter}>
+                                <Text style={styles.textLight}>City</Text>
+                            </View>
+                            <View style={styles.containerRowQuarter}>
+                                <View style={styles.inputView}>
+                                    <TextInput style={styles.inputText}
+                                        placeholder="City..."
+                                        placeholderTextColor="#969696"
+                                        onChangeText={text => this.setState({ city: text })}
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.containerRowQuarter}>
+                                <Text style={styles.textLight}>State</Text>
+                            </View>
+                            <View style={styles.containerRowQuarter}>
+                                <View style={styles.inputView}>
+                                    <TextInput style={styles.inputText}
+                                        placeholder="State 2 Char. Abbreviation.."
+                                        placeholderTextColor="#969696"
+                                        maxLength={2}
+                                        onChangeText={text => this.setState({ state: text.toUpperCase() })}
+                                        value={this.state.state.toUpperCase()}
+                                        
+
+
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.containerRowQuarter}>
+                                <Text style={styles.textLight}>Zip Code</Text>
+                            </View>
+                            <View style={styles.containerRowQuarter}>
+                                <View style={styles.inputView}>
+                                    <TextInput style={styles.inputText}
+                                        placeholder="Zip Code..."
+                                        placeholderTextColor="#969696"
+                                        keyboardType="numeric"
+                                        maxLength={5}
+                                        onChangeText={text => this.setState({ zipCode: text })}
+                                    />
+                                </View>
+                            </View>
+
+                            <View style={styles.containerRowBtn}>
+                                <TouchableOpacity onPress={() => this.uploadLocationInfo()} style={styles.changeBtn}>
+                                    <Text style={styles.textLight}>Next <Image style={styles.ImgMd} source={require('../../assets/icons/inline-nextarrow-white.png')} /></Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.topBar}>
-                                <Text style={styles.dispNameText}>System Address</Text>
-                            </View>
-                        </View>
-
-                        
 
 
 
 
+
+                        </ScrollView>
                     </View>
+                </View>
 
 
 
@@ -153,7 +242,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
 
 
 
-                }
+
 
 
 

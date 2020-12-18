@@ -58,7 +58,8 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
 
             this.setState({
                 systemId:systemId,
-                zoneId:zoneId
+                zoneId:zoneId,
+                systemType:systemType
             })
             let compId = await SecureStore.getItemAsync('compId');
             let userId = await SecureStore.getItemAsync('id');
@@ -164,8 +165,6 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
         });
     }
     
-
-
 
 
 
