@@ -162,14 +162,17 @@ const styles = StyleSheet.create({
     inputViewLg: {
         width: "95%",
         backgroundColor: "#4d4d54",
-        borderRadius: 25,
-        height: 100,
-        marginBottom: 20,
-        justifyContent: "center",
-        padding: 20
+        borderRadius: 20,
+        margin: 10,
+        height:90,
+        justifyContent: "flex-start",
+        paddingVertical:12,
+        paddingHorizontal:15,
+        borderBottomWidth: 1,
+
     },
     inputText: {
-        height: 30,
+        height: 70,
         color: "white"
     },
     containerRowQuarter: {

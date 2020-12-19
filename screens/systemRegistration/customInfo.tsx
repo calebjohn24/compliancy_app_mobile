@@ -83,7 +83,7 @@ export default class systemRegCustomInfoPanel extends React.Component<ScreenProp
 
         const systemId: string = this.props.navigation.getParam('systemId', '');
         const zoneId: string = this.props.navigation.getParam('zoneId', '');
-        const systemType: any = this.props.navigation.getParam('systemType', '');
+        const systemType: string = this.props.navigation.getParam('systemType', '');
         const brand: string = this.props.navigation.getParam('brand', '');
         const streetAddr: string = this.props.navigation.getParam('streetAddr', '');
         const city: string = this.props.navigation.getParam('city', '');
@@ -106,11 +106,18 @@ export default class systemRegCustomInfoPanel extends React.Component<ScreenProp
         ];
 
 
-        const questionComponents = [
-            {'fire-hood':<FireHoodQuestions systemInfo={systemInfo}/>}
-        ];
 
-        const renderComponent = questionComponents[systemType]
+        const questionComponents = [{'id':'fire-hood','element':<FireHoodQuestions systemInfo={systemInfo} navigation={this.props.navigation} />}];
+        
+        var renderComponent: JSX.Element = <></>;
+        for (var key in questionComponents) {
+            
+            
+            if(questionComponents[key]['id'] == systemType){
+                renderComponent = questionComponents[key]['element']
+            }
+
+        }
 
         return (
 

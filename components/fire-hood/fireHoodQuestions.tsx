@@ -14,7 +14,8 @@ interface ScreenState {
 };
 
 interface ScreenProps {
-    'systemInfo': any
+    'systemInfo': any,
+    'navigation':any
 }
 
 
@@ -101,6 +102,10 @@ export default class FireHoodQuestions extends React.Component<ScreenProps, Scre
                                 <TextInput style={styles.inputText}
                                     placeholder="Location of System In Building..."
                                     placeholderTextColor="#969696"
+                                    multiline={true}
+                                    blurOnSubmit={false}
+                                    numberOfLines={10}
+                                    textAlignVertical="top"
                                     onChangeText={text => this.setState({ location: text })}
                                 />
                             </View>
@@ -115,7 +120,6 @@ export default class FireHoodQuestions extends React.Component<ScreenProps, Scre
                                 <TextInput style={styles.inputText}
                                     placeholder="Model ID.."
                                     placeholderTextColor="#969696"
-                                    maxLength={2}
                                     onChangeText={text => this.setState({ model: text })}
     
                                 />
@@ -124,7 +128,7 @@ export default class FireHoodQuestions extends React.Component<ScreenProps, Scre
             
 
                         <View style={styles.containerRowBtn}>
-                            <TouchableOpacity onPress={() => this.uploadLocationInfo()} style={styles.changeBtn}>
+                            <TouchableOpacity onPress={() => this.addFireHoodInfo()} style={styles.changeBtn}>
                                 <Text style={styles.textLight}>Next <Image style={styles.ImgMd} source={require('../../assets/icons/inline-nextarrow-white.png')} /></Text>
                             </TouchableOpacity>
                         </View>

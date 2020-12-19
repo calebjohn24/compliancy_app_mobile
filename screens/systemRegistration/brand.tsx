@@ -61,6 +61,7 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
                 zoneId:zoneId,
                 systemType:systemType
             })
+            
             let compId = await SecureStore.getItemAsync('compId');
             let userId = await SecureStore.getItemAsync('id');
             let token = await SecureStore.getItemAsync('token');

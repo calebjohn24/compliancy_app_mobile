@@ -68,6 +68,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                 systemType: systemType,
                 brand: brand
             })
+            
             let compId = await SecureStore.getItemAsync('compId');
             let userId = await SecureStore.getItemAsync('id');
             let token = await SecureStore.getItemAsync('token');
@@ -122,7 +123,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                     }
                     else {
                         alert('valid')
-                        this.goToCustomInfo(systemId, zoneId, brand, streetAddr, city, state, zipCode, this.state.lat, this.state.long)
+                        this.goToCustomInfo(systemId, zoneId, systemType, brand, streetAddr, city, state, zipCode, this.state.lat, this.state.long)
                     }
                 });
 
@@ -140,9 +141,10 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
         this.props.navigation.navigate('HomeNav');
     }
 
-    goToCustomInfo = (systemId: string, zoneId: string, brand: string, streetAddr: string, city: string, state: string, zipCode: string, lat: number, long: number) => {
+    goToCustomInfo = (systemId: string, zoneId: string, systemType:string, brand: string, streetAddr: string, city: string, state: string, zipCode: string, lat: number, long: number) => {
         this.props.navigation.navigate('systemRegCustomInfoPanelNav', {
             systemId: systemId,
+            systemType:systemType,
             zoneId: zoneId,
             brand: brand,
             streetAddr: streetAddr,

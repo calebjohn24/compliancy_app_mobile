@@ -17,6 +17,7 @@ import systemRegStartPanel from './screens/systemRegistration/start';
 import systemRegSystemTypePanel from './screens/systemRegistration/systemType'
 import systemRegBrandPanel from './screens/systemRegistration/brand'
 import systemRegLocationPanel from './screens/systemRegistration/systemLocation'
+import systemRegCustomInfoPanel from './screens/systemRegistration/customInfo'
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -133,98 +134,105 @@ const RootStack = createStackNavigator({
   InfoNav: {
     screen: infoPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   HomeNav: {
     screen: homePanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   LoginNav: {
     screen: loginScreen,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     },
   },
   CertificateNav: {
     screen: certificatesPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   EditInfoNav: {
     screen: editInfoPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   viewSystemPanelsNav: {
     screen: viewSystemPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   SystemInfoNav: {
     screen: systemInfoPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   viewReportsNav: {
     screen: viewReportsPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   reportWebviewPanelNav: {
     screen: reportWebviewPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   systemRegStartPanelNav: {
     screen: systemRegStartPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   systemRegSystemTypePanelNav:{
     screen: systemRegSystemTypePanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   systemRegBrandPanelNav:{
     screen: systemRegBrandPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   systemRegLocationPanelNav:{
     screen: systemRegLocationPanel,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemRegCustomInfoPanelNav:{
+    screen: systemRegCustomInfoPanel,
+    navigationOptions: {
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   },
   auth: {
     screen: authScreen,
     navigationOptions: {
-      headerShown: false,//this will hide the header
+      headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
     }
   }

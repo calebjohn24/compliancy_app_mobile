@@ -149,6 +149,7 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
     }
 
     goToBrand = (systemId: string, zoneId: string, systemType: string) => {
+        
         this.props.navigation.navigate('systemRegBrandPanelNav', {
             systemId: systemId,
             zoneId: zoneId,
