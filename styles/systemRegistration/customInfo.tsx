@@ -159,6 +159,15 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         padding: 20
     },
+    inputViewLg: {
+        width: "95%",
+        backgroundColor: "#4d4d54",
+        borderRadius: 25,
+        height: 100,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
     inputText: {
         height: 30,
         color: "white"

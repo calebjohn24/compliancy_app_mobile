@@ -5,7 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import homePanel from '.././home'
 import RootStack from '../../App'
 import styles from '../../styles/systemRegistration/customInfo'
-import LoadingIcon from '../../components/loading'
+import FireHoodQuestions from '../../components/fire-hood/fireHoodQuestions'
 import { SearchBar } from 'react-native-elements';
 
 
@@ -22,7 +22,7 @@ interface ScreenState {
     'success': boolean,
     'long': number,
     'lat': number,
-    'spinner':boolean
+    'spinner': boolean
 };
 
 interface ScreenProps {
@@ -48,170 +48,15 @@ export default class systemRegCustomInfoPanel extends React.Component<ScreenProp
             'success': false,
             'long': 0.0,
             'lat': 0.0,
-            'spinner':true
+            'spinner': true
         };
 
     }
 
 
-    componentDidMount = async () => {
-
-        try {
-
-            const systemId: string = this.props.navigation.getParam('systemId', '');
-            const zoneId: string = this.props.navigation.getParam('zoneId', '');
-            const systemType: string = this.props.navigation.getParam('systemType', '');
-            const brand: string = this.props.navigation.getParam('brand', '')
-            const streetAddr:string = this.props.navigation.getParam('streetAddr', '')
-            const city = this.props.navigation.getParam('streetAddr', '')
-            const state = this.props.navigation.getParam('state', '')
-            const zipCode = this.props.navigation.getParam('zipCode', '')
-            const lat = this.props.navigation.getParam('lat', '')
-            const long = this.props.navigation.getParam('long', '')
-
-            this.setState({
-                systemId: systemId,
-                zoneId: zoneId,
-                systemType: systemType,
-                brand: brand
-            })
-            let compId = await SecureStore.getItemAsync('compId');
-            let userId = await SecureStore.getItemAsync('id');
-            let token = await SecureStore.getItemAsync('token');
 
 
 
-            this.setState({ compId: compId })
-
-
-
-            return fetch('https://d1c62bb6557a.ngrok.io/api/reg_system/location_info', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    compId: compId,
-                    userId: userId,
-                    token: token,
-                    systemId: systemId,
-                    systemType: systemType,
-                    zoneId: zoneId,
-                    brand: brand,
-                    streetAddr: streetAddr,
-                    city: city,
-                    state: state,
-                    zipCode: zipCode
-                }),
-            })
-                .then(response => response.json())
-                .then(responseJson => {
-                    this.setState(
-                        {
-                            success: responseJson.success,
-                            lat: responseJson.lat,
-                            long: responseJson.long
-                        }
-                    );
-                })
-                .catch(error => {
-                    console.log(error)
-                    alert("Cannot Reach Server")
-                })
-                .finally(() => {
-                    this.setState({spinner:false})
-                });
-
-
-
-
-        } catch (error) {
-            console.log(error)
-            alert("Cannot Reach Server")
-        }
-    }
-
-    uploadLocationInfo = async () => {
-
-        try {
-
-            const systemId: string = this.props.navigation.getParam('systemId', '');
-            const zoneId: string = this.props.navigation.getParam('zoneId', '');
-            const systemType: string = this.props.navigation.getParam('systemType', '');
-            const brand: string = this.props.navigation.getParam('brand', '')
-
-            this.setState({
-                systemId: systemId,
-                zoneId: zoneId,
-                systemType: systemType,
-                brand: brand
-            })
-            let compId = await SecureStore.getItemAsync('compId');
-            let userId = await SecureStore.getItemAsync('id');
-            let token = await SecureStore.getItemAsync('token');
-
-
-
-            this.setState({ compId: compId })
-
-
-            const streetAddr = this.state.streetAddr;
-            const city = this.state.city;
-            const state = this.state.state;
-            const zipCode = this.state.zipCode;
-
-            return fetch('https://d1c62bb6557a.ngrok.io/api/reg_system/location_info', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    compId: compId,
-                    userId: userId,
-                    token: token,
-                    systemId: systemId,
-                    systemType: systemType,
-                    zoneId: zoneId,
-                    brand: brand,
-                    streetAddr: streetAddr,
-                    city: city,
-                    state: state,
-                    zipCode: zipCode
-                }),
-            })
-                .then(response => response.json())
-                .then(responseJson => {
-                    this.setState(
-                        {
-                            success: responseJson.success,
-                            lat: responseJson.lat,
-                            long: responseJson.long
-                        }
-                    );
-                })
-                .catch(error => {
-                    console.log(error)
-                    alert("Cannot Reach Server")
-                })
-                .finally(() => {
-                    if (!this.state.success) {
-                        alert("Invalid Address Please Try Again");
-                    }
-                    else {
-                        this.goToCustomInfo(systemId, zoneId, brand, streetAddr, city, state, zipCode, this.state.lat, this.state.long)
-                    }
-                });
-
-
-
-
-        } catch (error) {
-            console.log(error)
-            alert("Cannot Reach Server")
-        }
-    }
 
 
     goToHome = () => {
@@ -236,6 +81,37 @@ export default class systemRegCustomInfoPanel extends React.Component<ScreenProp
 
     render() {
 
+        const systemId: string = this.props.navigation.getParam('systemId', '');
+        const zoneId: string = this.props.navigation.getParam('zoneId', '');
+        const systemType: any = this.props.navigation.getParam('systemType', '');
+        const brand: string = this.props.navigation.getParam('brand', '');
+        const streetAddr: string = this.props.navigation.getParam('streetAddr', '');
+        const city: string = this.props.navigation.getParam('city', '');
+        const state: string = this.props.navigation.getParam('state', '');
+        const zipCode: string = this.props.navigation.getParam('zipCode', '');
+        const lat: number = this.props.navigation.getParam('lat', '');
+        const long: number = this.props.navigation.getParam('long', '');
+
+        const systemInfo: any = [
+            {'systemId':systemId},
+            {'zoneId':zoneId},
+            {'systemType':systemType},
+            {'brand':brand},
+            {'streetAddr':streetAddr},
+            {'city':city},
+            {'state':state},
+            {'zipCode':zipCode},
+            {'lat':lat},
+            {'long':long}
+        ];
+
+
+        const questionComponents = [
+            {'fire-hood':<FireHoodQuestions systemInfo={systemInfo}/>}
+        ];
+
+        const renderComponent = questionComponents[systemType]
+
         return (
 
 
@@ -253,81 +129,10 @@ export default class systemRegCustomInfoPanel extends React.Component<ScreenProp
                             </TouchableOpacity>
                         </View>
                         <View style={styles.topBar}>
-                            <Text style={styles.dispNameText}>Enter System Address</Text>
+                            <Text style={styles.dispNameText}>Enter System Info</Text>
                         </View>
                     </View>
-                    <View style={styles.container}>
-                        <ScrollView style={styles.scrollView}>
-
-                            <View style={styles.containerRowQuarter}>
-                                <Text style={styles.textLight}>Street</Text>
-                            </View>
-                            <View style={styles.containerRowQuarter}>
-                                <View style={styles.inputView}>
-                                    <TextInput style={styles.inputText}
-                                        dataDetectorTypes="address"
-                                        placeholder="Street Address..."
-                                        placeholderTextColor="#969696"
-                                        onChangeText={text => this.setState({ streetAddr: text })}
-                                    />
-                                </View>
-                            </View>
-                            <View style={styles.containerRowQuarter}>
-                                <Text style={styles.textLight}>City</Text>
-                            </View>
-                            <View style={styles.containerRowQuarter}>
-                                <View style={styles.inputView}>
-                                    <TextInput style={styles.inputText}
-                                        placeholder="City..."
-                                        placeholderTextColor="#969696"
-                                        onChangeText={text => this.setState({ city: text })}
-                                    />
-                                </View>
-                            </View>
-                            <View style={styles.containerRowQuarter}>
-                                <Text style={styles.textLight}>State</Text>
-                            </View>
-                            <View style={styles.containerRowQuarter}>
-                                <View style={styles.inputView}>
-                                    <TextInput style={styles.inputText}
-                                        placeholder="State 2 Char. Abbreviation.."
-                                        placeholderTextColor="#969696"
-                                        maxLength={2}
-                                        onChangeText={text => this.setState({ state: text.toUpperCase() })}
-                                        value={this.state.state.toUpperCase()}
-
-
-
-                                    />
-                                </View>
-                            </View>
-                            <View style={styles.containerRowQuarter}>
-                                <Text style={styles.textLight}>Zip Code</Text>
-                            </View>
-                            <View style={styles.containerRowQuarter}>
-                                <View style={styles.inputView}>
-                                    <TextInput style={styles.inputText}
-                                        placeholder="Zip Code..."
-                                        placeholderTextColor="#969696"
-                                        keyboardType="numeric"
-                                        maxLength={5}
-                                        onChangeText={text => this.setState({ zipCode: text })}
-                                    />
-                                </View>
-                            </View>
-
-                            <View style={styles.containerRowBtn}>
-                                <TouchableOpacity onPress={() => this.uploadLocationInfo()} style={styles.changeBtn}>
-                                    <Text style={styles.textLight}>Next <Image style={styles.ImgMd} source={require('../../assets/icons/inline-nextarrow-white.png')} /></Text>
-                                </TouchableOpacity>
-                            </View>
-
-
-
-
-
-                        </ScrollView>
-                    </View>
+                    {renderComponent}
                 </View>
 
 

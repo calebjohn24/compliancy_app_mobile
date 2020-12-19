@@ -36,8 +36,8 @@ export default class FireHoodModal extends Component {
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={styles.textLightSm}>Burner <Image style={styles.ImgSm} source={require('../assets/icons/burner-white.png')} />:  <Text style={styles.textLight}>{systemInfo.burner}</Text></Text>
-                            <Text style={styles.textLightSm}>Location <Image style={styles.ImgSm} source={require('../assets/icons/floor-plan-white.png')} />:  <Text style={styles.textLight}>{systemInfo.location}</Text></Text>
+                            <Text style={styles.textLightSm}>Burner <Image style={styles.ImgSm} source={require('../../assets/icons/burner-white.png')} />:  <Text style={styles.textLight}>{systemInfo.burner}</Text></Text>
+                            <Text style={styles.textLightSm}>Location <Image style={styles.ImgSm} source={require('../../assets/icons/floor-plan-white.png')} />:  <Text style={styles.textLight}>{systemInfo.location}</Text></Text>
                             <TouchableHighlight
                             style={{backgroundColor:"#00A878", borderRadius:10, marginTop:25}}
                                 onPress={() => {
@@ -54,7 +54,7 @@ export default class FireHoodModal extends Component {
                     onPress={() => {
                         this.setModalVisible(true);
                     }}>
-                    <Text style={styles.textLightModal}><Image style={styles.ImgMd} source={require('../assets/icons/gear-white.png')} /> {systemInfo.type}</Text>
+                    <Text style={styles.textLightModal}><Image style={styles.ImgMd} source={require('../../assets/icons/gear-white.png')} /> {systemInfo.type}</Text>
                 </TouchableOpacity>
             </View>
         );

@@ -52,6 +52,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
     }
 
 
+
     uploadLocationInfo = async () => {
 
         try {
@@ -120,6 +121,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                         alert("Invalid Address Please Try Again");
                     }
                     else {
+                        alert('valid')
                         this.goToCustomInfo(systemId, zoneId, brand, streetAddr, city, state, zipCode, this.state.lat, this.state.long)
                     }
                 });

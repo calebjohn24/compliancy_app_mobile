@@ -9,7 +9,7 @@ import RootStack from '../App'
 import { FlatList } from 'react-native';
 import styles from '../styles/systemInfo'
 import LoadingIcon from '../components/loading'
-import FireHoodModal from '../components/fireHoodInfo'
+import FireHoodModal from '../components/fire-hood/fireHoodInfo'
 
 export default class systemInfoPanel extends React.Component {
 
