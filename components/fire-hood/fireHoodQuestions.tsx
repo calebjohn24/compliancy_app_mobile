@@ -44,22 +44,22 @@ export default class FireHoodQuestions extends React.Component<ScreenProps, Scre
 
 
         const systemInfoNew: any = [
-            {'systemId':systemInfo.systemId},
-            {'zoneId':systemInfo.zoneId},
+            {'systemId':systemInfo[0].systemId},
+            {'zoneId':systemInfo[1].zoneId},
             {'systemType':'fire-hood'},
-            {'brand':systemInfo.brand},
-            {'streetAddr':systemInfo.streetAddr},
-            {'city':systemInfo.city},
-            {'state':systemInfo.state},
-            {'zipCode':systemInfo.zipCode},
-            {'lat':systemInfo.lat},
-            {'long':systemInfo.long},
+            {'brand':systemInfo[3].brand},
+            {'streetAddr':systemInfo[4].streetAddr},
+            {'city':systemInfo[5].city},
+            {'state':systemInfo[6].state},
+            {'zipCode':systemInfo[7].zipCode},
+            {'lat':systemInfo[8].lat},
+            {'long':systemInfo[9].long},
             {'burner':burner},
             {'model':model},
             {'location':location}
         ];
 
-        this.props.navigation.navigate('systemRegBasicInfoPanelNav', {
+        this.props.navigation.navigate('systemRegInfoPanelNav', {
             systemInfo:systemInfoNew
         });
 
@@ -80,7 +80,7 @@ export default class FireHoodQuestions extends React.Component<ScreenProps, Scre
                     <ScrollView style={styles.scrollView}>
 
                         <View style={styles.containerRowQuarter}>
-                            <Text style={styles.textLight}>Burners</Text>
+                            <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../../assets/icons/burner-white.png')}/> Burners</Text>
                         </View>
                         <View style={styles.containerRowQuarter}>
                             <View style={styles.inputView}>
@@ -95,12 +95,12 @@ export default class FireHoodQuestions extends React.Component<ScreenProps, Scre
 
 
                         <View style={styles.containerRowQuarter}>
-                            <Text style={styles.textLight}>Location</Text>
+                            <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../../assets/icons/floor-plan-white.png')}/> Location</Text>
                         </View>
                         <View style={styles.containerRowQuarter}>
                             <View style={styles.inputViewLg}>
                                 <TextInput style={styles.inputText}
-                                    placeholder="Location of System In Building..."
+                                    placeholder="Location of System in Building..."
                                     placeholderTextColor="#969696"
                                     multiline={true}
                                     blurOnSubmit={false}
@@ -113,12 +113,13 @@ export default class FireHoodQuestions extends React.Component<ScreenProps, Scre
 
 
                         <View style={styles.containerRowQuarter}>
-                            <Text style={styles.textLight}>Model ID</Text>
+                            <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../../assets/icons/tag-white.png')}/> Model ID</Text>
                         </View>
                         <View style={styles.containerRowQuarter}>
                             <View style={styles.inputView}>
                                 <TextInput style={styles.inputText}
                                     placeholder="Model ID.."
+                                    autoCapitalize="none"
                                     placeholderTextColor="#969696"
                                     onChangeText={text => this.setState({ model: text })}
     

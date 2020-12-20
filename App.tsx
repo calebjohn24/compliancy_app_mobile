@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { View } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 
 
@@ -18,6 +18,8 @@ import systemRegSystemTypePanel from './screens/systemRegistration/systemType'
 import systemRegBrandPanel from './screens/systemRegistration/brand'
 import systemRegLocationPanel from './screens/systemRegistration/systemLocation'
 import systemRegCustomInfoPanel from './screens/systemRegistration/customInfo'
+import systemRegInfoPanel from './screens/systemRegistration/systemInfo'
+import systemRegDiagramUploadPanel from './screens/systemRegistration/uploadDiagram'
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -89,7 +91,7 @@ class authScreen extends React.Component {
           }
         );
       })
-      .catch(error => {
+      .catch(() => {
         this.props.navigation.navigate('LoginNav');
       });
 
@@ -122,13 +124,6 @@ class authScreen extends React.Component {
   }
 }
 
-const MyTheme = {
-  dark: true,
-  colors: {
-    background: 'rgb(0, 0, 0)',
-
-  },
-};
 
 const RootStack = createStackNavigator({
   InfoNav: {
@@ -224,6 +219,20 @@ const RootStack = createStackNavigator({
   },
   systemRegCustomInfoPanelNav:{
     screen: systemRegCustomInfoPanel,
+    navigationOptions: {
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemRegInfoPanelNav:{
+    screen: systemRegInfoPanel,
+    navigationOptions: {
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemRegDiagramUploadPanelNav:{
+    screen:systemRegDiagramUploadPanel,
     navigationOptions: {
       headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
