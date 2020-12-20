@@ -217,6 +217,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                                         placeholder="State 2 Char. Abbreviation.."
                                         placeholderTextColor="#969696"
                                         maxLength={2}
+                                        autoCapitalize="characters"
                                         onChangeText={text => this.setState({ state: text.toUpperCase() })}
                                         value={this.state.state.toUpperCase()}
 

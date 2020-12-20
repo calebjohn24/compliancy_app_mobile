@@ -1,13 +1,14 @@
-import {StyleSheet} from 'react-native';
-
+import {StyleSheet, Dimensions} from 'react-native';
+const { width: winWidth, height: winHeight } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
 
     container: {
-        marginTop:110,
+        marginTop:80,
         width:"100%",
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor:"white"
       },
       item:{
         padding:10,
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
     containerRowQuarter: {
         flexDirection: 'row',
         flex: 1,
-        marginVertical:10,
+        marginVertical:5,
         alignItems: 'center',
         justifyContent: 'center',
 
@@ -201,6 +202,17 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: "center",
         justifyContent: "center",
+    },
+    preview: {
+        height: "90%",
+        width: '95%',
+        borderRadius:15,
+        alignContent:'center',
+        justifyContent:'center',
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom:0,
     },
 })
 

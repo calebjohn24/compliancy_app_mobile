@@ -7,11 +7,14 @@ import RootStack from '../../App'
 import styles from '../../styles/systemRegistration/uploadDiagram'
 import LoadingIcon from '../../components/loading'
 import { SearchBar } from 'react-native-elements';
+import { Camera, getPermissionsAsync} from 'expo-camera';
 
 
 interface ScreenState {
     'compId': any,
     'systemInfo':any,
+    'hasCameraPermission': any,
+    'camera':any
 };
 
 interface ScreenProps {
@@ -27,27 +30,37 @@ export default class systemRegDiagramUploadPanel extends React.Component<ScreenP
         this.state = {
             'compId': '',
             'systemInfo':{},
+            'hasCameraPermission': null,
+            'camera':null
         };
 
     }
 
-    componentDidMount = () =>{
-
-        var systemInfo:any = this.props.navigation.getParam('systemInfo', {});
-        this.setState({systemInfo:systemInfo});
-
-
-
-    }
 
     goToHome = () => {
         this.props.navigation.navigate('HomeNav');
     }
 
+    camera = null;
+
+
+    async componentDidMount() {
+        var systemInfo:any = this.props.navigation.getParam('systemInfo', {});
+        this.setState({systemInfo:systemInfo});
+
+        const camera = await Camera.requestPermissionsAsync();
+
+        const hasCameraPermission = (camera.status === 'granted');
+
+        this.setState({ hasCameraPermission:hasCameraPermission });
+        this.setState({camera:camera});
+    };
+
 
 
 
     render() {
+
 
         return (
 
@@ -70,16 +83,24 @@ export default class systemRegDiagramUploadPanel extends React.Component<ScreenP
                         </View>
                     </View>
                     <View style={styles.container}>
-                        <ScrollView style={styles.scrollView}>
+                        
+
+                            { `${this.state.hasCameraPermission}` ?
+
+                                    <Camera
+                                    style={styles.preview}
+                                    ref={camera => this.state.camera}
+                                    />:
+                                    <Text style={styles.textBold}>Camera Denied Permission</Text>
 
 
-
-
-
-
-
-                        </ScrollView>
+                            }
+                        
+                        <View style={styles.containerRowQuarter}>
+                                <TouchableOpacity ><Image style={styles.ImgLg} source={require('../../assets/icons/company-red.png')}/></TouchableOpacity>
+                            </View>
                     </View>
+                    
                 </View>
 
 
