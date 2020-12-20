@@ -191,6 +191,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                                     <TextInput style={styles.inputText}
                                         dataDetectorTypes="address"
                                         placeholder="Street Address..."
+                                        autoCapitalize="words"
                                         placeholderTextColor="#969696"
                                         onChangeText={text => this.setState({ streetAddr: text })}
                                     />
@@ -203,6 +204,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                                 <View style={styles.inputView}>
                                     <TextInput style={styles.inputText}
                                         placeholder="City..."
+                                        autoCapitalize="words"
                                         placeholderTextColor="#969696"
                                         onChangeText={text => this.setState({ city: text })}
                                     />

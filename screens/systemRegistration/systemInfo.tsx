@@ -110,7 +110,7 @@ export default class systemRegInfoPanel extends React.Component<ScreenProps, Scr
                                 <View style={styles.inputView}>
                                     <TextInput style={styles.inputText}
                                         placeholder="Business Name..."
-                                        autoCapitalize="words"
+                                        autoCapitalize="characters"
                                         placeholderTextColor="#969696"
                                         onChangeText={text => this.setState({ name: text })}
                                     />

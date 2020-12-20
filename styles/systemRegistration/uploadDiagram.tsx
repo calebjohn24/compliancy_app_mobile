@@ -4,11 +4,10 @@ const { width: winWidth, height: winHeight } = Dimensions.get('window');
 const styles = StyleSheet.create({
 
     container: {
-        marginTop:80,
+        marginTop:100,
         width:"100%",
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor:"white"
+        justifyContent: 'center'
       },
       item:{
         padding:10,
@@ -128,9 +127,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonImgLg: {
-        margin: 20,
-        width: 80,
-        height: 80,
+        width: 90,
+        height: 90,
         resizeMode: 'contain'
     },
     buttonImgSm: {
@@ -140,10 +138,10 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     ImgLg: {
-
-        width: 30,
-        height: 30,
-        resizeMode: 'contain'
+        width: 60,
+        height: 60,
+        resizeMode: 'contain',
+        marginHorizontal:30
     },
     ImgMd: {
 
@@ -179,11 +177,9 @@ const styles = StyleSheet.create({
     containerRowQuarter: {
         flexDirection: 'row',
         flex: 1,
-        marginVertical:5,
+        marginVertical:10,
         alignItems: 'center',
         justifyContent: 'center',
-
-
     },
     containerRowBtn: {
         flexDirection: 'row',
@@ -209,10 +205,7 @@ const styles = StyleSheet.create({
         borderRadius:15,
         alignContent:'center',
         justifyContent:'center',
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom:0,
+        bottom:20
     },
 })
 

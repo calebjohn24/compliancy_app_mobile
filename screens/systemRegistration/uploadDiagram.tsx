@@ -14,7 +14,9 @@ interface ScreenState {
     'compId': any,
     'systemInfo':any,
     'hasCameraPermission': any,
-    'camera':any
+    'flashMode':any,
+    'capturing': any
+    'captures': any,
 };
 
 interface ScreenProps {
@@ -23,15 +25,20 @@ interface ScreenProps {
 
 
 export default class systemRegDiagramUploadPanel extends React.Component<ScreenProps, ScreenState>{
+    camera!: Camera | null;
 
 
     constructor(props: any) {
         super(props);
+
+
         this.state = {
             'compId': '',
             'systemInfo':{},
             'hasCameraPermission': null,
-            'camera':null
+            'flashMode': Camera.Constants.FlashMode.auto,
+            'capturing': null,
+            'captures': [],
         };
 
     }
@@ -41,7 +48,33 @@ export default class systemRegDiagramUploadPanel extends React.Component<ScreenP
         this.props.navigation.navigate('HomeNav');
     }
 
-    camera = null;
+    setFlashMode = (flashMode:any) => this.setState({ flashMode });
+
+
+    takePicture = async() => {
+        if (this.camera) {
+          const options = { quality: 0.5, base64: true };
+          const data:any = await this.camera.takePictureAsync(options)
+            .then(async (data: { uri: string; }) => {
+              console.log('data uri:' + data.uri);
+                var formData = new FormData();  
+                formData.append('file', {  
+                    uri: data.uri,
+                    name: 'file',
+                    type: 'image/jpg'
+                })
+              
+                return await fetch('http://example.com/upload.php', {
+                  method: 'POST',
+                  body: formData,
+                  headers: {
+                    'content-type': 'multipart/form-data',
+                  },
+                });
+            });
+        }
+      };
+
 
 
     async componentDidMount() {
@@ -53,7 +86,7 @@ export default class systemRegDiagramUploadPanel extends React.Component<ScreenP
         const hasCameraPermission = (camera.status === 'granted');
 
         this.setState({ hasCameraPermission:hasCameraPermission });
-        this.setState({camera:camera});
+        
     };
 
 
@@ -61,6 +94,10 @@ export default class systemRegDiagramUploadPanel extends React.Component<ScreenP
 
     render() {
 
+        var flashMode = this.state.flashMode;
+        console.log(flashMode)
+
+        
 
         return (
 
@@ -82,6 +119,7 @@ export default class systemRegDiagramUploadPanel extends React.Component<ScreenP
                             <Text style={styles.dispNameText}>Upload Diagram/Photo</Text>
                         </View>
                     </View>
+
                     <View style={styles.container}>
                         
 
@@ -89,7 +127,10 @@ export default class systemRegDiagramUploadPanel extends React.Component<ScreenP
 
                                     <Camera
                                     style={styles.preview}
-                                    ref={camera => this.state.camera}
+                                    ref={ref => {
+                                        this.camera = ref;
+                                      }}
+                                    flashMode={flashMode}
                                     />:
                                     <Text style={styles.textBold}>Camera Denied Permission</Text>
 
@@ -97,7 +138,9 @@ export default class systemRegDiagramUploadPanel extends React.Component<ScreenP
                             }
                         
                         <View style={styles.containerRowQuarter}>
-                                <TouchableOpacity ><Image style={styles.ImgLg} source={require('../../assets/icons/company-red.png')}/></TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.setState({flashMode:Camera.Constants.FlashMode.torch})}><Image style={styles.ImgLg} source={require('../../assets/icons/flash-on-white.png')}/></TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.takePicture()}><Image style={styles.ImgLg} source={require('../../assets/icons/camera-green.png')}/></TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.setState({flashMode:Camera.Constants.FlashMode.off})}  ><Image style={styles.ImgLg} source={require('../../assets/icons/flash-off-white.png')}/></TouchableOpacity>
                             </View>
                     </View>
                     
