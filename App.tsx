@@ -20,6 +20,8 @@ import systemRegLocationPanel from './screens/systemRegistration/systemLocation'
 import systemRegCustomInfoPanel from './screens/systemRegistration/customInfo'
 import systemRegInfoPanel from './screens/systemRegistration/systemInfo'
 import systemRegDiagramUploadPanel from './screens/systemRegistration/uploadDiagram'
+import systemRegDiagramPreviewPanel from './screens/systemRegistration/previewDiagram'
+import systemPreviewPanel from './screens/systemRegistration/previewSystem'
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -233,6 +235,20 @@ const RootStack = createStackNavigator({
   },
   systemRegDiagramUploadPanelNav:{
     screen:systemRegDiagramUploadPanel,
+    navigationOptions: {
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemRegDiagramPreviewPanelNav:{
+    screen:systemRegDiagramPreviewPanel,
+    navigationOptions: {
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemPreviewPanelNav:{
+    screen:systemPreviewPanel,
     navigationOptions: {
       headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }

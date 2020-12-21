@@ -4,7 +4,7 @@ const { width: winWidth, height: winHeight } = Dimensions.get('window');
 const styles = StyleSheet.create({
 
     container: {
-        marginTop:100,
+        marginTop:80,
         width:"100%",
         alignItems: 'center',
         justifyContent: 'center'
@@ -141,12 +141,18 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         resizeMode: 'contain',
-        marginHorizontal:30
+        marginHorizontal:70
     },
     ImgMd: {
 
         width: 20,
         height: 20,
+        resizeMode: 'contain'
+    },
+
+    ImgPreview: {
+        width: "90%",
+        height: "90%",
         resizeMode: 'contain'
     },
     inputView: {
@@ -177,7 +183,7 @@ const styles = StyleSheet.create({
     containerRowQuarter: {
         flexDirection: 'row',
         flex: 1,
-        marginVertical:10,
+        marginVertical:15,
         alignItems: 'center',
         justifyContent: 'center',
     },
