@@ -36,6 +36,7 @@ export default class FireHoodModal extends Component {
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
+                        <Text style={styles.textLightSm}>Model <Image style={styles.ImgSm} source={require('../../assets/icons/tag-white.png')} />:  <Text style={styles.textLight}>{systemInfo.model}</Text></Text>
                             <Text style={styles.textLightSm}>Burner <Image style={styles.ImgSm} source={require('../../assets/icons/burner-white.png')} />:  <Text style={styles.textLight}>{systemInfo.burner}</Text></Text>
                             <Text style={styles.textLightSm}>Location <Image style={styles.ImgSm} source={require('../../assets/icons/floor-plan-white.png')} />:  <Text style={styles.textLight}>{systemInfo.location}</Text></Text>
                             <TouchableHighlight

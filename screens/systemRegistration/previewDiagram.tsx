@@ -17,7 +17,8 @@ interface ScreenState {
     'flashMode':any,
     'capturing': any
     'captures': any,
-    'success':boolean
+    'success':boolean,
+    'spinner':boolean
 };
 
 interface ScreenProps {
@@ -40,7 +41,8 @@ export default class systemRegDiagramPreviewPanel extends React.Component<Screen
             'flashMode': Camera.Constants.FlashMode.auto,
             'capturing': null,
             'captures': [],
-            'success':false
+            'success':false,
+            'spinner':false
         };
 
     }
@@ -69,7 +71,8 @@ export default class systemRegDiagramPreviewPanel extends React.Component<Screen
         });
     }
 
-    goToSystemPreview = async (localUri:any) => {
+    goToRegConfirm = async (localUri:any) => {
+        this.setState({spinner:true})
 
         var systemInfo:any = this.props.navigation.getParam('systemInfo', {});
 
@@ -96,7 +99,7 @@ export default class systemRegDiagramPreviewPanel extends React.Component<Screen
 
         
 
-        return fetch('https://d1c62bb6557a.ngrok.io/api/reg_system/system_upload', {
+        return fetch('https://e2efd4cadad6.ngrok.io/api/reg_system/system_upload', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -112,7 +115,9 @@ export default class systemRegDiagramPreviewPanel extends React.Component<Screen
                     },
                      () => {
                         if (responseJson.success == true) {
-                            this.props.navigation.navigate('systemPreviewPanelNav');
+                            this.props.navigation.navigate('systemPreviewPanelNav',{
+                                systemInfo:systemInfo
+                            });
 
                         }
                         else {
@@ -145,7 +150,7 @@ export default class systemRegDiagramPreviewPanel extends React.Component<Screen
 
             <View>
 
-
+                {this.state.spinner ? <LoadingIcon /> :
                 <View>
 
                     <View style={styles.containerTop}>
@@ -168,13 +173,14 @@ export default class systemRegDiagramPreviewPanel extends React.Component<Screen
 
                     <View style={styles.containerRowQuarter}>
                     <TouchableOpacity onPress={() => this.retryPhoto()}  ><Image style={styles.ImgLg} source={require('../../assets/icons/red-retry.png')}/></TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.goToSystemPreview(imgUri)}  ><Image style={styles.ImgLg} source={require('../../assets/icons/check-noFill-green.png')}/></TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.goToRegConfirm(imgUri)}  ><Image style={styles.ImgLg} source={require('../../assets/icons/check-noFill-green.png')}/></TouchableOpacity>
                     </View>
                         
 
                     </View>
                     
                 </View>
+                }
 
 
 

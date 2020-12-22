@@ -58,7 +58,7 @@ class authScreen extends React.Component {
       else{
 
 
-      return fetch('https://d1c62bb6557a.ngrok.io/api/check_user_token', {
+      return fetch('https://e2efd4cadad6.ngrok.io/api/check_user_token', {
       method: 'POST',
       headers: {
          Accept: 'application/json',

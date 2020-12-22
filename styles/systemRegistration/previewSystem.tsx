@@ -5,6 +5,8 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'flex-start',
         justifyContent: 'center',
+        marginTop:10,
+        marginBottom:50
     },
     scrollView: {
         marginHorizontal: 5,
@@ -21,11 +23,10 @@ const styles = StyleSheet.create({
         marginTop:15
     },
     containerRow0: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        flex: 1,
-        marginLeft:10
+        justifyContent: 'center',
+        alignItems: 'center',
+        height:60,
+        marginBottom:50,
       },
       rowButton: {
         flex: 1,
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     },
 
     logoBox: {
-        flex: 0.25,
+        flex: 0.18,
         height: 130,
         justifyContent: 'center',
         alignItems: 'flex-start'
@@ -68,20 +69,23 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 18,
         color: "white",
-        margin: 10,
-        textAlign: 'left'
+        marginVertical: 15,
+        marginHorizontal:25,
+        textAlign: 'center'
     },
     textLight: {
          fontWeight: "400",
-        fontSize: 20,
+        fontSize: 18,
         color: "white",
-        margin: 25,
-        textAlign: 'auto'
+        marginVertical: 25,
+        marginHorizontal:25,
+        textAlign: 'center'
     },
     textLightSm: {
          fontWeight: "400",
         fontSize: 18,
-        margin: 25,
+        marginVertical: 25,
+        marginHorizontal:25,
         color: "white",
         textAlign: 'auto'
     },
@@ -89,7 +93,8 @@ const styles = StyleSheet.create({
          fontWeight: "400",
         fontSize: 24,
         color: "white",
-        margin: 25,
+        marginVertical: 30,
+        marginHorizontal:25,
         textAlign: 'auto'
     },
     buttonText: {
@@ -127,7 +132,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     ImgLg: {
-
         width: 32,
         height: 32,
         resizeMode: 'contain'
