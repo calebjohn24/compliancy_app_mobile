@@ -25,7 +25,7 @@ import systemRegDiagramPreviewPanel from './screens/systemRegistration/previewDi
 import systemPreviewPanel from './screens/systemRegistration/previewSystem'
 
 import systemInspectListFormsPanel from './screens/systemInspection/selectForm'
-
+import systemInspectQuestionPanel from './screens/systemInspection/formQuestion'
 
 
 import { createAppContainer } from 'react-navigation';
@@ -261,6 +261,13 @@ const RootStack = createStackNavigator({
   },
   systemInspectListFormsPanelNav:{
     screen:systemInspectListFormsPanel,
+    navigationOptions: {
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemInspectQuestionPanelNav:{
+    screen:systemInspectQuestionPanel,
     navigationOptions: {
       headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }

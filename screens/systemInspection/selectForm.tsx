@@ -81,6 +81,7 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
                     this.setState(
                         {
                             forms: responseJson.forms,
+                            zoneId:responseJson.zone
                         }
                     );
                 })
@@ -115,8 +116,8 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
         )
     }
     searchAction = (text: string) => {
-        const newData = this.state.formsAll.filter((item: { id: string; }) => {
-            const itemData = `${item.id.toUpperCase()}`;
+        const newData = this.state.formsAll.filter((item:any) => {
+            const itemData = `${item.data.name.toUpperCase()}`;
             const textData = text.toUpperCase();
             return itemData.indexOf(textData) > -1;
 
@@ -132,7 +133,7 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
 
     renderItem = (item: any) => {
         return (
-            <TouchableOpacity onPress={() => alert('test')}>
+            <TouchableOpacity onPress={() => this.goToForm(item.id)}>
                 <View key={item.id} style={styles.item}>
                     <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../../assets/icons/form-green.png')} /> {item.data.name}</Text>
                     <Text style={styles.textLight}>{item.data.descrip}</Text>
@@ -144,9 +145,21 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
 
 
 
-    goToSystemInfo = (systemId: string) => {
-        this.props.navigation.navigate('SystemInfoNav', {system: systemId});
+    goToSystemInfo = () => {
+        this.props.navigation.navigate('SystemInfoNav', {system: this.state.systemId});
       }
+    
+
+    goToForm = (formId:string) => {
+        this.props.navigation.navigate('systemInspectQuestionPanelNav', {
+            systemId: this.state.systemId,
+            zoneId:this.state.zoneId,
+            formId: formId,
+            formIndex:0
+        });
+      }
+
+    
 
 
 
@@ -165,8 +178,6 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
 
         if (formsRaw.length != 0) {
             if (!this.state.dataProc) {
-
-                console.log('----')
 
                 var forms = [];
                 for (var key in formsRaw) {
@@ -195,7 +206,7 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
                         <View style={styles.containerTop}>
 
                             <View style={styles.logoBox}>
-                                <TouchableOpacity onPress={() => this.goToSystemInfo(this.state.systemId)}>
+                                <TouchableOpacity onPress={() => this.goToSystemInfo()}>
 
                                     <Image style={styles.tinyLogo} source={require('../../assets/icons/cancel-red.png')} />
                                 </TouchableOpacity>
