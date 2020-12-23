@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     scrollView: {
         marginHorizontal: 5,
         marginTop:120,
-        backgroundColor:'#000000'
+        
     },
 
     containerTop: {
@@ -38,9 +38,15 @@ const styles = StyleSheet.create({
         
         
     },
-
+    containerQuestion: {
+        height:150,
+        marginVertical:10,
+        marginHorizontal:10,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
     logoBox: {
-        flex: 0.15,
+        flex: 0.35,
         height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -61,9 +67,8 @@ const styles = StyleSheet.create({
     },
     textBold: {
         fontWeight: "bold",
-        fontSize: 18,
+        fontSize: 20,
         color: "white",
-        textAlign: 'left'
     },
     textLight: {
          fontWeight: "400",

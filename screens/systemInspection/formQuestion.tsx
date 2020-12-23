@@ -3,8 +3,9 @@ import React from 'react';
 import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import RootStack from '../../App'
-import styles from '../../styles/systemInspection/selectForm'
+import styles from '../../styles/systemInspection/formQuestion'
 import LoadingIcon from '../../components/loading'
+import { not } from 'react-native-reanimated';
 
 
 
@@ -12,9 +13,12 @@ interface ScreenState {
     'systemId': string,
     'zoneId': string,
     'formId': string,
-    'formIndex':number,
-    'formName':string,
+    'formIndex': number,
+    'formName': string,
+    'reportId': string,
     'compId': any,
+    'question': any,
+    'formComplete': boolean,
     'spinner': boolean,
     'dataProc': boolean
 };
@@ -30,10 +34,13 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
         this.state = {
             'systemId': '',
             'zoneId': '',
-            'formId':'',
-            'formIndex':0,
-            'formName':'',
+            'formId': '',
+            'formIndex': 0,
+            'formName': '',
+            'reportId': '',
             'compId': '',
+            'question': [],
+            'formComplete': false,
             'spinner': true,
             'dataProc': false
         };
@@ -49,15 +56,17 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             const zoneId: string = this.props.navigation.getParam('zoneId', '');
             const formId: string = this.props.navigation.getParam('formId', '');
             const formIndex: number = this.props.navigation.getParam('formIndex', '');
+            const reportId: string = this.props.navigation.getParam('reportId', '');
+
 
             this.setState({
                 systemId: systemId,
                 zoneId: zoneId,
                 formId: formId,
-                formIndex:formIndex
+                formIndex: formIndex,
+                reportId: reportId
             })
 
-            console.log(zoneId)
 
 
             let compId = await SecureStore.getItemAsync('compId');
@@ -81,15 +90,22 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                     token: token,
                     systemId: systemId,
                     zoneId: zoneId,
+                    reportId: reportId,
+                    formId: formId,
+                    formIndex: formIndex
                 }),
             })
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState(
                         {
-                            forms: responseJson.forms,
+                            question: responseJson.question,
+                            formComplete: responseJson.formComplete
                         }
                     );
+                    if (this.state.formComplete) {
+                        alert('Form Complete');
+                    }
                 })
                 .catch(error => {
                     alert("Cannot Reach Server")
@@ -109,15 +125,15 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
 
-    
-    
+
+
 
 
 
 
     goToSystemInfo = () => {
-        this.props.navigation.navigate('SystemInfoNav', {system: this.state.systemId});
-      }
+        this.props.navigation.navigate('SystemInfoNav', { system: this.state.systemId });
+    }
 
 
 
@@ -126,7 +142,23 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
     render() {
 
-        const reportName = '';
+
+        const formName: string = this.props.navigation.getParam('formName', '');
+
+        const formIndex: number = this.props.navigation.getParam('formIndex', '');
+
+
+        const question: any = this.state.question;
+
+        var codeBool: boolean = false;
+
+        var codeTextBool:boolean = false;
+
+        if (question.length != 0) {
+            if ('code' in question) {
+                codeBool = true;
+            }
+        }
 
 
 
@@ -144,16 +176,27 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.topBar}>
-                                <Text style={styles.dispNameText}>{reportName}</Text>
+                                <Text style={styles.dispNameText}>Question #{formIndex + 1}</Text>
                             </View>
                         </View>
                         <ScrollView style={styles.scrollView}>
+                            <View style={styles.containerQuestion}>
+                                <Text style={styles.textBold}>{question.question}</Text>
+                            </View>
+                            {codeBool ?
+                                <View style={styles.containerQuestion}>
+                                    <Text style={styles.textBold}>{question.code.data.value}</Text>
+                                </View> :
+                                <></>
+
+                            }
+
 
 
 
                         </ScrollView>
 
-                        
+
 
 
 

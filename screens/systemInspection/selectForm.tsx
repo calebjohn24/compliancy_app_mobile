@@ -16,6 +16,7 @@ interface ScreenState {
     'formsProc': any
     'formsAll': any,
     'compId': any,
+    'reportId':string,
     'spinner': boolean,
     'search': string,
     'dataProc': boolean
@@ -36,6 +37,7 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
             'formsProc': [],
             'formsAll': [],
             'compId': '',
+            'reportId':'',
             'spinner': true,
             'search': '',
             'dataProc': false
@@ -81,7 +83,8 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
                     this.setState(
                         {
                             forms: responseJson.forms,
-                            zoneId:responseJson.zone
+                            zoneId:responseJson.zone,
+                            reportId:responseJson.reportId
                         }
                     );
                 })
@@ -133,7 +136,7 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
 
     renderItem = (item: any) => {
         return (
-            <TouchableOpacity onPress={() => this.goToForm(item.id)}>
+            <TouchableOpacity onPress={() => this.goToForm(item.id, item.data.name)}>
                 <View key={item.id} style={styles.item}>
                     <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../../assets/icons/form-green.png')} /> {item.data.name}</Text>
                     <Text style={styles.textLight}>{item.data.descrip}</Text>
@@ -150,11 +153,13 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
       }
     
 
-    goToForm = (formId:string) => {
+    goToForm = (formId:string, formName:string) => {
         this.props.navigation.navigate('systemInspectQuestionPanelNav', {
             systemId: this.state.systemId,
             zoneId:this.state.zoneId,
             formId: formId,
+            formName:formName,
+            reportId:this.state.reportId,
             formIndex:0
         });
       }
