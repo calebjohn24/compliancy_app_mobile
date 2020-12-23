@@ -85,6 +85,10 @@ export default class systemInfoPanel extends React.Component {
         this.props.navigation.navigate('viewReportsNav', { systemId: systemId });
     }
 
+    goToNewReport = (systemId: string) => {
+        this.props.navigation.navigate('systemInspectListFormsPanelNav', { systemId: systemId });
+    }
+
     render() {
 
         const systemId: string = this.props.navigation.getParam('system', '');
@@ -131,17 +135,17 @@ export default class systemInfoPanel extends React.Component {
                                                 <TouchableOpacity onPress={() => this.goToFindReports(systemId)}>
                                                     <Image style={styles.buttonImgLg} source={require('../assets/icons/report-search.png')} />
                                                 </TouchableOpacity>
-                                                <TouchableOpacity onPress={() => alert("test")}>
+                                                <TouchableOpacity onPress={() => this.goToFindReports(systemId)}>
                                                     <Text style={styles.buttonText}>Find Report</Text>
                                                 </TouchableOpacity>
 
                                             </View>
                                             <View style={styles.rowButton1}>
 
-                                                <TouchableOpacity onPress={() => alert('test')}>
+                                                <TouchableOpacity onPress={() => this.goToNewReport(systemId)}>
                                                     <Image style={styles.buttonImgLg} source={require('../assets/icons/report-add.png')} />
                                                 </TouchableOpacity>
-                                                <TouchableOpacity onPress={() => alert('test')}>
+                                                <TouchableOpacity onPress={() => this.goToNewReport(systemId)}>
                                                     <Text style={styles.buttonText}>New Report</Text>
                                                 </TouchableOpacity>
                                             </View>

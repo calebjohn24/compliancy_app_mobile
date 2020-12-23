@@ -13,6 +13,7 @@ import viewSystemPanel from './screens/viewSystems'
 import systemInfoPanel from './screens/systemInfo'
 import viewReportsPanel from './screens/viewReports'
 import reportWebviewPanel from './screens/reportWebview'
+
 import systemRegStartPanel from './screens/systemRegistration/start';
 import systemRegSystemTypePanel from './screens/systemRegistration/systemType'
 import systemRegBrandPanel from './screens/systemRegistration/brand'
@@ -22,6 +23,10 @@ import systemRegInfoPanel from './screens/systemRegistration/systemInfo'
 import systemRegDiagramUploadPanel from './screens/systemRegistration/uploadDiagram'
 import systemRegDiagramPreviewPanel from './screens/systemRegistration/previewDiagram'
 import systemPreviewPanel from './screens/systemRegistration/previewSystem'
+
+import systemInspectListFormsPanel from './screens/systemInspection/selectForm'
+
+
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -249,6 +254,13 @@ const RootStack = createStackNavigator({
   },
   systemPreviewPanelNav:{
     screen:systemPreviewPanel,
+    navigationOptions: {
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemInspectListFormsPanelNav:{
+    screen:systemInspectListFormsPanel,
     navigationOptions: {
       headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
