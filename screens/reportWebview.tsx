@@ -45,8 +45,7 @@ export default class reportWebviewPanel extends React.Component {
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     automaticallyAdjustContentInsets={false}
-                    allowFileAccess={true}
-                    startInLoadingStage={true} />
+                    />
 
             </>
 

@@ -5,7 +5,8 @@ import * as SecureStore from 'expo-secure-store';
 import RootStack from '../../App'
 import styles from '../../styles/systemInspection/formQuestion'
 import LoadingIcon from '../../components/loading'
-import { not } from 'react-native-reanimated';
+import FireCode from "../../components/questionComponents/fireCode";
+
 
 
 
@@ -184,9 +185,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                                 <Text style={styles.textBold}>{question.question}</Text>
                             </View>
                             {codeBool ?
-                                <View style={styles.containerQuestion}>
-                                    <Text style={styles.textBold}>{question.code.data.value}</Text>
-                                </View> :
+                                <FireCode fireCode={question.code} />:
                                 <></>
 
                             }
