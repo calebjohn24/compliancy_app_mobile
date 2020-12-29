@@ -70,7 +70,7 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
 
             this.setState({ compId: compId })
 
-            return fetch('https://e2efd4cadad6.ngrok.io/api/reg_system/brand', {
+            return fetch('https://2af1f7fddb40.ngrok.io/api/reg_system/brand', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

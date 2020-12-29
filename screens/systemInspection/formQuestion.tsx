@@ -6,6 +6,7 @@ import RootStack from '../../App'
 import styles from '../../styles/systemInspection/formQuestion'
 import LoadingIcon from '../../components/loading'
 import FireCode from "../../components/questionComponents/fireCode";
+import CheckAns from "../../components/questionComponents/checkbox"
 
 
 
@@ -79,7 +80,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
             this.setState({ compId: compId })
 
-            return fetch('https://e2efd4cadad6.ngrok.io/api/system_inspect/inspect', {
+            return fetch('https://2af1f7fddb40.ngrok.io/api/system_inspect/inspect', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -153,12 +154,47 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
         var codeBool: boolean = false;
 
-        var codeTextBool:boolean = false;
+        var codeTextBool: boolean = false;
+
+        var fileBool: boolean = false;
+
+        var imgBool: boolean = false;
+
+        var checkBool:boolean = false;
+        var photoBool:boolean = false;
+        var mulBool:boolean = false;
+        var textBool:boolean = false;
+       
 
         if (question.length != 0) {
             if ('code' in question) {
                 codeBool = true;
             }
+            
+            if(question.file.data != "none"){
+                fileBool = true;
+            }
+
+            if(question.img.data != "none"){
+                imgBool = true;
+            }
+
+            if ('check' in question.type){
+                checkBool = true;
+            }
+
+            if('file' in question.type){
+                photoBool = true;
+            }
+
+            if('mul' in question.type){
+                mulBool = true;
+            }
+
+            if('text' in question.type){
+                textBool = true;
+            }
+
         }
 
 
@@ -187,11 +223,14 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                             {codeBool ?
                                 <FireCode fireCode={question.code} />:
                                 <></>
-
                             }
 
-
-
+                            {checkBool ?
+                            <CheckAns responses={question.type.check} />:
+                                <></>
+                            }
+                    
+                            
 
                         </ScrollView>
 

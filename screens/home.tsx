@@ -32,7 +32,7 @@ export default class homePanel extends React.Component {
       let token = await SecureStore.getItemAsync('token');
       let userId = await SecureStore.getItemAsync('id');
 
-      return fetch('https://e2efd4cadad6.ngrok.io/api/homepage-info', {
+      return fetch('https://2af1f7fddb40.ngrok.io/api/homepage-info', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

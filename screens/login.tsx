@@ -23,7 +23,7 @@ export default class loginScreen extends React.Component {
       }
 
       check_cred = () => {
-          return fetch('https://e2efd4cadad6.ngrok.io/api/new_user_token', {
+          return fetch('https://2af1f7fddb40.ngrok.io/api/new_user_token', {
             method: 'POST',
             headers: {
                Accept: 'application/json',
