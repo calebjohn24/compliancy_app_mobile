@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, Image, TouchableOpacity, ScrollView, YellowBox} from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import RootStack from '../../App'
 import styles from '../../styles/systemInspection/formQuestion'
@@ -18,6 +18,7 @@ interface ScreenState {
     'formIndex': number,
     'formName': string,
     'reportId': string,
+    'tag':string,
     'compId': any,
     'question': any,
     'formComplete': boolean,
@@ -40,6 +41,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             'formIndex': 0,
             'formName': '',
             'reportId': '',
+            'tag':'',
             'compId': '',
             'question': [],
             'formComplete': false,
@@ -51,6 +53,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
     componentDidMount = async () => {
+        //YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
 
         try {
 
@@ -102,7 +105,8 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                     this.setState(
                         {
                             question: responseJson.question,
-                            formComplete: responseJson.formComplete
+                            formComplete: responseJson.formComplete,
+                            tag: responseJson.tag
                         }
                     );
                     if (this.state.formComplete) {

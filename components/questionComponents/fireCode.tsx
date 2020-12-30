@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         borderRadius:15,
-        backgroundColor:'#ED1C24',
+        borderWidth:5,
+        borderColor:'#ED1C24',
     },
     textBold: {
         fontWeight: "bold",

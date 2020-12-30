@@ -153,5 +153,6 @@ const styles = StyleSheet.create({
 //Yellow:#F7CE5B
 //Blue:#1E96FC
 //Green:#00A878
-
+//Gray:#bfbfbf
+//Teal:#64cad1
 export default styles;
