@@ -23,7 +23,12 @@ interface ScreenState {
     'question': any,
     'formComplete': boolean,
     'spinner': boolean,
-    'dataProc': boolean
+    'dataProc': boolean,
+    'check':string,
+    'checkTag':string,
+    'mul':string,
+    'mulTag':string,
+    'text':string,
 };
 
 interface ScreenProps {
@@ -46,14 +51,19 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             'question': [],
             'formComplete': false,
             'spinner': true,
-            'dataProc': false
+            'dataProc': false,
+            'check':'',
+            'checkTag':'',
+            'mul':'',
+            'mulTag':'',
+            'text':'',
         };
 
     }
 
 
     componentDidMount = async () => {
-        //YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
+        YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
 
         try {
 
@@ -109,6 +119,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                             tag: responseJson.tag
                         }
                     );
+                    console.log(this.state.tag)
                     if (this.state.formComplete) {
                         alert('Form Complete');
                     }
@@ -142,7 +153,12 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
     }
 
 
-
+    getCheckBoxResponse(checkResp:string, tag:string){
+        this.setState({
+            check:checkResp,
+            checkTag:tag,
+        });
+    }
 
 
 
@@ -230,7 +246,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                             }
 
                             {checkBool ?
-                            <CheckAns responses={question.type.check} />:
+                            <CheckAns responses={question.type.check} tag={this.state.tag} callback={this.getCheckBoxResponse.bind(this)} />:
                                 <></>
                             }
                     
