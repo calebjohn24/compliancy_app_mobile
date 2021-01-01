@@ -129,10 +129,10 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     ImgLg: {
-
-        width: 30,
-        height: 30,
-        resizeMode: 'contain'
+        width: 60,
+        height: 60,
+        resizeMode: 'contain',
+        marginHorizontal:30
     },
     ImgMd: {
 
@@ -145,7 +145,21 @@ const styles = StyleSheet.create({
         width: "auto",
         height: 400,
         resizeMode: 'contain'
-    }
+    },
+    preview: {
+        height: 500,
+        width: '95%',
+        alignContent:'center',
+        justifyContent:'center',
+        bottom:20
+    },
+    containerRowQuarter: {
+        flexDirection: 'row',
+        flex: 1,
+        marginVertical:10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 })
 
 //Dark:#212126

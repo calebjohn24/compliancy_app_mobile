@@ -198,7 +198,7 @@ export default class CheckAns extends React.Component<ScreenProps, ScreenState>{
 
                 <View style={styles.container}>
                     <Text style={styles.textBold}>Select ALL That Apply</Text>
-                    <SafeAreaView>
+                    
                         <FlatList
                             data={this.state.respProc}
                             style={styles.List}
@@ -206,7 +206,7 @@ export default class CheckAns extends React.Component<ScreenProps, ScreenState>{
                             renderItem={({ item }) => this.renderItem(item)
                             }
                         />
-                    </SafeAreaView>
+                    
                 </View>
 
 

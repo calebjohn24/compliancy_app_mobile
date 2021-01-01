@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, ScrollView, YellowBox} from 'react-native';
+import { Text, View, Image, TouchableOpacity, ScrollView, YellowBox } from 'react-native';
+import { Camera, getPermissionsAsync } from 'expo-camera';
 import * as SecureStore from 'expo-secure-store';
 import RootStack from '../../App'
 import styles from '../../styles/systemInspection/formQuestion'
@@ -18,17 +19,22 @@ interface ScreenState {
     'formIndex': number,
     'formName': string,
     'reportId': string,
-    'tag':string,
+    'tag': string,
     'compId': any,
     'question': any,
     'formComplete': boolean,
     'spinner': boolean,
     'dataProc': boolean,
-    'check':string,
-    'checkTag':string,
-    'mul':string,
-    'mulTag':string,
-    'text':string,
+    'check': string,
+    'checkTag': string,
+    'mul': string,
+    'mulTag': string,
+    'text': string,
+    'photoTaken': boolean,
+    'hasCameraPermission': any,
+    'flashMode': any,
+    'capturing': any
+    'captures': any,
 };
 
 interface ScreenProps {
@@ -36,6 +42,7 @@ interface ScreenProps {
 }
 
 export default class systemInspectQuestionPanel extends React.Component<ScreenProps, ScreenState>{
+    camera!: Camera | null;
 
     constructor(props: any) {
         super(props);
@@ -46,17 +53,22 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             'formIndex': 0,
             'formName': '',
             'reportId': '',
-            'tag':'',
+            'tag': '',
             'compId': '',
             'question': [],
             'formComplete': false,
             'spinner': true,
             'dataProc': false,
-            'check':'',
-            'checkTag':'',
-            'mul':'',
-            'mulTag':'',
-            'text':'',
+            'check': '',
+            'checkTag': '',
+            'mul': '',
+            'mulTag': '',
+            'text': '',
+            'photoTaken': false,
+            'hasCameraPermission': null,
+            'flashMode': Camera.Constants.FlashMode.off,
+            'capturing': null,
+            'captures': [],
         };
 
     }
@@ -144,7 +156,20 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
 
+    setFlashMode = (flashMode: any) => this.setState({ flashMode });
 
+
+    takePicture = async () => {
+        if (this.camera) {
+            const options = { quality: 0.5, base64: true };
+            const data: any = await this.camera.takePictureAsync(options)
+                .then((data: { uri: string; }) => {
+                    this.setState({ flashMode: Camera.Constants.FlashMode.off })
+                    //Navigation Here
+
+                });
+        }
+    };
 
 
 
@@ -153,10 +178,10 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
     }
 
 
-    getCheckBoxResponse(checkResp:string, tag:string){
+    getCheckBoxResponse(checkResp: string, tag: string) {
         this.setState({
-            check:checkResp,
-            checkTag:tag,
+            check: checkResp,
+            checkTag: tag,
         });
     }
 
@@ -164,7 +189,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
     render() {
 
-
+        var flashMode = this.state.flashMode;
         const formName: string = this.props.navigation.getParam('formName', '');
 
         const formIndex: number = this.props.navigation.getParam('formIndex', '');
@@ -180,38 +205,38 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
         var imgBool: boolean = false;
 
-        var checkBool:boolean = false;
-        var photoBool:boolean = false;
-        var mulBool:boolean = false;
-        var textBool:boolean = false;
-       
+        var checkBool: boolean = false;
+        var photoBool: boolean = false;
+        var mulBool: boolean = false;
+        var textBool: boolean = false;
+
 
         if (question.length != 0) {
             if ('code' in question) {
                 codeBool = true;
             }
-            
-            if(question.file.data != "none"){
+
+            if (question.file.data != "none") {
                 fileBool = true;
             }
 
-            if(question.img.data != "none"){
+            if (question.img.data != "none") {
                 imgBool = true;
             }
 
-            if ('check' in question.type){
+            if ('check' in question.type) {
                 checkBool = true;
             }
 
-            if('file' in question.type){
+            if ('file' in question.type) {
                 photoBool = true;
             }
 
-            if('mul' in question.type){
+            if ('mul' in question.type) {
                 mulBool = true;
             }
 
-            if('text' in question.type){
+            if ('text' in question.type) {
                 textBool = true;
             }
 
@@ -241,16 +266,63 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                                 <Text style={styles.textBold}>{question.question}</Text>
                             </View>
                             {codeBool ?
-                                <FireCode fireCode={question.code} />:
+                                <FireCode fireCode={question.code} /> :
                                 <></>
                             }
 
                             {checkBool ?
-                            <CheckAns responses={question.type.check} tag={this.state.tag} callback={this.getCheckBoxResponse.bind(this)} />:
+                                <CheckAns responses={question.type.check} tag={this.state.tag} callback={this.getCheckBoxResponse.bind(this)} /> :
                                 <></>
                             }
-                    
-                            
+
+                            {photoBool ?
+                                <View>
+                                    {!this.state.photoTaken ?
+                                        <View style={styles.container}>
+                                            <View style={styles.containerQuestion}>
+                                                <Text style={styles.textLightLg}>Upload A Photo</Text>
+                                            </View>
+
+                                            {`${this.state.hasCameraPermission}` ?
+
+
+
+                                                <Camera
+                                                    style={styles.preview}
+                                                    ref={ref => {
+                                                        this.camera = ref;
+                                                    }}
+                                                    flashMode={flashMode}
+                                                />
+
+                                                :
+                                                <Text style={styles.textBold}>Camera Denied Permission</Text>
+
+
+                                            }
+                                            <View style={styles.containerRowQuarter}>
+                                                <TouchableOpacity onPress={() => this.setState({ flashMode: Camera.Constants.FlashMode.torch })}><Image style={styles.ImgLg} source={require('../../assets/icons/flash-on-white.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.takePicture()}><Image style={styles.ImgLg} source={require('../../assets/icons/camera-green.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.setState({ flashMode: Camera.Constants.FlashMode.off })}  ><Image style={styles.ImgLg} source={require('../../assets/icons/flash-off-white.png')} /></TouchableOpacity>
+                                            </View>
+
+
+
+                                        </View>
+                                        :
+                                        <View>
+
+
+
+                                        </View>
+
+                                    }
+                                </View> :
+                                <></>
+
+                            }
+
+
 
                         </ScrollView>
 
