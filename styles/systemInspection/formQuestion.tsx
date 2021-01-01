@@ -160,6 +160,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    ImgPreview: {
+        width: "90%",
+        height: 500,
+        resizeMode: 'contain'
+    },
 })
 
 //Dark:#212126

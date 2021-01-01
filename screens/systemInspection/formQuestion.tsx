@@ -31,10 +31,12 @@ interface ScreenState {
     'mulTag': string,
     'text': string,
     'photoTaken': boolean,
+    'photoReq':boolean,
     'hasCameraPermission': any,
     'flashMode': any,
     'capturing': any
     'captures': any,
+    'photoUri':string,
 };
 
 interface ScreenProps {
@@ -65,10 +67,12 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             'mulTag': '',
             'text': '',
             'photoTaken': false,
+            'photoReq':false,
             'hasCameraPermission': null,
             'flashMode': Camera.Constants.FlashMode.off,
             'capturing': null,
             'captures': [],
+            'photoUri':'',
         };
 
     }
@@ -164,8 +168,11 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             const options = { quality: 0.5, base64: true };
             const data: any = await this.camera.takePictureAsync(options)
                 .then((data: { uri: string; }) => {
-                    this.setState({ flashMode: Camera.Constants.FlashMode.off })
-                    //Navigation Here
+                    this.setState({ 
+                        flashMode: Camera.Constants.FlashMode.off,
+                        photoUri: data.uri,
+                        photoTaken: true
+                    })
 
                 });
         }
@@ -310,9 +317,19 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
                                         </View>
                                         :
-                                        <View>
+                                        <View style={styles.container}>
+                                            <View style={styles.containerQuestion}>
+                                                <Text style={styles.textLightLg}>Use This Photo</Text>
+                                            </View>
+                        
 
+                                        <Image style={styles.ImgPreview} source={{ uri: this.state.photoUri }} />
 
+                                        <View style={styles.containerRowQuarter}>
+                                        <TouchableOpacity onPress={() => this.setState({photoTaken:false})}  ><Image style={styles.ImgLg} source={require('../../assets/icons/red-retry.png')}/></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => alert('done')}  ><Image style={styles.ImgLg} source={require('../../assets/icons/check-noFill-green.png')}/></TouchableOpacity>
+                                        </View>
+                                            
 
                                         </View>
 
