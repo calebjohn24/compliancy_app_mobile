@@ -30,13 +30,16 @@ interface ScreenState {
     'mul': string,
     'mulTag': string,
     'text': string,
+    'textLabel': string,
     'photoTaken': boolean,
-    'photoReq':boolean,
+    'photoReq': boolean,
+    'photoLabel': string,
     'hasCameraPermission': any,
     'flashMode': any,
     'capturing': any
     'captures': any,
-    'photoUri':string,
+    'photoUri': string,
+    'success': boolean
 };
 
 interface ScreenProps {
@@ -66,13 +69,16 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             'mul': '',
             'mulTag': '',
             'text': '',
+            'textLabel': '',
             'photoTaken': false,
-            'photoReq':false,
+            'photoReq': false,
+            'photoLabel': '',
             'hasCameraPermission': null,
             'flashMode': Camera.Constants.FlashMode.off,
             'capturing': null,
             'captures': [],
-            'photoUri':'',
+            'photoUri': '',
+            'success': false
         };
 
     }
@@ -135,7 +141,6 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                             tag: responseJson.tag
                         }
                     );
-                    console.log(this.state.tag)
                     if (this.state.formComplete) {
                         alert('Form Complete');
                     }
@@ -168,7 +173,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             const options = { quality: 0.5, base64: true };
             const data: any = await this.camera.takePictureAsync(options)
                 .then((data: { uri: string; }) => {
-                    this.setState({ 
+                    this.setState({
                         flashMode: Camera.Constants.FlashMode.off,
                         photoUri: data.uri,
                         photoTaken: true
@@ -190,6 +195,88 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             check: checkResp,
             checkTag: tag,
         });
+    }
+
+    submitPhotoQuestion = async (textBool: boolean, checkBool: boolean, mulBool: boolean) => {
+        this.setState({ spinner: true })
+
+
+
+        var data: any = new FormData();
+        data.append('photo', { uri: this.state.photoUri, name: 'photo', type: 'image/jpeg' });
+        data.append('photoLabel', this.state.photoLabel);
+
+
+        if (checkBool) {
+            data.append('check', this.state.check);
+            data.append('checkTag', this.state.checkTag);
+        }
+
+        if (mulBool) {
+            data.append('mul', this.state.mul);
+            data.append('mulTag', this.state.mulTag);
+        }
+
+        if (textBool) {
+            data.append('text', this.state.text);
+            data.append('textLabel', this.state.textLabel);
+        }
+
+        data.append('question', this.state.question.question)
+
+
+        let compId = await SecureStore.getItemAsync('compId');
+        let token = await SecureStore.getItemAsync('token');
+        let userId = await SecureStore.getItemAsync('id');
+        data.append('compId', compId)
+        data.append('token', token)
+        data.append('userId', userId)
+
+        data.append('systemId', this.state.systemId)
+        data.append('zoneId', this.state.zoneId)
+        data.append('formId', this.state.formId)
+        data.append('formIndex', this.state.formId)
+        data.append('reportId', this.state.reportId)
+
+
+
+
+        return fetch('https://2af1f7fddb40.ngrok.io/api/system_inspect/submit_question/photo', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+            body: data,
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState(
+                    {
+                        success: responseJson.success
+                    },
+                    () => {
+                        if (responseJson.success == true) {
+                            this.props.navigation.navigate('systemInspectNextQuestion', {
+                                systemId: this.state.systemId,
+                                zoneId: this.state.zoneId,
+                                formId: this.state.formId,
+                                formIndex: this.state.formId,
+                                reportId: this.state.reportId,
+                            });
+                        }
+                        else {
+                            alert('Server Could Not Be Reached Please Try Again');
+
+                        }
+                    }
+                );
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Server Could Not Be Reached Please Try Again');
+                alert(error);
+            });
     }
 
 
@@ -237,6 +324,9 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
             if ('file' in question.type) {
                 photoBool = true;
+                if (this.state.photoLabel != '') {
+                    this.setState({ photoLabel: question.type.file })
+                }
             }
 
             if ('mul' in question.type) {
@@ -245,6 +335,10 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
             if ('text' in question.type) {
                 textBool = true;
+                if (this.state.textLabel != '') {
+                    this.setState({ photoLabel: question.type.file })
+                }
+
             }
 
         }
@@ -287,7 +381,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                                     {!this.state.photoTaken ?
                                         <View style={styles.container}>
                                             <View style={styles.containerQuestion}>
-                                                <Text style={styles.textLightLg}>Upload A Photo</Text>
+                                                <Text style={styles.textLightLg}>{question.type.file}</Text>
                                             </View>
 
                                             {`${this.state.hasCameraPermission}` ?
@@ -321,15 +415,15 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                                             <View style={styles.containerQuestion}>
                                                 <Text style={styles.textLightLg}>Use This Photo</Text>
                                             </View>
-                        
 
-                                        <Image style={styles.ImgPreview} source={{ uri: this.state.photoUri }} />
 
-                                        <View style={styles.containerRowQuarter}>
-                                        <TouchableOpacity onPress={() => this.setState({photoTaken:false})}  ><Image style={styles.ImgLg} source={require('../../assets/icons/red-retry.png')}/></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => alert('done')}  ><Image style={styles.ImgLg} source={require('../../assets/icons/check-noFill-green.png')}/></TouchableOpacity>
-                                        </View>
-                                            
+                                            <Image style={styles.ImgPreview} source={{ uri: this.state.photoUri }} />
+
+                                            <View style={styles.containerRowQuarter}>
+                                                <TouchableOpacity onPress={() => this.setState({ photoTaken: false })}  ><Image style={styles.ImgLg} source={require('../../assets/icons/red-retry.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.submitPhotoQuestion(textBool, checkBool, mulBool)}  ><Image style={styles.ImgLg} source={require('../../assets/icons/check-noFill-green.png')} /></TouchableOpacity>
+                                            </View>
+
 
                                         </View>
 
