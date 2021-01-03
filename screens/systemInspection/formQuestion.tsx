@@ -92,24 +92,25 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             const systemId: string = this.props.navigation.getParam('systemId', '');
             const zoneId: string = this.props.navigation.getParam('zoneId', '');
             const formId: string = this.props.navigation.getParam('formId', '');
-            const formIndex: number = this.props.navigation.getParam('formIndex', '');
             const reportId: string = this.props.navigation.getParam('reportId', '');
-
+            const formName: string = this.props.navigation.getParam('formName', '');
+            var formIndex: number = 0;
 
             this.setState({
                 systemId: systemId,
                 zoneId: zoneId,
                 formId: formId,
                 formIndex: formIndex,
-                reportId: reportId
+                reportId: reportId,
+                formName:formName
             })
+
 
 
 
             let compId = await SecureStore.getItemAsync('compId');
             let userId = await SecureStore.getItemAsync('id');
             let token = await SecureStore.getItemAsync('token');
-            //var token = SecureStore.getItemAsync('token');
 
 
 
@@ -163,6 +164,70 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
 
+    updatePage = async () => {
+        
+        try {
+            var formIndex: number = this.state.formIndex + 1;
+
+            this.setState({
+                formIndex: formIndex,
+            })
+
+
+            let userId = await SecureStore.getItemAsync('id');
+            let token = await SecureStore.getItemAsync('token');
+
+
+
+
+            return fetch('https://2af1f7fddb40.ngrok.io/api/system_inspect/inspect', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    compId: this.state.compId,
+                    userId: userId,
+                    token: token,
+                    systemId: this.state.systemId,
+                    zoneId: this.state.zoneId,
+                    reportId: this.state.reportId,
+                    formId: this.state.formId,
+                    formIndex: formIndex
+                }),
+            })
+                .then(response => response.json())
+                .then(responseJson => {
+                    this.setState(
+                        {
+                            question: responseJson.question,
+                            formComplete: responseJson.formComplete,
+                            tag: responseJson.tag
+                        }
+                    );
+                    if (this.state.formComplete) {
+                        alert('Form Complete');
+                    }
+                })
+                .catch(error => {
+                    alert("Cannot Reach Server")
+                })
+                .finally(() => {
+                    this.setState({ spinner: false });
+                });
+
+
+
+
+        } catch (error) {
+            console.log(error)
+            alert("Cannot Reach Server")
+        }
+
+
+    }
+
 
 
     setFlashMode = (flashMode: any) => this.setState({ flashMode });
@@ -197,15 +262,17 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
         });
     }
 
-    submitPhotoQuestion = async (textBool: boolean, checkBool: boolean, mulBool: boolean) => {
+    submitQuestion = async (textBool: boolean, checkBool: boolean, mulBool: boolean, photoBool: boolean) => {
         this.setState({ spinner: true })
 
 
 
         var data: any = new FormData();
-        data.append('photo', { uri: this.state.photoUri, name: 'photo', type: 'image/jpeg' });
-        data.append('photoLabel', this.state.photoLabel);
 
+        if(photoBool){
+            data.append('photo', { uri: this.state.photoUri, name: 'photo', type: 'image/jpeg' });
+            data.append('photoLabel', this.state.photoLabel);
+        }
 
         if (checkBool) {
             data.append('check', this.state.check);
@@ -222,26 +289,26 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             data.append('textLabel', this.state.textLabel);
         }
 
-        data.append('question', this.state.question.question)
+        data.append('question', this.state.question.question);
 
 
         let compId = await SecureStore.getItemAsync('compId');
         let token = await SecureStore.getItemAsync('token');
         let userId = await SecureStore.getItemAsync('id');
-        data.append('compId', compId)
-        data.append('token', token)
-        data.append('userId', userId)
+        data.append('compId', compId);
+        data.append('token', token);
+        data.append('userId', userId);
 
-        data.append('systemId', this.state.systemId)
-        data.append('zoneId', this.state.zoneId)
-        data.append('formId', this.state.formId)
-        data.append('formIndex', this.state.formId)
-        data.append('reportId', this.state.reportId)
-
-
+        data.append('systemId', this.state.systemId);
+        data.append('zoneId', this.state.zoneId);
+        data.append('formId', this.state.formId);
+        data.append('formIndex', this.state.formIndex);
+        data.append('reportId', this.state.reportId);
 
 
-        return fetch('https://2af1f7fddb40.ngrok.io/api/system_inspect/submit_question/photo', {
+
+
+        return fetch('https://2af1f7fddb40.ngrok.io/api/system_inspect/submit_question', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -256,14 +323,9 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                         success: responseJson.success
                     },
                     () => {
+                        console.log(responseJson.success)
                         if (responseJson.success == true) {
-                            this.props.navigation.navigate('systemInspectNextQuestion', {
-                                systemId: this.state.systemId,
-                                zoneId: this.state.zoneId,
-                                formId: this.state.formId,
-                                formIndex: this.state.formId,
-                                reportId: this.state.reportId,
-                            });
+                            this.updatePage()
                         }
                         else {
                             alert('Server Could Not Be Reached Please Try Again');
@@ -275,7 +337,6 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             .catch(error => {
                 console.error(error);
                 alert('Server Could Not Be Reached Please Try Again');
-                alert(error);
             });
     }
 
@@ -325,6 +386,8 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             if ('file' in question.type) {
                 photoBool = true;
                 if (this.state.photoLabel != '') {
+                    console.log(question.type.file)
+
                     this.setState({ photoLabel: question.type.file })
                 }
             }
@@ -336,7 +399,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             if ('text' in question.type) {
                 textBool = true;
                 if (this.state.textLabel != '') {
-                    this.setState({ photoLabel: question.type.file })
+                    this.setState({ textLabel: question.type.text })
                 }
 
             }
@@ -421,7 +484,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
                                             <View style={styles.containerRowQuarter}>
                                                 <TouchableOpacity onPress={() => this.setState({ photoTaken: false })}  ><Image style={styles.ImgLg} source={require('../../assets/icons/red-retry.png')} /></TouchableOpacity>
-                                                <TouchableOpacity onPress={() => this.submitPhotoQuestion(textBool, checkBool, mulBool)}  ><Image style={styles.ImgLg} source={require('../../assets/icons/check-noFill-green.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.submitQuestion(textBool, checkBool, mulBool, photoBool)}  ><Image style={styles.ImgLg} source={require('../../assets/icons/check-noFill-green.png')} /></TouchableOpacity>
                                             </View>
 
 
