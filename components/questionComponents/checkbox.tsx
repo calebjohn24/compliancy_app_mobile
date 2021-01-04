@@ -126,7 +126,7 @@ export default class CheckAns extends React.Component<ScreenProps, ScreenState>{
 
         return (
 
-            <View key={item.id} >
+            <View key={item.id} style={styles.item}>
                 <CheckBox
                     onPress={() => this.checkBox(item.id, checked)}
                     title={item['info'][0]['data']}
@@ -151,7 +151,12 @@ export default class CheckAns extends React.Component<ScreenProps, ScreenState>{
 
         for (var key in respsAll) {
             var item = []
-            if (key in respsRaw.pop) {
+            var popBool: boolean = false;
+            if('pop' in respsRaw){
+                popBool = true;
+            }
+            if (popBool) {
+                if(key in respsRaw.pop){
                 item = [
                     { 'data': respsAll[key]['data'] },
                     { 'color': respsAll[key]['color'] },
@@ -164,6 +169,15 @@ export default class CheckAns extends React.Component<ScreenProps, ScreenState>{
                         }
                     }
                 ]
+            }
+            else{
+                item = [
+                    { 'data': respsAll[key]['data'] },
+                    { 'color': respsAll[key]['color'] },
+                    { 'popBool': false },
+                    { 'checked': false },
+                ]
+            }
 
             }
             else {
@@ -232,12 +246,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 1
     },
     item: {
-        padding: 10,
-        borderWidth: 0,
-        borderRadius: 10,
-        marginBottom: 5,
-        marginTop: 5,
-        backgroundColor: "#fafafa",
+        width:'100%'
     },
     textBold: {
         fontWeight: "bold",

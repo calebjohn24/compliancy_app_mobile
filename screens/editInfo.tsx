@@ -33,7 +33,7 @@ export default class editInfoPanel extends React.Component {
         let token = await SecureStore.getItemAsync('token');
         let userId = await SecureStore.getItemAsync('id');
 
-        return fetch('https://2af1f7fddb40.ngrok.io/api/change-user-info', {
+        return fetch('https://cd940c5a21e2.ngrok.io/api/change-user-info', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

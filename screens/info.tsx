@@ -37,7 +37,7 @@ export default class infoPanel extends React.Component {
             //var token = SecureStore.getItemAsync('token');
             this.state.compId = compId;
 
-            return fetch('https://2af1f7fddb40.ngrok.io/api/user-info', {
+            return fetch('https://cd940c5a21e2.ngrok.io/api/user-info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

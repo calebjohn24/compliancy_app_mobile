@@ -135,9 +135,8 @@ const styles = StyleSheet.create({
         marginHorizontal:30
     },
     ImgMd: {
-
-        width: 20,
-        height: 20,
+        width: 35,
+        height: 35,
         resizeMode: 'contain'
     },
     maxImg: {
@@ -160,10 +159,32 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    containerRowQuarterSub: {
+        flexDirection: 'row',
+        flex: 1,
+        marginVertical:40,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     ImgPreview: {
         width: "90%",
         height: 500,
         resizeMode: 'contain'
+    },
+
+    inputView: {
+        width: "95%",
+        backgroundColor: "#4d4d54",
+        borderRadius: 20,
+        margin: 10,
+        height:100,
+        paddingVertical:20,
+        paddingHorizontal:20,
+
+    },
+    inputText: {
+        height: 75,
+        color: "white"
     },
 })
 

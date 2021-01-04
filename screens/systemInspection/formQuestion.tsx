@@ -1,13 +1,15 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, ScrollView, YellowBox } from 'react-native';
+import { Text, View, Image, TouchableOpacity, ScrollView, YellowBox, TextInput } from 'react-native';
 import { Camera, getPermissionsAsync } from 'expo-camera';
 import * as SecureStore from 'expo-secure-store';
 import RootStack from '../../App'
 import styles from '../../styles/systemInspection/formQuestion'
 import LoadingIcon from '../../components/loading'
-import FireCode from "../../components/questionComponents/fireCode";
-import CheckAns from "../../components/questionComponents/checkbox"
+import FireCode from '../../components/questionComponents/fireCode'
+import CheckAns from '../../components/questionComponents/checkbox'
+import MulAns from '../../components/questionComponents/mc'
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 
@@ -34,12 +36,14 @@ interface ScreenState {
     'photoTaken': boolean,
     'photoReq': boolean,
     'photoLabel': string,
+    'labelProc': boolean,
     'hasCameraPermission': any,
     'flashMode': any,
     'capturing': any
     'captures': any,
     'photoUri': string,
-    'success': boolean
+    'success': boolean,
+
 };
 
 interface ScreenProps {
@@ -73,6 +77,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             'photoTaken': false,
             'photoReq': false,
             'photoLabel': '',
+            'labelProc': false,
             'hasCameraPermission': null,
             'flashMode': Camera.Constants.FlashMode.off,
             'capturing': null,
@@ -102,7 +107,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                 formId: formId,
                 formIndex: formIndex,
                 reportId: reportId,
-                formName:formName
+                formName: formName
             })
 
 
@@ -116,7 +121,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
             this.setState({ compId: compId })
 
-            return fetch('https://2af1f7fddb40.ngrok.io/api/system_inspect/inspect', {
+            return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/inspect', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -165,7 +170,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
     updatePage = async () => {
-        
+
         try {
             var formIndex: number = this.state.formIndex + 1;
 
@@ -180,7 +185,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
 
-            return fetch('https://2af1f7fddb40.ngrok.io/api/system_inspect/inspect', {
+            return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/inspect', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -262,6 +267,13 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
         });
     }
 
+    getMulResponse(mulResp: string, tag: string) {
+        this.setState({
+            mul: mulResp,
+            mulTag: tag,
+        });
+    }
+
     submitQuestion = async (textBool: boolean, checkBool: boolean, mulBool: boolean, photoBool: boolean) => {
         this.setState({ spinner: true })
 
@@ -269,9 +281,9 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
         var data: any = new FormData();
 
-        if(photoBool){
+        if (photoBool) {
             data.append('photo', { uri: this.state.photoUri, name: 'photo', type: 'image/jpeg' });
-            data.append('photoLabel', this.state.photoLabel);
+            data.append('photoLabel', this.state.question.file);
         }
 
         if (checkBool) {
@@ -286,7 +298,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
         if (textBool) {
             data.append('text', this.state.text);
-            data.append('textLabel', this.state.textLabel);
+            data.append('textLabel', this.state.question.text);
         }
 
         data.append('question', this.state.question.question);
@@ -308,7 +320,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
 
-        return fetch('https://2af1f7fddb40.ngrok.io/api/system_inspect/submit_question', {
+        return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/submit_question', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -323,7 +335,6 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                         success: responseJson.success
                     },
                     () => {
-                        console.log(responseJson.success)
                         if (responseJson.success == true) {
                             this.updatePage()
                         }
@@ -345,9 +356,9 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
     render() {
 
         var flashMode = this.state.flashMode;
-        const formName: string = this.props.navigation.getParam('formName', '');
+        const formName: string = this.state.formName;
 
-        const formIndex: number = this.props.navigation.getParam('formIndex', '');
+        const formIndex: number = this.state.formIndex;
 
 
         const question: any = this.state.question;
@@ -366,7 +377,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
         var textBool: boolean = false;
 
 
-        if (question.length != 0) {
+        if (question.length != 0 && !this.state.labelProc) {
             if ('code' in question) {
                 codeBool = true;
             }
@@ -385,11 +396,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
             if ('file' in question.type) {
                 photoBool = true;
-                if (this.state.photoLabel != '') {
-                    console.log(question.type.file)
 
-                    this.setState({ photoLabel: question.type.file })
-                }
             }
 
             if ('mul' in question.type) {
@@ -398,9 +405,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
             if ('text' in question.type) {
                 textBool = true;
-                if (this.state.textLabel != '') {
-                    this.setState({ textLabel: question.type.text })
-                }
+
 
             }
 
@@ -438,6 +443,37 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                                 <CheckAns responses={question.type.check} tag={this.state.tag} callback={this.getCheckBoxResponse.bind(this)} /> :
                                 <></>
                             }
+
+                            {mulBool ?
+                                <MulAns responses={question.type.mul} tag={this.state.tag} callback={this.getMulResponse.bind(this)} /> :
+                                <></>
+                            }
+
+
+                            {textBool ?
+                                <View>
+                                    <View style={styles.containerRowQuarter}>
+                                        <Text style={styles.textBold}>{question.type.text}</Text>
+                                    </View>
+                                    <View style={styles.containerRowQuarter}>
+                                        <View style={styles.inputView}>
+                                            <TextInput style={styles.inputText}
+                                                placeholder="..."
+                                                autoCapitalize="sentences"
+                                                placeholderTextColor="#969696"
+                                                multiline={true}
+                                                numberOfLines={5}
+                                                blurOnSubmit={false}
+                                                textAlignVertical="top"
+                                                onChangeText={(text: string) => this.setState({ text: text })}
+                                            />
+                                        </View>
+                                    </View>
+                                </View> :
+                                <></>
+                            }
+
+
 
                             {photoBool ?
                                 <View>
@@ -492,7 +528,12 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
                                     }
                                 </View> :
-                                <></>
+
+                                <View style={styles.containerRowQuarterSub}>
+                                    <TouchableOpacity onPress={() => this.submitQuestion(textBool, checkBool, mulBool, photoBool)} >
+                                        <Text style={styles.textLightLg}>Next <Image style={styles.ImgMd} source={require('../../assets/icons/inline-nextarrow-white.png')} /></Text>
+                                    </TouchableOpacity>
+                                </View>
 
                             }
 
@@ -505,10 +546,6 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
                     </View>
-
-
-
-
 
 
 
