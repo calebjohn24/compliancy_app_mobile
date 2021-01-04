@@ -36,7 +36,6 @@ interface ScreenState {
     'photoTaken': boolean,
     'photoReq': boolean,
     'photoLabel': string,
-    'labelProc': boolean,
     'hasCameraPermission': any,
     'flashMode': any,
     'capturing': any
@@ -77,7 +76,6 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             'photoTaken': false,
             'photoReq': false,
             'photoLabel': '',
-            'labelProc': false,
             'hasCameraPermission': null,
             'flashMode': Camera.Constants.FlashMode.off,
             'capturing': null,
@@ -211,7 +209,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                             tag: responseJson.tag
                         }
                     );
-                    if (this.state.formComplete) {
+                    if (formComplete) {
                         alert('Form Complete');
                     }
                 })
@@ -283,7 +281,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
         if (photoBool) {
             data.append('photo', { uri: this.state.photoUri, name: 'photo', type: 'image/jpeg' });
-            data.append('photoLabel', this.state.question.file);
+            data.append('photoLabel', this.state.question.type.file);
         }
 
         if (checkBool) {
@@ -299,6 +297,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
         if (textBool) {
             data.append('text', this.state.text);
             data.append('textLabel', this.state.question.text);
+            console.log(this.state.question.type.text);
         }
 
         data.append('question', this.state.question.question);
@@ -377,7 +376,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
         var textBool: boolean = false;
 
 
-        if (question.length != 0 && !this.state.labelProc) {
+        if (question.length != 0) {
             if ('code' in question) {
                 codeBool = true;
             }
