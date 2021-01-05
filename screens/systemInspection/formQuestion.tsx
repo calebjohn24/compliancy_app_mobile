@@ -209,7 +209,8 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                             tag: responseJson.tag
                         }
                     );
-                    if (formComplete) {
+                    console.log('form complete: ' + responseJson.formComplete);
+                    if (responseJson.formComplete) {
                         alert('Form Complete');
                     }
                 })
@@ -253,8 +254,42 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
 
-    goToSystemInfo = () => {
-        this.props.navigation.navigate('SystemInfoNav', { system: this.state.systemId });
+    goToSystemInfo = async () => {
+        this.setState({spinner:true})
+        
+        let userId = await SecureStore.getItemAsync('id');
+        let token = await SecureStore.getItemAsync('token');
+
+        if(this.state.formIndex > 0){
+            return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/delete_report', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    compId: this.state.compId,
+                    userId: userId,
+                    token: token,
+                    reportId: this.state.reportId,
+                }),
+            })
+                .then(response => response.json())
+                .then(responseJson => {
+                    if (responseJson.success) {
+                        this.props.navigation.navigate('SystemInfoNav', { system: this.state.systemId });
+                    }
+                })
+                .catch(error => {
+                    alert("Cannot Reach Server")
+                })
+                .finally(() => {
+                    this.setState({ spinner: false });
+                });
+        }
+        else{
+            this.props.navigation.navigate('SystemInfoNav', { system: this.state.systemId });
+        }
     }
 
 
@@ -297,7 +332,6 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
         if (textBool) {
             data.append('text', this.state.text);
             data.append('textLabel', this.state.question.text);
-            console.log(this.state.question.type.text);
         }
 
         data.append('question', this.state.question.question);
