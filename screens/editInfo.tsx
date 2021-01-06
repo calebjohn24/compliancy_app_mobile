@@ -117,6 +117,7 @@ export default class editInfoPanel extends React.Component {
                             style={styles.inputText}
                             placeholder={changeTypeDispPlc}
                             placeholderTextColor="#969696"
+                            autoCapitalize='none'
                             onChangeText={text => this.setState({ newData: text })} />
                     </View>
                 </View>

@@ -20,14 +20,16 @@ export default class InstructFile extends React.Component<ScreenProps, ScreenSta
     }
 
 
+    
     render() {
+        console.log(this.props.instructFile.data);
         return (
 
 
             <View style={styles.container}>
 
                 <Text style={styles.textLightLg}>{this.props.instructFile.label}</Text>
-                <TouchableOpacity onPress={() => Linking.openURL(this.props.instructFile.data.value)}>
+                <TouchableOpacity onPress={() => Linking.openURL(this.props.instructFile.data)}>
                     <Image style={styles.ImgLg} source={require('../../assets/icons/file-preview-green.png')} />
                 </TouchableOpacity>
 
