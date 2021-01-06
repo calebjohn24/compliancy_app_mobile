@@ -4,11 +4,14 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
 
     container: {
-        flex: 1,
-        marginTop: 20,
+        marginTop:150,
         padding:10,
+        height:'auto',
         alignItems: 'center',
         justifyContent: 'center',
+
+
+        
       },
       item:{
         padding:10,
@@ -17,7 +20,6 @@ const styles = StyleSheet.create({
         marginBottom:5,
         marginTop:5,
         height:100,
-        backgroundColor:"#313337",
         flex:1,
     },
     scrollView: {
@@ -25,13 +27,34 @@ const styles = StyleSheet.create({
         marginTop:120
     },
 
+    greenButton:{
+        borderRadius:10,
+        marginHorizontal:20,
+        borderWidth:5,
+        marginVertical:40,
+        height:'auto',
+        width:'70%',
+        alignItems: 'stretch',
+        justifyContent: 'space-evenly',
+        borderColor:'#00A878'
+    },
+    redButton:{
+        borderRadius:10,
+        marginVertical:40,
+        borderWidth:4,
+        height:'auto',
+        width:'70%',
+        alignItems: 'stretch',
+        justifyContent: 'space-evenly',
+        borderColor:'#ED1C24'
+    },
     containerTop: {
         marginTop:15,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'flex-start',
         flex: 0.75,
-        height: 140
+        height: 140,
     },
     containerItem: {
         
@@ -44,12 +67,12 @@ const styles = StyleSheet.create({
         height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        
+
         
     },
 
     logoBox: {
-        flex: 0.15,
+        flex: 0.3,
         height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -79,14 +102,15 @@ const styles = StyleSheet.create({
     },
     textBold: {
         fontWeight: "bold",
-        fontSize: 18,
+        fontSize: 24,
         color: "white",
-        textAlign: 'left'
+        textAlign: 'center',
+        marginVertical:20
     },
     textLight: {
          fontWeight: "400",
         fontSize: 14,
-        marginTop:15,
+        marginVertical:15,
         color: "white",
         textAlign: 'auto'
     },
@@ -97,10 +121,11 @@ const styles = StyleSheet.create({
         textAlign: 'auto'
     },
     textLightLg: {
-         fontWeight: "400",
-        fontSize: 22,
+        marginHorizontal:10,
+         fontWeight: "200",
+        fontSize: 24,
         color: "white",
-        textAlign: 'auto'
+        textAlign: 'center'
     },
     buttonText: {
         fontWeight: "100",
@@ -141,9 +166,9 @@ const styles = StyleSheet.create({
     },
     ImgLg: {
 
-        width: 30,
-        height: 30,
-        resizeMode: 'contain'
+        width: 32,
+        height: 32,
+        resizeMode: 'contain',
     },
     ImgMd: {
 

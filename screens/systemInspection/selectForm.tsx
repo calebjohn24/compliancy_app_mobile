@@ -199,8 +199,6 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
             
             }
         }
-        //console.log(forms)
-
 
 
         return (

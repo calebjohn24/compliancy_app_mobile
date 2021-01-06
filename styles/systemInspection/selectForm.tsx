@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
 
     logoBox: {
-        flex: 0.15,
+        flex: 0.3,
         height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',

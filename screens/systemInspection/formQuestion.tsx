@@ -7,6 +7,8 @@ import RootStack from '../../App'
 import styles from '../../styles/systemInspection/formQuestion'
 import LoadingIcon from '../../components/loading'
 import FireCode from '../../components/questionComponents/fireCode'
+import InstructFile from '../../components/questionComponents/instructFile'
+import InstructImg from '../../components/questionComponents/instructImg'
 import CheckAns from '../../components/questionComponents/checkbox'
 import MulAns from '../../components/questionComponents/mc'
 import { TouchableHighlight } from 'react-native-gesture-handler';
@@ -106,7 +108,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                 formIndex: formIndex,
                 reportId: reportId,
                 formName: formName
-            })
+            });
 
 
 
@@ -138,16 +140,25 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             })
                 .then(response => response.json())
                 .then(responseJson => {
-                    this.setState(
-                        {
-                            question: responseJson.question,
-                            formComplete: responseJson.formComplete,
-                            tag: responseJson.tag
-                        }
-                    );
-                    if (this.state.formComplete) {
-                        alert('Form Complete');
+                    if (responseJson.formComplete) {
+                        this.props.navigation.navigate('systemInspectSubmitFormPanelNav', {
+                                formName:this.state.formName,
+                                systemId: this.state.systemId,
+                                zoneId: this.state.zoneId,
+                                reportId: this.state.reportId,
+                                formId: this.state.formId,
+                            });
                     }
+                    else {
+                        this.setState(
+                            {
+                                question: responseJson.question,
+                                formComplete: responseJson.formComplete,
+                                tag: responseJson.tag
+                            }
+                        );
+                    }
+
                 })
                 .catch(error => {
                     alert("Cannot Reach Server")
@@ -202,17 +213,27 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
             })
                 .then(response => response.json())
                 .then(responseJson => {
+                    if (responseJson.formComplete) {
+                        this.props.navigation.navigate('systemInspectSubmitFormPanelNav', {
+                            formName:this.state.formName,
+                            systemId: this.state.systemId,
+                            zoneId: this.state.zoneId,
+                            reportId: this.state.reportId,
+                            formId: this.state.formId,
+                        });
+                    }
+                    else{
                     this.setState(
                         {
                             question: responseJson.question,
                             formComplete: responseJson.formComplete,
                             tag: responseJson.tag
                         }
+                        
                     );
-                    console.log('form complete: ' + responseJson.formComplete);
-                    if (responseJson.formComplete) {
-                        alert('Form Complete');
                     }
+                    
+                    
                 })
                 .catch(error => {
                     alert("Cannot Reach Server")
@@ -255,12 +276,12 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
     goToSystemInfo = async () => {
-        this.setState({spinner:true})
-        
+        this.setState({ spinner: true })
+
         let userId = await SecureStore.getItemAsync('id');
         let token = await SecureStore.getItemAsync('token');
 
-        if(this.state.formIndex > 0){
+        if (this.state.formIndex > 0) {
             return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/delete_report', {
                 method: 'POST',
                 headers: {
@@ -287,7 +308,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                     this.setState({ spinner: false });
                 });
         }
-        else{
+        else {
             this.props.navigation.navigate('SystemInfoNav', { system: this.state.systemId });
         }
     }
@@ -331,7 +352,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
         if (textBool) {
             data.append('text', this.state.text);
-            data.append('textLabel', this.state.question.text);
+            data.append('textLabel', this.state.question.type.text);
         }
 
         data.append('question', this.state.question.question);
@@ -415,11 +436,11 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                 codeBool = true;
             }
 
-            if (question.file.data != "none") {
+            if ('file' in question) {
                 fileBool = true;
             }
 
-            if (question.img.data != "none") {
+            if ('img' in question) {
                 imgBool = true;
             }
 
@@ -467,6 +488,17 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
                             <View style={styles.containerQuestion}>
                                 <Text style={styles.textBold}>{question.question}</Text>
                             </View>
+
+                            {imgBool ?
+                                <InstructImg instructImg={question.img} /> :
+                                <></>
+                            }
+
+                            {fileBool ?
+                                <InstructFile instructFile={question.file} /> :
+                                <></>
+                            }
+
                             {codeBool ?
                                 <FireCode fireCode={question.code} /> :
                                 <></>

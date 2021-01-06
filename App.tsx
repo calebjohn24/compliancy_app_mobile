@@ -26,7 +26,7 @@ import systemPreviewPanel from './screens/systemRegistration/previewSystem'
 
 import systemInspectListFormsPanel from './screens/systemInspection/selectForm'
 import systemInspectQuestionPanel from './screens/systemInspection/formQuestion'
-
+import systemInspectSubmitFormPanel from './screens/systemInspection/submitForm'
 
 
 import { createAppContainer } from 'react-navigation';
@@ -269,6 +269,13 @@ const RootStack = createStackNavigator({
   },
   systemInspectQuestionPanelNav:{
     screen:systemInspectQuestionPanel,
+    navigationOptions: {
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  systemInspectSubmitFormPanelNav:{
+    screen:systemInspectSubmitFormPanel,
     navigationOptions: {
       headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }
