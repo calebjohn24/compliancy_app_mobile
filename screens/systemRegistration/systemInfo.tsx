@@ -15,7 +15,8 @@ interface ScreenState {
     'email': string,
     'name': string,
     'owner':string,
-    'phone': string
+    'phone': string,
+    'inspectDays':string
 };
 
 interface ScreenProps {
@@ -34,7 +35,8 @@ export default class systemRegInfoPanel extends React.Component<ScreenProps, Scr
             'email': '',
             'name': '',
             'owner':'',
-            'phone': ''
+            'phone': '',
+            'inspectDays':''
         };
 
     }
@@ -51,6 +53,7 @@ export default class systemRegInfoPanel extends React.Component<ScreenProps, Scr
         const name:string = this.state.name;
         const owner:string = this.state.owner;
         const phone:string = this.state.phone;
+        const inspectDays:string = this.state.inspectDays;
 
 
         var systemInfo:any = this.props.navigation.getParam('systemInfo', {});
@@ -68,6 +71,9 @@ export default class systemRegInfoPanel extends React.Component<ScreenProps, Scr
         })
         systemInfo.push({
             'name':name,
+        })
+        systemInfo.push({
+            'inspectDays':inspectDays,
         })
 
         this.props.navigation.navigate('systemRegDiagramUploadPanelNav', {
@@ -102,6 +108,20 @@ export default class systemRegInfoPanel extends React.Component<ScreenProps, Scr
                     <View style={styles.container}>
                         <ScrollView style={styles.scrollView}>
 
+                        <View style={styles.containerRowQuarter}>
+                                <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../../assets/icons/calendar-yellow.png')}/> Days Between Inspections</Text>
+                            </View>
+                            <View style={styles.containerRowQuarter}>
+                                <View style={styles.inputView}>
+                                    <TextInput style={styles.inputText}
+                                        placeholder="Days Between Inspections..."
+                                        keyboardType="numeric"
+                                        autoCapitalize="none"
+                                        placeholderTextColor="#969696"
+                                        onChangeText={text => this.setState({ inspectDays: text })}
+                                    />
+                                </View>
+                            </View>
     
                             <View style={styles.containerRowQuarter}>
                                 <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../../assets/icons/company-red.png')}/> Company Name</Text>

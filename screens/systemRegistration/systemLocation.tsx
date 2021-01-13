@@ -83,7 +83,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
             const state = this.state.state;
             const zipCode = this.state.zipCode;
 
-            return fetch('https://cd940c5a21e2.ngrok.io/api/reg_system/location_info', {
+            return fetch('https://dc37fbe9c501.ngrok.io/api/reg_system/location_info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -122,7 +122,6 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
                         alert("Invalid Address Please Try Again");
                     }
                     else {
-                        alert('valid')
                         this.goToCustomInfo(systemId, zoneId, systemType, brand, streetAddr, city, state, zipCode, this.state.lat, this.state.long)
                     }
                 });

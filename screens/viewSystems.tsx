@@ -37,7 +37,7 @@ export default class viewSystemPanel extends React.Component {
             let token = await SecureStore.getItemAsync('token');
             //var token = SecureStore.getItemAsync('token');
 
-            return fetch('https://cd940c5a21e2.ngrok.io/api/list-systems', {
+            return fetch('https://dc37fbe9c501.ngrok.io/api/list-systems', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

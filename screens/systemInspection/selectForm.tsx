@@ -64,7 +64,7 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
 
             this.setState({ compId: compId })
 
-            return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/list_forms', {
+            return fetch('https://dc37fbe9c501.ngrok.io/api/system_inspect/list_forms', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -187,10 +187,12 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
                 var forms = [];
                 for (var key in formsRaw) {
                     var value = formsRaw[key];
+                    //TODO Add if statement to check for questions
                     forms.push({
                         data: value,
                         'id': `${key}`
                     });
+
                 }
 
                 this.setState({ formsProc: forms })

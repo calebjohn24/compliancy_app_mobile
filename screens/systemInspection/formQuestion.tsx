@@ -121,7 +121,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
             this.setState({ compId: compId })
 
-            return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/inspect', {
+            return fetch('https://dc37fbe9c501.ngrok.io/api/system_inspect/inspect', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -194,7 +194,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
 
-            return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/inspect', {
+            return fetch('https://dc37fbe9c501.ngrok.io/api/system_inspect/inspect', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -282,7 +282,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
         let token = await SecureStore.getItemAsync('token');
 
         if (this.state.formIndex > 0) {
-            return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/delete_report', {
+            return fetch('https://dc37fbe9c501.ngrok.io/api/system_inspect/delete_report', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -374,7 +374,7 @@ export default class systemInspectQuestionPanel extends React.Component<ScreenPr
 
 
 
-        return fetch('https://cd940c5a21e2.ngrok.io/api/system_inspect/submit_question', {
+        return fetch('https://dc37fbe9c501.ngrok.io/api/system_inspect/submit_question', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

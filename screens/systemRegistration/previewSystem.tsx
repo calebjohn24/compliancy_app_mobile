@@ -54,7 +54,7 @@ export default class systemPreviewPanel extends React.Component<ScreenProps, Scr
             this.setState({compId:compId})
 
 
-            return fetch('https://cd940c5a21e2.ngrok.io/api/system-info', {
+            return fetch('https://dc37fbe9c501.ngrok.io/api/system-info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -141,6 +141,7 @@ export default class systemPreviewPanel extends React.Component<ScreenProps, Scr
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../../assets/icons/mail.png')} /> {systemInfo.email}</Text>
                                 <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../../assets/icons/phone-red.png')} /> {systemInfo.phone}</Text>
                                 <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../../assets/icons/brand-blue.png')} /> {systemInfo.brand}</Text>
+                                <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../../assets/icons/calendar-yellow.png')} /> {systemInfo.next_inspect} Days</Text>
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../../assets/icons/calendar-green.png')} /> Registered: {systemInfo.time_stamp}</Text>
                                 <TouchableOpacity onPress={() => Linking.openURL(systemInfo.drawing)}>
                                     <Text style={styles.textLightSm}>Diagram/Photo:</Text>

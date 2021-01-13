@@ -36,7 +36,7 @@ export default class systemInfoPanel extends React.Component {
             this.state.compId = compId;
 
 
-            return fetch('https://cd940c5a21e2.ngrok.io/api/system-info', {
+            return fetch('https://dc37fbe9c501.ngrok.io/api/system-info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

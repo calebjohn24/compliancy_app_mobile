@@ -22,7 +22,6 @@ export default class InstructFile extends React.Component<ScreenProps, ScreenSta
 
     
     render() {
-        console.log(this.props.instructFile.data);
         return (
 
 
