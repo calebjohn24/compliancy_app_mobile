@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
         flex: 0.75,
-        height: 140
+        height: 120
     },
     containerItem: {
         
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
 
     logoBox: {
-        flex: 0.22,
+        flex: 0.4,
         height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',

@@ -42,7 +42,7 @@ export default class viewReportsPanel extends React.Component {
             this.state.systemId = systemId;
             this.state.compId = compId
 
-            return fetch('https://dc37fbe9c501.ngrok.io/api/view-reports', {
+            return fetch('https://365a6631f36d.ngrok.io/api/view-reports', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -124,7 +124,7 @@ export default class viewReportsPanel extends React.Component {
 
 
     renderItem = (item) => {
-        const link = 'https://dc37fbe9c501.ngrok.io/' + this.state.compId + '/view-report/'+ item.id + '/' + item.data.token + '/public'
+        const link = 'https://365a6631f36d.ngrok.io/' + this.state.compId + '/view-report/'+ item.id + '/' + item.data.token + '/public'
         return (
             <TouchableOpacity onPress={() => this.goToReportInfo(link, this.state.systemId)}>
                 <View key={item.id} style={styles.item}>

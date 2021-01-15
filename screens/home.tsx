@@ -9,9 +9,22 @@ import RootStack from '../App'
 import styles from '../styles/home'
 import LoadingIcon from '../components/loading'
 
-export default class homePanel extends React.Component {
 
-  constructor(props) {
+
+interface ScreenState {
+  'logo': string,
+  'dispName': string,
+  'spinner':boolean
+};
+
+interface ScreenProps {
+  navigation: any
+}
+
+
+export default class homePanel extends React.Component <ScreenProps, ScreenState>{
+
+  constructor(props: any) {
     super(props);
     this.state = {
       'logo': 'https://firebasestorage.googleapis.com/v0/b/compliancy-app.appspot.com/o/Logo_text_no_bg.png?alt=media&token=2982a122-243e-447b-a552-0b1f63e07921',
@@ -32,7 +45,7 @@ export default class homePanel extends React.Component {
       let token = await SecureStore.getItemAsync('token');
       let userId = await SecureStore.getItemAsync('id');
 
-      return fetch('https://dc37fbe9c501.ngrok.io/api/homepage-info', {
+      return fetch('https://365a6631f36d.ngrok.io/api/homepage-info', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -52,9 +65,11 @@ export default class homePanel extends React.Component {
               logo: responseJson.logo,
               dispName: responseJson.dispName
             },
-            function () {
-              this.state.logo = responseJson.logo
-              this.state.dispName = responseJson.dispName
+             () => {
+              this.setState({
+                logo:responseJson.logo,
+                dispName: responseJson.dispName
+              })
             }
           );
         })
@@ -130,10 +145,10 @@ export default class homePanel extends React.Component {
 
         <View style={styles.containerRow0}>
           <View style={styles.rowButton}>
-            <TouchableOpacity onPress={() => alert("test")}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('viewAmendsPanelNav')}>
               <Text style={styles.buttonText}>Amend Report</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert("test")}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('viewAmendsPanelNav')}>
               <Image style={styles.buttonImgLg} source={require('../assets/icons/report-amend.png')} />
             </TouchableOpacity>
           </View>

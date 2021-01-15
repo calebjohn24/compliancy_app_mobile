@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         marginBottom:5,
         marginTop:5,
-        height:85,
+        height:75,
         backgroundColor:"#313337",
         flex:1,
     },
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
 
     logoBox: {
-        flex: 0.45,
+        flex: 0.3,
         height: 120,
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     textLight: {
          fontWeight: "400",
         fontSize: 18,
+        marginVertical:5,
         color: "white",
         textAlign: 'auto'
     },
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     },
     textLightLg: {
          fontWeight: "400",
-        fontSize: 22,
+        fontSize: 20,
         color: "white",
         textAlign: 'auto'
     },

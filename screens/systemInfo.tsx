@@ -36,7 +36,7 @@ export default class systemInfoPanel extends React.Component {
             this.state.compId = compId;
 
 
-            return fetch('https://dc37fbe9c501.ngrok.io/api/system-info', {
+            return fetch('https://365a6631f36d.ngrok.io/api/system-info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -166,6 +166,7 @@ export default class systemInfoPanel extends React.Component {
                                 <Text style={styles.textLightLg}><Image style={styles.ImgMd} source={require('../assets/icons/brand-blue.png')} /> {systemInfo.brand}</Text>
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-green.png')} /> Registered: {systemInfo.time_stamp}</Text>
                                 <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-red.png')} /> Inspected: {systemInfo.last_inspect}</Text>
+                                <Text style={styles.textLightSm}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-yellow.png')} /> Period: {systemInfo.next_inspect} Days</Text>
                                 <TouchableOpacity onPress={() => Linking.openURL(systemInfo.drawing)}>
                                     <Text style={styles.textLightSm}>Drawing/Photo: </Text>
                                 </TouchableOpacity>

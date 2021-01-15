@@ -99,7 +99,7 @@ export default class systemRegDiagramPreviewPanel extends React.Component<Screen
 
         
 
-        return fetch('https://dc37fbe9c501.ngrok.io/api/reg_system/system_upload', {
+        return fetch('https://365a6631f36d.ngrok.io/api/reg_system/system_upload', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

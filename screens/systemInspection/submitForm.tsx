@@ -65,7 +65,7 @@ export default class systemInspectSubmitFormPanel extends React.Component<Screen
         let userId = await SecureStore.getItemAsync('id');
         let token = await SecureStore.getItemAsync('token');
 
-        return fetch('https://dc37fbe9c501.ngrok.io/api/system_inspect/submit', {
+        return fetch('https://365a6631f36d.ngrok.io/api/system_inspect/submit', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -108,7 +108,7 @@ export default class systemInspectSubmitFormPanel extends React.Component<Screen
         let token = await SecureStore.getItemAsync('token');
 
 
-        return fetch('https://dc37fbe9c501.ngrok.io/api/system_inspect/delete_report', {
+        return fetch('https://365a6631f36d.ngrok.io/api/system_inspect/delete_report', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -146,7 +146,7 @@ export default class systemInspectSubmitFormPanel extends React.Component<Screen
         let token = await SecureStore.getItemAsync('token');
 
 
-        return fetch('https://dc37fbe9c501.ngrok.io/api/system_inspect/submit_report', {
+        return fetch('https://365a6631f36d.ngrok.io/api/system_inspect/submit_report', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

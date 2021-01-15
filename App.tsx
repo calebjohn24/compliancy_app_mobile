@@ -13,6 +13,7 @@ import viewSystemPanel from './screens/viewSystems'
 import systemInfoPanel from './screens/systemInfo'
 import viewReportsPanel from './screens/viewReports'
 import reportWebviewPanel from './screens/reportWebview'
+import viewAmendsPanel from './screens/viewAmends'
 
 import systemRegStartPanel from './screens/systemRegistration/start';
 import systemRegSystemTypePanel from './screens/systemRegistration/systemType'
@@ -64,7 +65,7 @@ class authScreen extends React.Component {
       else{
 
 
-      return fetch('https://dc37fbe9c501.ngrok.io/api/check_user_token', {
+      return fetch('https://365a6631f36d.ngrok.io/api/check_user_token', {
       method: 'POST',
       headers: {
          Accept: 'application/json',
@@ -276,6 +277,13 @@ const RootStack = createStackNavigator({
   },
   systemInspectSubmitFormPanelNav:{
     screen:systemInspectSubmitFormPanel,
+    navigationOptions: {
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  viewAmendsPanelNav:{
+    screen:viewAmendsPanel,
     navigationOptions: {
       headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }

@@ -1,22 +1,18 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, Image, TouchableOpacity, FlatList, Alert } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import homePanel from '.././home'
-import RootStack from '../../App'
-import styles from '../../styles/systemRegistration/brand'
-import LoadingIcon from '../../components/loading'
+import homePanel from './home'
+import RootStack from '../App'
+import styles from '../styles/viewAmends'
+import LoadingIcon from '../components/loading'
 import { SearchBar } from 'react-native-elements';
 
 
 interface ScreenState {
-    'systemId': string,
-    'zoneId': string,
-    'systemType': string,
-    'brands':any,
-    'certReq':any,
-    'brandsProc': any
-    'brandsAll': any,
+    'amends':any,
+    'amendsProc': any
+    'amendsAll': any,
     'compId': any,
     'spinner': boolean,
     'search': string,
@@ -27,18 +23,14 @@ interface ScreenProps {
     navigation: any
 }
 
-export default class systemRegBrandPanel extends React.Component<ScreenProps, ScreenState>{
+export default class viewAmendsPanel extends React.Component<ScreenProps, ScreenState>{
 
     constructor(props: any) {
         super(props);
         this.state = {
-            'systemId': '',
-            'zoneId': '',
-            'systemType': '',
-            'brands':{},
-            'certReq':'yes',
-            'brandsProc': {},
-            'brandsAll': {},
+            'amends':{},
+            'amendsProc': {},
+            'amendsAll': {},
             'compId': '',
             'spinner': true,
             'search': '',
@@ -52,15 +44,7 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
 
         try {
 
-            const systemId: string = this.props.navigation.getParam('systemId', '');
-            const zoneId: string = this.props.navigation.getParam('zoneId', '');
-            const systemType: string = this.props.navigation.getParam('systemType','');
-
-            this.setState({
-                systemId:systemId,
-                zoneId:zoneId,
-                systemType:systemType
-            })
+            
             
             let compId = await SecureStore.getItemAsync('compId');
             let userId = await SecureStore.getItemAsync('id');
@@ -70,7 +54,7 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
 
             this.setState({ compId: compId })
 
-            return fetch('https://365a6631f36d.ngrok.io/api/reg_system/brand', {
+            return fetch('https://365a6631f36d.ngrok.io/api/get-amends', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -79,20 +63,23 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
                 body: JSON.stringify({
                     compId: compId,
                     userId: userId,
-                    token: token,
-                    systemId: systemId,
-                    systemType:systemType,
-                    zoneId: zoneId,
+                    token: token
                 }),
             })
                 .then(response => response.json())
                 .then(responseJson => {
+                    if(responseJson.amends_bool){
                     this.setState(
                         {
-                            brands: responseJson.certs,
-                            certReq: responseJson.cert_req
+                            amends:responseJson.amends,
                         }
                     );
+
+                    }
+                    else{
+                        Alert.alert('No Amendment Requests Have Been Filed');
+                        this.props.navigation.navigate('HomeNav');
+                    }
                 })
                 .catch(error => {
                     alert("Cannot Reach Server")
@@ -116,7 +103,7 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
         const { search } = this.state;
         return (
             <SearchBar
-                placeholder="Search..."
+                placeholder="Enter Code..."
                 onChangeText={text => this.searchAction(text)}
                 autoCorrect={false}
                 value={search}
@@ -125,25 +112,25 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
         )
     }
     searchAction = (text: string) => {
-        const newData = this.state.brandsAll.filter((item: { data: string; }) => {
-            const itemData = `${item.data.toUpperCase()}`;
+        const newData = this.state.amendsAll.filter((item: { id: string; }) => {
+            const itemData = `${item.id.toUpperCase()}`;
             const textData = text.toUpperCase();
             return itemData.indexOf(textData) > -1;
 
         });
         this.setState({
-            brandsProc: newData,
+            amendsProc: newData,
             search: text
         });
 
     }
 
 
-    renderItem = (item: any, systemId: string, zoneId: string, systemType: string) => {
+    renderItem = (item: any) => {
         return (
-            <TouchableOpacity onPress={() => this.goToLocation(systemId,zoneId,item.data, systemType)}>
+            <TouchableOpacity onPress={() => alert('test')}>
                 <View key={item.id} style={styles.item}>
-                    <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../../assets/icons/brand-blue.png')}/>  {item.data}</Text>
+                    <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../assets/icons/brand-blue.png')}/>  {item.id}</Text>
                 </View>
             </TouchableOpacity>
 
@@ -175,25 +162,36 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
 
         const { search } = this.state;
 
-        const brandsRaw = this.state.brands;
-        var brands = [];
+        const amendsRaw = this.state.amends;
+        var amends = [];
 
-        if (brandsRaw.length >= 1 && brandsRaw.length != undefined) {
+        
+
+
+        if (Object.keys(amendsRaw).length >= 1 && Object.keys(amendsRaw).length!= undefined) {
             if (!this.state.dataProc) {
 
-                for (var i in brandsRaw) {
-                    brands.push({
-                        'data': `${brandsRaw[i]}`,
+                for (var i in amendsRaw) {
+                    amends.push({
+                        'data': `${amendsRaw[i]}`,
                         'id': `${i}`
                     });
+
                 }
 
-                this.setState({ brandsProc: brands })
-                this.setState({ brandsAll: brands })
+                this.setState({ amendsProc: amends })
+                this.setState({ amendsAll: amends })
                 this.setState({ dataProc: true });
             }
         }
 
+
+        /*
+
+        
+
+        
+        */
 
 
         return (
@@ -206,22 +204,22 @@ export default class systemRegBrandPanel extends React.Component<ScreenProps, Sc
                             <View style={styles.logoBox}>
                                 <TouchableOpacity onPress={this.goToHome}>
 
-                                    <Image style={styles.tinyLogo} source={require('../../assets/icons/cancel-red.png')} />
+                                    <Image style={styles.tinyLogo} source={require('../assets/icons/cancel-red.png')} />
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.topBar}>
-                                <Text style={styles.dispNameText}>Select System Brand</Text>
+                                <Text style={styles.dispNameText}>Amendments</Text>
                             </View>
                         </View>
-
                         <FlatList
-                            ListHeaderComponent={this.renderHeader}
-                            data={this.state.brandsProc}
-                            style={styles.List}
-                            keyExtractor={item => item.id}
-                            renderItem={({ item }) => this.renderItem(item, this.state.systemId, this.state.zoneId, this.state.systemType)
-                            }
+                        ListHeaderComponent={this.renderHeader}
+                        data={this.state.amendsProc}
+                        style={styles.List}
+                        keyExtractor={item => item.id}
+                        renderItem={({ item }) => this.renderItem(item)}
                         />
+
+                        
 
 
 
