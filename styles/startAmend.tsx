@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         marginVertical: 25,
         marginHorizontal: 25,
         color: "white",
-        textAlign: 'auto'
+        textAlign: 'center'
     },
     textLightLg: {
         fontWeight: "400",
