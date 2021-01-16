@@ -14,6 +14,7 @@ import systemInfoPanel from './screens/systemInfo'
 import viewReportsPanel from './screens/viewReports'
 import reportWebviewPanel from './screens/reportWebview'
 import viewAmendsPanel from './screens/viewAmends'
+import startAmendPanel from './screens/startAmend'
 
 import systemRegStartPanel from './screens/systemRegistration/start';
 import systemRegSystemTypePanel from './screens/systemRegistration/systemType'
@@ -284,6 +285,13 @@ const RootStack = createStackNavigator({
   },
   viewAmendsPanelNav:{
     screen:viewAmendsPanel,
+    navigationOptions: {
+      headerShown: false, 
+      cardStyle: { backgroundColor: '#242424' }
+    }
+  },
+  startAmendPanelNav:{
+    screen:startAmendPanel,
     navigationOptions: {
       headerShown: false, 
       cardStyle: { backgroundColor: '#242424' }

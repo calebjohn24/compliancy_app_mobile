@@ -106,6 +106,7 @@ export default class viewAmendsPanel extends React.Component<ScreenProps, Screen
                 placeholder="Enter Code..."
                 onChangeText={text => this.searchAction(text)}
                 autoCorrect={false}
+                keyboardType="numeric"
                 value={search}
                 round
             />
@@ -128,9 +129,10 @@ export default class viewAmendsPanel extends React.Component<ScreenProps, Screen
 
     renderItem = (item: any) => {
         return (
-            <TouchableOpacity onPress={() => alert('test')}>
+            <TouchableOpacity onPress={() => this.goToPreview(item)}>
                 <View key={item.id} style={styles.item}>
-                    <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../assets/icons/brand-blue.png')}/>  {item.id}</Text>
+                    <Text style={styles.textLightLg}><Image style={styles.ImgLg} source={require('../assets/icons/tag-white.png')}/> {item.id}</Text>
+                    <Text style={styles.textLight}><Image style={styles.ImgMd} source={require('../assets/icons/calendar-green.png')}/> {item.data.time_stamp}</Text>
                 </View>
             </TouchableOpacity>
 
@@ -145,12 +147,9 @@ export default class viewAmendsPanel extends React.Component<ScreenProps, Screen
         this.props.navigation.navigate('HomeNav');
     }
 
-    goToLocation = (systemId: string, zoneId: string, brand:string, systemType:string) => {
-        this.props.navigation.navigate('systemRegLocationPanelNav', {
-            systemId: systemId,
-            zoneId: zoneId,
-            brand: brand,
-            systemType:systemType
+    goToPreview = (item: any) => {
+        this.props.navigation.navigate('startAmendPanelNav', {
+            'item':item
         });
     }
     
@@ -172,8 +171,9 @@ export default class viewAmendsPanel extends React.Component<ScreenProps, Screen
             if (!this.state.dataProc) {
 
                 for (var i in amendsRaw) {
+
                     amends.push({
-                        'data': `${amendsRaw[i]}`,
+                        'data': amendsRaw[i],
                         'id': `${i}`
                     });
 
@@ -204,7 +204,7 @@ export default class viewAmendsPanel extends React.Component<ScreenProps, Screen
                             <View style={styles.logoBox}>
                                 <TouchableOpacity onPress={this.goToHome}>
 
-                                    <Image style={styles.tinyLogo} source={require('../assets/icons/cancel-red.png')} />
+                                    <Image style={styles.tinyLogo} source={require('../assets/icons/back-arrow.png')} />
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.topBar}>
