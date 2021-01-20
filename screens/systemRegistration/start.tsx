@@ -54,7 +54,7 @@ export default class systemRegStartPanel extends React.Component <ScreenProps, S
             
             this.setState({ compId: compId })
 
-            return fetch('https://365a6631f36d.ngrok.io/api/reg_system/start', {
+            return fetch('https://064710b2d906.ngrok.io/api/reg_system/start', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

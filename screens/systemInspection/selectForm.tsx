@@ -64,7 +64,7 @@ export default class systemInspectListFormsPanel extends React.Component<ScreenP
 
             this.setState({ compId: compId })
 
-            return fetch('https://365a6631f36d.ngrok.io/api/system_inspect/list_forms', {
+            return fetch('https://064710b2d906.ngrok.io/api/system_inspect/list_forms', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

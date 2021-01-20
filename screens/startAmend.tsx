@@ -49,7 +49,7 @@ export default class startAmendPanel extends React.Component<ScreenProps, Screen
             //var token = SecureStore.getItemAsync('token');
 
 
-            return fetch('https://365a6631f36d.ngrok.io/api/system_inspect/start_amend', {
+            return fetch('https://064710b2d906.ngrok.io/api/system_inspect/start_amend', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

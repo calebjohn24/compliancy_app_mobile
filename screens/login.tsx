@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Linking } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import * as SecureStore from 'expo-secure-store';
@@ -23,7 +23,7 @@ export default class loginScreen extends React.Component {
       }
 
       check_cred = () => {
-          return fetch('https://365a6631f36d.ngrok.io/api/new_user_token', {
+          return fetch('https://064710b2d906.ngrok.io/api/new_user_token', {
             method: 'POST',
             headers: {
                Accept: 'application/json',
@@ -84,7 +84,7 @@ export default class loginScreen extends React.Component {
             placeholderTextColor="#969696"
             onChangeText={text => this.setState({password:text})}/>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => Linking.openURL('https://064710b2d906.ngrok.io/reset-pw-start')}>
           <Text style={styles.forgot}>Forgot Password?</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={this.check_cred} style={styles.loginBtn}>
