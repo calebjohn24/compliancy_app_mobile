@@ -62,7 +62,7 @@ export default class systemRegSystemTypePanel extends React.Component<ScreenProp
 
             this.setState({ compId: compId })
 
-            return fetch('https://064710b2d906.ngrok.io/api/reg_system/system_type', {
+            return fetch('https://compliancy-app.appspot.com/api/reg_system/system_type', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

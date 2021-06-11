@@ -54,7 +54,7 @@ export default class systemPreviewPanel extends React.Component<ScreenProps, Scr
             this.setState({compId:compId})
 
 
-            return fetch('https://064710b2d906.ngrok.io/api/system-info', {
+            return fetch('https://compliancy-app.appspot.com/api/system-info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

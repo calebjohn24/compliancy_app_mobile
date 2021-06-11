@@ -54,7 +54,7 @@ export default class viewAmendsPanel extends React.Component<ScreenProps, Screen
 
             this.setState({ compId: compId })
 
-            return fetch('https://064710b2d906.ngrok.io/api/get-amends', {
+            return fetch('https://compliancy-app.appspot.com/api/get-amends', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

@@ -45,7 +45,7 @@ export default class homePanel extends React.Component <ScreenProps, ScreenState
       let token = await SecureStore.getItemAsync('token');
       let userId = await SecureStore.getItemAsync('id');
 
-      return fetch('https://064710b2d906.ngrok.io/api/homepage-info', {
+      return fetch('https://compliancy-app.appspot.com/api/homepage-info', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

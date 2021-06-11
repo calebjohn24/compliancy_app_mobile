@@ -21,9 +21,10 @@ export default class loginScreen extends React.Component {
         };
       
       }
+      
 
       check_cred = () => {
-          return fetch('https://064710b2d906.ngrok.io/api/new_user_token', {
+          return fetch('https://compliancy-app.appspot.com/api/new_user_token', {
             method: 'POST',
             headers: {
                Accept: 'application/json',
@@ -84,7 +85,7 @@ export default class loginScreen extends React.Component {
             placeholderTextColor="#969696"
             onChangeText={text => this.setState({password:text})}/>
         </View>
-        <TouchableOpacity onPress={() => Linking.openURL('https://064710b2d906.ngrok.io/reset-pw-start')}>
+        <TouchableOpacity onPress={() => Linking.openURL('https://compliancy-app.appspot.com/reset-pw-start')}>
           <Text style={styles.forgot}>Forgot Password?</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={this.check_cred} style={styles.loginBtn}>

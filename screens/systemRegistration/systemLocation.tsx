@@ -83,7 +83,7 @@ export default class systemRegLocationPanel extends React.Component<ScreenProps,
             const state = this.state.state;
             const zipCode = this.state.zipCode;
 
-            return fetch('https://064710b2d906.ngrok.io/api/reg_system/location_info', {
+            return fetch('https://compliancy-app.appspot.com/api/reg_system/location_info', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
